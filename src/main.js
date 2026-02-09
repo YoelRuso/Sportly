@@ -1,32 +1,47 @@
-//TIP With Search Everywhere, you can find any action, file, or symbol in your project. Press <shortcut actionId="Shift"/> <shortcut actionId="Shift"/>, type in <b>terminal</b>, and press <shortcut actionId="EditorEnter"/>. Then run <shortcut raw="npm run dev"/> in the terminal and click the link in its output to open the app in the browser.
-export function setupCounter(element) {
-  //TIP Try <shortcut actionId="GotoDeclaration"/> on <shortcut raw="counter"/> to see its usages. You can also use this shortcut to jump to a declaration – try it on <shortcut raw="counter"/> on line 13.
-  let counter = 0;
+const app = document.getElementById('app');
 
-  const adjustCounterValue = value => {
-    if (value >= 100) return value - 100;
-    if (value <= -100) return value + 100;
-    return value;
-  };
+async function loadComponent(path, container) {
+  try {
+    const response = await fetch(path);
+    if (!response.ok) throw new Error(`NO SE ENCUENTRA: ${path}`);
 
-  const setCounter = value => {
-    counter = adjustCounterValue(value);
-    //TIP WebStorm has lots of inspections to help you catch issues in your project. It also has quick fixes to help you resolve them. Press <shortcut actionId="ShowIntentionActions"/> on <shortcut raw="text"/> and choose <b>Inline variable</b> to clean up the redundant code.
-    const text = `${counter}`;
-    element.innerHTML = text;
-  };
+    const html = await response.text();
 
-  document.getElementById('increaseByOne').addEventListener('click', () => setCounter(counter + 1));
-  document.getElementById('decreaseByOne').addEventListener('click', () => setCounter(counter - 1));
-  document.getElementById('increaseByTwo').addEventListener('click', () => setCounter(counter + 2));
-  //TIP In the app running in the browser, you’ll find that clicking <b>-2</b> doesn't work. To fix that, rewrite it using the code from lines 19 - 21 as examples of the logic.
-  document.getElementById('decreaseByTwo')
-
-  //TIP Let’s see how to review and commit your changes. Press <shortcut actionId="GotoAction"/> and look for <b>commit</b>. Try checking the diff for a file – double-click main.js to do that.
-  setCounter(0);
+    // TRUCO: Insertamos el HTML directamente al final del contenedor.
+    // Esto evita el problema de "firstElementChild" y funciona siempre.
+    container.insertAdjacentHTML('beforeend', html);
+  } catch (error) {
+    console.error(`Error cargando ${path}:`, error);
+  }
 }
 
-//TIP To find text strings in your project, you can use the <shortcut actionId="FindInPath"/> shortcut. Press it and type in <b>counter</b> – you’ll get all matches in one place.
-setupCounter(document.getElementById('counter-value'));
+async function initApp() {
+  // Asegúrate de que esta ruta coincida con tu carpeta en WebStorm
+  const basePath = './src/templates/pagina-inicio';
 
-//TIP There's much more in WebStorm to help you be more productive. Press <shortcut actionId="Shift"/> <shortcut actionId="Shift"/> and search for <b>Learn WebStorm</b> to open our learning hub with more things for you to try.
+  // 1. Cargar Header
+  await loadComponent(`${basePath}/header.html`, app);
+
+  // 2. Cargar Main
+  // Esperamos a que el HTML se inserte antes de continuar
+  await loadComponent(`${basePath}/main-container-pagina-inicio.html`, app);
+
+  // 3. Buscar el Grid (Ahora ya existe en el DOM)
+  const grid = document.getElementById('grid-container');
+
+  if (grid) {
+    // Cargar las 3 tarjetas
+    for (let i = 0; i < 9; i++) {
+      await loadComponent(`${basePath}/card-pagina-inicio.html`, grid);
+    }
+  } else {
+    console.error(
+      'ALERTA: No se encontró el #grid-container. Revisa que tu archivo main-container tenga ese ID escrito correctamente.',
+    );
+  }
+
+  // 4. Cargar Footer
+  await loadComponent(`${basePath}/footer.html`, app);
+}
+
+initApp();
