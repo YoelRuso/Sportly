@@ -1,0 +1,65 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Navbar general */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 2rem;
+    background-color: #1a1a1a;
+    color: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* Logo */
+.logo {
+    font-weight: bold;
+    font-size: 1.6rem;
+}
+.logo .highlight {
+    color: #00ffaa;
+}
+
+/* Navegación */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+.nav-links li a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    transition:
+            color 0.3s,
+            transform 0.2s;
+}
+.nav-links li a:hover,
+.nav-links li a.active {
+    color: #00ffaa;
+    transform: scale(1.05);
+}
+
+/* Botón de login */
+.login {
+    background-color: #00ffaa;
+    color: #1a1a1a;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition:
+            background-color 0.3s,
+            transform 0.2s;
+}
+.btn-alerts:hover {
+    background-color: #00cc88;
+    transform: scale(1.05);
+}

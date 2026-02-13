@@ -19,7 +19,7 @@ async function initApp() {
   // Asegúrate de que esta ruta coincida con tu carpeta en WebStorm
   const basePath = './src/templates/pagina-inicio';
 
-  // 1. Cargar Header
+  // 1. Cargar Header_template
   await loadComponent(`${basePath}/header.html`, app);
 
   // 2. Cargar Main
