@@ -1,0 +1,41 @@
+/* Footer */
+.main-footer {
+    background-color: #111;
+    color: #aaa;
+    padding: 2rem;
+    margin-top: 3rem;
+    border-top: 1px solid #222;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-brand p {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.footer-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: #aaa;
+    font-size: 0.95rem;
+    transition:
+            color 0.3s,
+            transform 0.2s;
+}
+
+.footer-links a:hover {
+    color: #00ffaa;
+    transform: scale(1.05);
+}
