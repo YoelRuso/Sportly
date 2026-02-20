@@ -1,0 +1,55 @@
+/* Estilos del calendario */
+#calendar {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 700px;
+    margin: 20px auto;
+    text-align: left;
+}
+
+#calendar th,
+#calendar td {
+    border: 1px solid #ccc;
+    width: 14.28%; /* 7 días por semana */
+    height: 100px;
+    vertical-align: top;
+    padding: 5px;
+    position: relative;
+    cursor: pointer;
+}
+
+#calendar th {
+    background-color: #f0f0f0;
+}
+
+/* Número del día en la esquina */
+.day-number {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-weight: bold;
+}
+
+/* Partidos dentro de la celda */
+.matches {
+    margin-top: 25px; /* debajo del número del día */
+    font-size: 0.9rem;
+    overflow-y: auto;
+    max-height: 70px;
+}
+
+.matches div {
+    margin-bottom: 2px;
+}
+
+/* Resaltar hoy */
+.today {
+    background-color: #fffa90;
+    border: 2px solid #ffaa00;
+}
+
+#info {
+    text-align: center;
+    margin-top: 15px;
+    font-weight: bold;
+}
