@@ -1,0 +1,47 @@
+/* Contenedor principal de la tarjeta */
+.card {
+    width: 300px;
+    border-radius: 20px;
+    overflow: hidden; /* Para que la imagen respete las esquinas redondeadas */
+    background-color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    font-family: 'Courier New', Courier, monospace; /* Estilo de fuente similar */
+}
+
+/* Sección de la imagen (gris claro) */
+.card-header {
+    height: 200px;
+    background-color: #e0e0e0; /* El color gris de tu imagen */
+    position: relative;
+    display: flex;
+    justify-content: flex-end; /* Alinea la etiqueta a la derecha */
+    padding: 15px;
+}
+
+/* La etiqueta (label) */
+.badge {
+    background-color: #3d3d44;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    height: fit-content;
+}
+
+/* Sección de texto */
+.card-content {
+    padding: 20px;
+    color: #333;
+}
+
+.card-content h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.card-content p {
+    margin: 0;
+    color: #666;
+    line-height: 1.4;
+}
