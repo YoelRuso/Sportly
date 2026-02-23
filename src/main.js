@@ -16,11 +16,10 @@ async function loadComponent(path, container) {
 }
 
 async function initApp() {
-  // Asegúrate de que esta ruta coincida con tu carpeta en WebStorm
   const basePath = './src/templates/pagina-inicio';
 
   // 1. Cargar Header
-  await loadComponent(`${basePath}/header.html`, app);
+  await loadComponent('./src/templates/pagina-header/header.html', app);
 
   // 2. Cargar Main
   // Esperamos a que el HTML se inserte antes de continuar
@@ -30,7 +29,7 @@ async function initApp() {
   const grid = document.getElementById('grid-container');
 
   if (grid) {
-    // Cargar las 3 tarjetas
+    // Cargar las tarjetas
     for (let i = 0; i < 9; i++) {
       await loadComponent(`${basePath}/card-pagina-inicio.html`, grid);
     }
@@ -41,7 +40,7 @@ async function initApp() {
   }
 
   // 4. Cargar Footer
-  await loadComponent(`${basePath}/footer.html`, app);
+  await loadComponent('./src/templates/pagina-footer/footer.html', app);
 }
 
 initApp();
