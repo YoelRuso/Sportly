@@ -1,0 +1,100 @@
+/* Main content */
+.main-content {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    color: #f0f0f0;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid #00ffaa;
+    padding-left: 0.75rem;
+}
+
+/* Grid de tarjetas */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Tarjeta */
+.card {
+    background-color: #1e1e1e;
+    border: 1px solid #2a2a2a;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sport-tag {
+    background-color: #00ffaa;
+    color: #1a1a1a;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+}
+
+.card-date {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.card-teams {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #f0f0f0;
+}
+
+.vs {
+    color: #00ffaa;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-time {
+    font-size: 0.85rem;
+    color: #aaa;
+}
+
+.btn-alert {
+    background-color: transparent;
+    border: 1px solid #00ffaa;
+    color: #00ffaa;
+    padding: 0.3rem 0.75rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.btn-alert:hover {
+    background-color: #00ffaa;
+    color: #1a1a1a;
+}
