@@ -3,9 +3,20 @@ body {
     margin: 0;
 }
 
+.header {
+    width: 100%;             /* Ocupa todo el ancho del padre */
+    max-width: 1000px;       /* Limita el ancho máximo según el mockup */
+    margin: 20px auto;       /* Centra el contenedor y da espacio arriba/abajo */
+    overflow: hidden;        /* Corta cualquier desbordamiento */
+    border-radius: 8px;      /* Opcional: añade bordes redondeados como en la imagen */
+}
+
 /* Imagen superior */
 .header img {
-    width: 100%;
+    width: 100%;             /* Se estira al 100% del contenedor .header */
+    height: auto;            /* Mantiene la proporción original */
+    display: block;          /* Elimina espacios en blanco extra debajo de la imagen */
+    object-fit: cover;       /* Asegura que llene el espacio sin deformarse */
 }
 
 /* Navbar básica */
