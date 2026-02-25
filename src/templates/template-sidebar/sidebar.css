@@ -7,24 +7,24 @@
     font-family: sans-serif; /* Fuente limpia como la imagen */
 }
 
-.sidebar-title {
+.sidebar-legal h2 {
     font-size: 32px;
     font-weight: bold;
     margin-bottom: 50px;
     color: #000;
 }
 
-.sidebar-nav ul {
+.sidebar-legal nav ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.sidebar-nav li {
+.sidebar-legal nav li {
     margin-bottom: 30px;
 }
 
-.sidebar-nav a {
+.sidebar-legal nav a {
     text-decoration: none;
     color: #000;
     font-size: 14px;
@@ -32,6 +32,7 @@
     display: block;
 }
 
-.sidebar-nav a.active {
-    color: #4CAF50; /* Verde de tu imagen */
+.sidebar-legal nav a.active,
+.sidebar-legal nav a:hover {
+    color: #00ff88;
 }
