@@ -1,6 +1,13 @@
 # 🏟️ Sportly
 **Sportly** es una aplicación web para la consulta y seguimiento de partidos deportivos. Permite a los usuarios explorar deportes, ver un calendario de partidos y gestionar su cuenta de forma sencilla.
 ---
+👥 Componentes del Grupo
+Joel Morera Apaza (GitHub: YoelRuso)
+
+Benjamín Klett (GitHub: Bencrex)
+
+Samuel Santana García (GitHub: Samuel93SP)
+
 ## 🚀 Tecnologías utilizadas
 | Tecnología | Descripción |
 |---|---|
