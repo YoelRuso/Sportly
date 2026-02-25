@@ -1,16 +1,11 @@
-.sports-hero-container {
-    width: 100%;
-    display: block;
-}
-
-.sports-hero-img {
+.sports-selection img {
     width: 100%;
     height: 250px;
     object-fit: cover;
     display: block;
 }
 
-#nav-sports-filter {
+.sports-selection nav {
     background-color: #121212;
     border-bottom: 1px solid #333;
     display: flex;
@@ -18,7 +13,7 @@
     width: 100%;
 }
 
-.nav-sports-list {
+.sports-selection nav ul {
     list-style: none;
     display: flex;
     width: 100%;
@@ -27,11 +22,11 @@
     padding: 0;
 }
 
-.nav-sports-list li {
+.sports-selection nav ul li {
     margin-right: 35px;
 }
 
-.nav-sports-link {
+.sports-selection nav ul li a {
     display: block;
     padding: 20px 0;
     color: #ffffff;
@@ -43,11 +38,11 @@
     border-bottom: 3px solid transparent;
 }
 
-.nav-sports-link:hover {
+.sports-selection nav ul li a:hover,
+.sports-selection nav ul li a.active {
     color: #00ff88;
 }
 
-.nav-sports-link.active {
-    color: #00ff88;
+.sports-selection nav ul li a.active {
     border-bottom: 3px solid #00ff88;
 }
