@@ -1,24 +1,25 @@
-/* Contenedor principal de la tarjeta */
+/* Contenedor principal de la tarjeta - AJUSTADO */
 .card {
-    width: 300px;
+    width: 100%; /* Cambiado de 300px a 100% para que llene su columna */
+    max-width: 350px; /* Opcional: para que no se estire demasiado en pantallas enormes */
     border-radius: 20px;
-    overflow: hidden; /* Para que la imagen respete las esquinas redondeadas */
+    overflow: hidden;
     background-color: white;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    font-family: 'Courier New', Courier, monospace; /* Estilo de fuente similar */
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0 auto; /* Centra la card dentro de su espacio de columna */
 }
 
-/* Sección de la imagen (gris claro) */
+/* El resto de tu estilo se queda igual */
 .card-header {
     height: 200px;
-    background-color: #e0e0e0; /* El color gris de tu imagen */
+    background-color: #e0e0e0;
     position: relative;
     display: flex;
-    justify-content: flex-end; /* Alinea la etiqueta a la derecha */
+    justify-content: flex-end;
     padding: 15px;
 }
 
-/* La etiqueta (label) */
 .badge {
     background-color: #3d3d44;
     color: white;
@@ -28,7 +29,6 @@
     height: fit-content;
 }
 
-/* Sección de texto */
 .card-content {
     padding: 20px;
     color: #333;

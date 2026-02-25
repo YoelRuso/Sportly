@@ -3,3 +3,44 @@
 @import url("../src/templates/template-card/card.css");
 @import url("../src/templates/template-footer/footer.css");
 @import url("../src/templates/template-navbar-entre-deportes/navbar-entre-deportes.css");
+
+/* Organizador del Inicio */
+#wrapper2 {
+    display: flex; /* Alineación horizontal de contenido + aside */
+    gap: 30px;
+    padding: 40px 20px;
+    max-width: 1200px; /* Ajusta esto según el ancho de tu web */
+    margin: 0 auto;
+}
+
+/* La rejilla de 3 columnas */
+.cards-grid {
+    flex: 3; /* Ocupa el 75% del espacio aprox */
+    display: grid;
+    /* Crea exactamente 3 columnas */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px; /* Espacio entre las tarjetas */
+}
+
+/* El menú lateral */
+#main_aside {
+    flex: 1; /* Ocupa el 25% restante */
+    min-width: 250px;
+}
+
+/* Responsivo: Si la pantalla es mediana (tablets), usa 2 columnas */
+@media (max-width: 1024px) {
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Responsivo: Si es móvil, todo en una columna */
+@media (max-width: 768px) {
+    #wrapper2 {
+        flex-direction: column;
+    }
+    .cards-grid {
+        grid-template-columns: 1fr;
+    }
+}
