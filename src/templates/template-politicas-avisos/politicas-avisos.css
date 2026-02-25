@@ -19,14 +19,14 @@ body {
 .box-small {
     width: 500px;
     height: 70px;
-    background-color: #cfcfcf;
-    border: 2px solid #999;
+    background-color: #000;
+    border: 2px solid #555;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 26px;
     font-weight: bold;
-    color: #555;
+    color: #d1d1d1;
     margin-left: 170px;
 }
 
@@ -34,13 +34,13 @@ body {
 .box-large {
     width: 700px;
     height: 550px;
-    background-color: #d9d9d9;
-    border: 2px solid #999;
+    background-color: #000;
+    border: 2px solid #555;
     margin-top: 30px;
     margin-left: 170px;
     padding: 20px;
     overflow-y: auto;
-    color: #666;
+    color: #d1d1d1;
     line-height: 1.6;
 }
 
