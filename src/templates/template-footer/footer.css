@@ -1,5 +1,5 @@
 /* Footer */
-.main-footer {
+footer {
     background-color: #111;
     color: #aaa;
     padding: 2rem;
@@ -30,12 +30,9 @@
     text-decoration: none;
     color: #aaa;
     font-size: 0.95rem;
-    transition:
-            color 0.3s,
-            transform 0.2s;
+    transition: color 0.3s ease;
 }
 
 .footer-links a:hover {
     color: #00ffaa;
-    transform: scale(1.05);
 }
