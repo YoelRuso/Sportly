@@ -1,54 +1,41 @@
 /* Footer */
 .main-footer {
-    background-color: #1f1f1f;
-    color: #cccccc;
-    padding: 2rem 1.5rem;
+    background-color: #111;
+    color: #aaa;
+    padding: 2rem;
     margin-top: 3rem;
-    border-top: 1px solid #2a2a2a;
+    border-top: 1px solid #222;
 }
 
-/* Contenedor */
 .footer-container {
-    max-width: 1100px;
-    margin: 0 auto;
+    max-width: 1200px;
+    margin: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-}
-
-/* Marca */
-.footer-brand .logo {
-    font-weight: 600;
-    font-size: 1.2rem;
-    letter-spacing: 0.5px;
-}
-
-.footer-brand .highlight {
-    color: #999999;
 }
 
 .footer-brand p {
     margin-top: 0.5rem;
-    font-size: 0.85rem;
-    color: #888888;
+    font-size: 0.9rem;
+    color: #777;
 }
 
-/* Links */
 .footer-links {
     display: flex;
     gap: 1.5rem;
-    flex-wrap: wrap;
 }
 
 .footer-links a {
     text-decoration: none;
-    color: #bbbbbb;
-    font-size: 0.9rem;
-    transition: opacity 0.3s ease;
+    color: #aaa;
+    font-size: 0.95rem;
+    transition:
+            color 0.3s,
+            transform 0.2s;
 }
 
 .footer-links a:hover {
-    opacity: 0.6;
+    color: #00ffaa;
+    transform: scale(1.05);
 }
