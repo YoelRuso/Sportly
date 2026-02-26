@@ -1,55 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="description" content="This is an HTML5 example">
-  <meta name="keywords" content="HTML5, CSS3, JavaScript">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="This is an HTML5 example">
+    <meta name="keywords" content="HTML5, CSS3, JavaScript">
 
-  <title>This text is the title of the document</title>
+    <title>This text is the title of the document</title>
 
-  <script src="../../xlu-include-file.js"></script>
-  <link rel="stylesheet" href="../../../public/style.css">
+    <script src="../../xlu-include-file.js"></script>
+    <link rel="stylesheet" href="../../../public/style.css">
 
-</head>
-<body>
-<div id="wrapper">
+  </head>
+  <body>
 
-  <header id="main_header" xlu-include-file="../../templates/template-header/header.html">
-  </header>
-
-
-  <nav id="main_menu" xlu-include-file="../../templates/template-navbar-entre-deportes/navbar-entre-deportes.html">
-
-    <!--
-    <ul>
-      <li>home</li>
-      <li>photos</li>
-      <li>videos</li>
-      <li>contact</li>
-    </ul>
-    -->
-  </nav>
-
-  <div id="wrapper2">
-    <div class="cards-grid">
-      <section class="card-item" xlu-include-file="../../templates/template-card/card.html"></section>
-      <section class="card-item" xlu-include-file="../../templates/template-card/card.html"></section>
-      <section class="card-item" xlu-include-file="../../templates/template-card/card.html"></section>
-      <section class="card-item" xlu-include-file="../../templates/template-card/card.html"></section>
-      <section class="card-item" xlu-include-file="../../templates/template-card/card.html"></section>
-      <section class="card-item" xlu-include-file="../../templates/template-card/card.html"></section>
+    <div xlu-include-file="../../templates/template-header/header.html">
     </div>
 
-    <aside id="main_aside" xlu-include-file="aside.html"></aside>
-  </div>
 
-</div>
-<script>
+    <nav id="main_menu" xlu-include-file="../../templates/template-navbar-entre-deportes/navbar-entre-deportes.html">
 
-  xLuIncludeFile();
+      <!--
+      <ul>
+        <li>home</li>
+        <li>photos</li>
+        <li>videos</li>
+        <li>contact</li>
+      </ul>
+      -->
+    </nav>
 
-</script>
+    <div id="wrapper2">
+      <div class="cards-grid">
+        <section class="card-item" xlu-include-file="../../templates/template-card/card.html"></section>
+        <section class="card-item" xlu-include-file="../../templates/template-card/card.html"></section>
+        <section class="card-item" xlu-include-file="../../templates/template-card/card.html"></section>
+        <section class="card-item" xlu-include-file="../../templates/template-card/card.html"></section>
+        <section class="card-item" xlu-include-file="../../templates/template-card/card.html"></section>
+        <section class="card-item" xlu-include-file="../../templates/template-card/card.html"></section>
+      </div>
+
+      <aside id="main_aside" xlu-include-file="aside.html"></aside>
+    </div>
+
+    <div xlu-include-file="../../templates/template-footer/footer.html"></div>
+
+  <script>
+    xLuIncludeFile();
+  </script>
 
 
-</body>
+  </body>
 </html>
