@@ -1,38 +1,45 @@
 /* Reset básico */
-* {
+body {
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Navbar general */
-.navbar {
+header {
+    margin: 0;
+    padding: 0.8rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.8rem 2rem;
     background-color: #1a1a1a;
-    color: white;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    color: white;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Logo */
-.logo {
+header a {
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+}
+header a h1 {
+    color: #ffffff;
     font-weight: bold;
     font-size: 1.6rem;
+    margin: 0;
+    padding: 0;
 }
-.logo .highlight {
+header a h1 span {
     color: #00ffaa;
 }
 
 /* Navegación */
-.nav-links {
+header nav ul {
     list-style: none;
     display: flex;
     gap: 2rem;
 }
-.nav-links li a {
+header nav ul li a {
     text-decoration: none;
     color: white;
     font-weight: 500;
@@ -40,14 +47,14 @@
             color 0.3s,
             transform 0.2s;
 }
-.nav-links li a:hover,
-.nav-links li a.active {
+header nav ul li a:hover,
+header nav ul li a.active {
     color: #00ffaa;
     transform: scale(1.05);
 }
 
 /* Botón de login */
-.login {
+header button {
     background-color: #00ffaa;
     color: #1a1a1a;
     border: none;
@@ -59,7 +66,7 @@
             background-color 0.3s,
             transform 0.2s;
 }
-.btn-alerts:hover {
-    background-color: #00cc88;
-    transform: scale(1.05);
+
+header button:hover {
+    background-color: #00e08b;
 }
