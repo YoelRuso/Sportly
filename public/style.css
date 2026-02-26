@@ -3,6 +3,7 @@
 @import url("../src/templates/template-card/card.css");
 @import url("../src/templates/template-footer/footer.css");
 @import url("../src/templates/template-navbar-entre-deportes/navbar-entre-deportes.css");
+@import url("../src/templates/template-card-resumen/card-resumen.css");
 
 body {
     background-color: #0f0f0f;
