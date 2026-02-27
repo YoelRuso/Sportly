@@ -1,38 +1,65 @@
-<link rel="stylesheet" href="calendario.css" />
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="Calendario de partidos">
+    <meta name="keywords" content="HTML5, CSS3, JavaScript">
+    <title>Calendario - Sportly</title>
+    <script src="../../xlu-include-file.js"></script>
+    <link rel="stylesheet" href="../../../public/style.css">
+    <link rel="stylesheet" href="calendario.css">
+  </head>
+  <body>
 
-<div class="calendar-wrapper">
-  <h2 class="calendar-title">Calendario de Partidos</h2>
+    <div xlu-include-file="../../templates/template-header/header.html">
+    </div>
 
-  <nav class="center-items-row">
-    <ul class="nav-selectionar-tiempo">
-      <li><a href="#" class="nav-arrow"><</a></li>
-      <li class="time-display">Febrero</li>
-      <li><a href="#" class="nav-arrow">></a></li>
-    </ul>
-    <ul class="nav-selectionar-tiempo">
-      <li><a href="#" class="nav-arrow"><</a></li>
-      <li class="time-display">2026</li>
-      <li><a href="#" class="nav-arrow">></a></li>
-    </ul>
-  </nav>
+    <nav id="main_menu" xlu-include-file="../../templates/template-navbar-entre-deportes/navbar-entre-deportes.html">
+    </nav>
 
-  <table id="calendar">
-    <thead>
-    <tr>
-      <th>Lun</th>
-      <th>Mar</th>
-      <th>Mie</th>
-      <th>Jue</th>
-      <th>Vie</th>
-      <th>Sab</th>
-      <th>Dom</th>
-    </tr>
-    </thead>
-    <tbody>
-    </tbody>
-  </table>
+    <div id="wrapper2">
+      <div class="calendar-wrapper">
+        <h2 class="calendar-title">Calendario de Partidos</h2>
 
-  <p id="info"></p>
-</div>
+        <nav class="center-items-row">
+          <ul class="nav-selectionar-tiempo">
+            <li><a href="#" class="nav-arrow">&lt;</a></li>
+            <li class="time-display">Febrero</li>
+            <li><a href="#" class="nav-arrow">&gt;</a></li>
+          </ul>
+          <ul class="nav-selectionar-tiempo">
+            <li><a href="#" class="nav-arrow">&lt;</a></li>
+            <li class="time-display">2026</li>
+            <li><a href="#" class="nav-arrow">&gt;</a></li>
+          </ul>
+        </nav>
 
-<script src="calendario.js"></script>
+        <table id="calendar">
+          <thead>
+            <tr>
+              <th>Lun</th>
+              <th>Mar</th>
+              <th>Mie</th>
+              <th>Jue</th>
+              <th>Vie</th>
+              <th>Sab</th>
+              <th>Dom</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+
+        <p id="info"></p>
+      </div>
+    </div>
+
+    <div xlu-include-file="../../templates/template-footer/footer.html"></div>
+
+    <script>
+      xLuIncludeFile();
+    </script>
+    <script src="calendario.js"></script>
+
+  </body>
+</html>

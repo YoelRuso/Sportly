@@ -54,7 +54,7 @@ header nav ul li a.active {
 }
 
 /* Botón de login */
-header button {
+header .btn-login {
     background-color: #00ffaa;
     color: #1a1a1a;
     border: none;
@@ -62,11 +62,12 @@ header button {
     border-radius: 0.3rem;
     cursor: pointer;
     font-weight: bold;
+    text-decoration: none;
     transition:
             background-color 0.3s,
             transform 0.2s;
 }
 
-header button:hover {
+header .btn-login:hover {
     background-color: #00e08b;
 }
