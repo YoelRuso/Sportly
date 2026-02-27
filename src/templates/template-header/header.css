@@ -16,23 +16,6 @@ header {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Logo */
-header a {
-    text-decoration: none;
-    margin: 0;
-    padding: 0;
-}
-header a h1 {
-    color: #ffffff;
-    font-weight: bold;
-    font-size: 1.6rem;
-    margin: 0;
-    padding: 0;
-}
-header a h1 span {
-    color: #00ffaa;
-}
-
 /* Navegación */
 header nav ul {
     list-style: none;
