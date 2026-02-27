@@ -1,35 +1,38 @@
 <link rel="stylesheet" href="calendario.css" />
-<h2 style="text-align: center">Calendario de Partidos</h2>
 
-<nav class="center-items-row">
-  <ul class="nav-selectionar-tiempo">
-    <li><a href="#"><</a></li>
-    <li>Febrero</li>
-    <li><a href="#">></a></li>
-  </ul>
-  <ul class="nav-selectionar-tiempo">
-    <li><a href="#"><</a></li>
-    <li>2026</li>
-    <li><a href="#">  ></a></li>
-  </ul>
-</nav>
-<table id="calendar">
-  <thead>
-  <tr>
-    <th>Lun</th>
-    <th>Mar</th>
-    <th>Mi&eacute;</th>
-    <th>Jue</th>
-    <th>Vie</th>
-    <th>S&aacute;b</th>
-    <th>Dom</th>
-  </tr>
-  </thead>
-  <tbody>
-  <!-- Se generará dinámicamente -->
-  </tbody>
-</table>
+<div class="calendar-wrapper">
+  <h2 class="calendar-title">Calendario de Partidos</h2>
 
-<p id="info"></p>
+  <nav class="center-items-row">
+    <ul class="nav-selectionar-tiempo">
+      <li><a href="#" class="nav-arrow"><</a></li>
+      <li class="time-display">Febrero</li>
+      <li><a href="#" class="nav-arrow">></a></li>
+    </ul>
+    <ul class="nav-selectionar-tiempo">
+      <li><a href="#" class="nav-arrow"><</a></li>
+      <li class="time-display">2026</li>
+      <li><a href="#" class="nav-arrow">></a></li>
+    </ul>
+  </nav>
+
+  <table id="calendar">
+    <thead>
+    <tr>
+      <th>Lun</th>
+      <th>Mar</th>
+      <th>Mie</th>
+      <th>Jue</th>
+      <th>Vie</th>
+      <th>Sab</th>
+      <th>Dom</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <p id="info"></p>
+</div>
 
 <script src="calendario.js"></script>
