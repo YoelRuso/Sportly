@@ -1,13 +1,24 @@
 <link rel="stylesheet" href="header.css" />
-<header>
-  <a href="#"><img src="../../../public/images/marca-icono.png" alt="marca icono"/></a>
+
+<header class="navbar">
+  <a href="#">
+    <img src="../../../public/images/marca-icono.png" alt="marca icono" />
+  </a>
+
   <nav>
-    <ul>
+    <ul class="nav-links">
       <li><a href="#" class="active">Inicio</a></li>
       <li><a href="#">Resumen</a></li>
       <li><a href="#">Calendario</a></li>
     </ul>
   </nav>
 
-  <button>Login</button>
+  <div class="user-area">
+    <button class="login">Login</button>
+    <img
+      id="userAvatar"
+      src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
+      alt="Usuario"
+    />
+  </div>
 </header>
