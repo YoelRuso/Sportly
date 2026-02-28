@@ -4,6 +4,7 @@
 > ✅ **Sprint 1 completado** – Todas las vistas y componentes del Sprint 1 han sido implementados.
 ---
 👥 Componentes del Grupo
+
 Joel Morera Apaza (GitHub: YoelRuso)
 
 Benjamín Klett (GitHub: Bencrex)
