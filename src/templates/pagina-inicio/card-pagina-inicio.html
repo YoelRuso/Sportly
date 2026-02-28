@@ -1,0 +1,45 @@
+<link rel="stylesheet" href="/src/templates/pagina-inicio/card-pagina-inicio.css" />
+<link rel="stylesheet" href="/src/templates/pagina-inicio/carde-resumen-popup.css" />
+
+<article class="card">
+  <div class="card-header">
+    <span class="card-sport">Fútbol</span>
+    <span class="card-date">28 Feb 2026 · 21:00h</span>
+  </div>
+  <div class="card-body">
+    <h3 class="card-title">Real Madrid vs Barcelona</h3>
+    <p class="card-description">El Clásico de La Liga. Dos de los mejores equipos del mundo se enfrentan en el Santiago Bernabéu.</p>
+  </div>
+  <div class="card-footer">
+    <button
+      class="btn-leer-mas"
+      onclick="this.closest('.card').nextElementSibling.classList.add('active')"
+    >
+      Leer más
+    </button>
+  </div>
+</article>
+
+<!-- Popup resumen del partido (sibling of .card to avoid transform containment) -->
+<div class="popup-overlay" onclick="if(event.target===this)this.classList.remove('active')">
+  <div class="popup">
+    <button
+      class="popup-close"
+      onclick="this.closest('.popup-overlay').classList.remove('active')"
+      aria-label="Cerrar"
+    >&times;</button>
+    <h2 class="popup-title">Real Madrid vs Barcelona</h2>
+    <p class="popup-sport">Fútbol · La Liga</p>
+    <div class="popup-details">
+      <p><strong>Fecha:</strong> 28 de febrero de 2026</p>
+      <p><strong>Hora:</strong> 21:00h</p>
+      <p><strong>Estadio:</strong> Santiago Bernabéu, Madrid</p>
+      <p><strong>Competición:</strong> La Liga – Jornada 26</p>
+    </div>
+    <p class="popup-description">
+      El Clásico regresa al Santiago Bernabéu en una jornada decisiva para el título liguero.
+      Real Madrid y FC Barcelona llegan igualados en puntos, lo que convierte este enfrentamiento
+      en uno de los partidos más importantes de la temporada.
+    </p>
+  </div>
+</div>

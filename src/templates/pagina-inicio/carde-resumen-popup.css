@@ -1,0 +1,101 @@
+/* Popup overlay - ocupa toda la pantalla */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-overlay.active {
+    display: flex;
+}
+
+/* Ventana del popup */
+.popup {
+    background-color: #1e1e1e;
+    color: #eee;
+    border-radius: 0.8rem;
+    padding: 2rem;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+    animation: popup-in 0.2s ease-out;
+}
+
+@keyframes popup-in {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Botón de cierre */
+.popup-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: #aaa;
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    transition: color 0.2s;
+}
+
+.popup-close:hover {
+    color: #00ffaa;
+}
+
+/* Cabecera del popup */
+.popup-title {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 0.4rem;
+    padding-right: 1.5rem;
+}
+
+.popup-sport {
+    font-size: 0.85rem;
+    color: #00ffaa;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.25rem;
+}
+
+/* Detalles del partido */
+.popup-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1.25rem;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
+    padding: 0.75rem 0;
+}
+
+.popup-details p {
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+.popup-details strong {
+    color: #fff;
+}
+
+/* Descripción larga */
+.popup-description {
+    font-size: 0.95rem;
+    color: #bbb;
+    line-height: 1.6;
+}

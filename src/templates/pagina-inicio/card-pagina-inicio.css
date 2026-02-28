@@ -1,0 +1,78 @@
+/* Tarjeta de partido */
+.card {
+    background-color: #1e1e1e;
+    border-radius: 0.6rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background-color: #252525;
+    border-bottom: 2px solid #00ffaa;
+}
+
+.card-sport {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #00ffaa;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.card-date {
+    font-size: 0.8rem;
+    color: #aaa;
+}
+
+.card-body {
+    padding: 1rem;
+    flex: 1;
+}
+
+.card-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.card-description {
+    font-size: 0.9rem;
+    color: #bbb;
+    line-height: 1.5;
+}
+
+.card-footer {
+    padding: 0.75rem 1rem;
+    border-top: 1px solid #333;
+    text-align: right;
+}
+
+.btn-leer-mas {
+    background-color: #00ffaa;
+    color: #1a1a1a;
+    border: none;
+    padding: 0.45rem 1rem;
+    border-radius: 0.3rem;
+    font-weight: bold;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.15s;
+}
+
+.btn-leer-mas:hover {
+    background-color: #00cc88;
+    transform: scale(1.04);
+}

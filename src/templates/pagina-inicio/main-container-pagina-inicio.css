@@ -1,0 +1,32 @@
+/* Main container */
+body {
+    background-color: #111;
+    color: #eee;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.inicio-hero {
+    text-align: center;
+    padding: 3rem 1rem 1.5rem;
+}
+
+.inicio-hero h1 {
+    font-size: 2rem;
+    color: #fff;
+}
+
+.inicio-hero p {
+    color: #aaa;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+}
+
+/* Grid de tarjetas */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
