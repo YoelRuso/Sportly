@@ -1,30 +1,46 @@
-<link rel="stylesheet" href="calendario.css" />
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendario - MatchAlert</title>
 
-<div class="calendar-wrapper">
-  <h2 class="calendar-title">Calendario de Partidos</h2>
+  <script src="../../xlu-include-file.js"></script>
+  <link rel="stylesheet" href="../../../public/style.css">
+  <link rel="stylesheet" href="calendario.css">
+</head>
+<body style="background-color: #0f0f0f;">
 
-  <nav class="center-items-row">
-    <ul class="nav-selectionar-tiempo">
-      <li><a href="#" class="nav-arrow"><</a></li>
-      <li class="time-display">Febrero</li>
-      <li><a href="#" class="nav-arrow">></a></li>
-    </ul>
-    <ul class="nav-selectionar-tiempo">
-      <li><a href="#" class="nav-arrow"><</a></li>
-      <li class="time-display">2026</li>
-      <li><a href="#" class="nav-arrow">></a></li>
-    </ul>
-  </nav>
+<div xlu-include-file="../../templates/template-header/header.html"></div>
+
+
+<main class="calendar-wrapper">
+  <header class="calendar-header-section">
+    <h1 class="calendar-title">Calendario de Eventos</h1>
+
+    <nav class="center-items-row">
+      <ul class="nav-selectionar-tiempo">
+        <li><a href="#" class="nav-arrow">&lt;</a></li>
+        <li class="time-display">Febrero</li>
+        <li><a href="#" class="nav-arrow">&gt;</a></li>
+      </ul>
+      <ul class="nav-selectionar-tiempo">
+        <li><a href="#" class="nav-arrow">&lt;</a></li>
+        <li class="time-display">2026</li>
+        <li><a href="#" class="nav-arrow">&gt;</a></li>
+      </ul>
+    </nav>
+  </header>
 
   <table id="calendar">
     <thead>
     <tr>
       <th>Lun</th>
       <th>Mar</th>
-      <th>Mie</th>
+      <th>Mié</th>
       <th>Jue</th>
       <th>Vie</th>
-      <th>Sab</th>
+      <th>Sáb</th>
       <th>Dom</th>
     </tr>
     </thead>
@@ -32,7 +48,14 @@
     </tbody>
   </table>
 
-  <p id="info"></p>
-</div>
+  <div id="info" class="calendar-info-box"></div>
+</main>
+
+<footer xlu-include-file="../../templates/template-footer/footer.html"></footer>
 
 <script src="calendario.js"></script>
+<script>
+    xLuIncludeFile();
+</script>
+</body>
+</html>
