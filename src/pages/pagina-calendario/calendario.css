@@ -142,3 +142,10 @@
     font-size: 1rem;
     font-weight: bold;
 }
+
+#calendar td.empty-cell {
+    background-color: transparent;
+    border: none;
+    cursor: default;
+    pointer-events: none; /* Para que no se puedan clickear */
+}
