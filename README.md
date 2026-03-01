@@ -52,15 +52,15 @@ Los ficheros PDF con los mockups y el storyboard se encuentran en la carpeta [`m
 
 > ⭐ **Página de inicio:** `index.html` redirige automáticamente a `src/pages/pagina-inicio/inicio.html`.
 
-| Archivo HTML | Ruta | Mockup que implementa |
-| :--- | :--- | :--- |
+| Archivo HTML | Ruta | Mockup que implementa          |
+| :--- | :--- |:-------------------------------|
 | `index.html` ⭐ | `/index.html` | Punto de entrada (redirección) |
-| `inicio.html` | `src/pages/pagina-inicio/inicio.html` | `pagina-inicio.pdf` |
-| `login.html` | `src/pages/pagina-login/login.html` | `Login.pdf` |
-| `calendario.html` | `src/pages/pagina-calendario/calendario.html` | `Calendario.pdf` |
-| `resumen.html` | `src/pages/pagina-resumen/resumen.html` | `Resumen.pdf` |
-| `leermas.html` | `src/pages/pagina-leermas-resumen/leermas.html` | `Mockup leer mas.pdf` |
-| `gestion-usuario.html` | `src/pages/pagina-gestion-usuario/...` | *(Sin mockup específico)* |
+| `inicio.html` | `src/pages/pagina-inicio/inicio.html` | `pagina-inicio.pdf`            |
+| `login.html` | `src/pages/pagina-login/login.html` | `Login.pdf`                    |
+| `calendario.html` | `src/pages/pagina-calendario/calendario.html` | `Calendario.pdf`               |
+| `resumen.html` | `src/pages/pagina-resumen/resumen.html` | `Resumen.pdf`                  |
+| `leermas.html` | `src/pages/pagina-leermas-resumen/leermas.html` | `Mockup leer mas.pdf`          |
+| `gestion-usuario.html` | `src/pages/pagina-gestion-usuario/...` | `Gestion de usuario.pdf`       |
 
 ---
 
@@ -78,6 +78,7 @@ Componentes reutilizables cargados dinámicamente mediante `xlu-include-file`.
 | **Card Resumen** | `src/templates/template-card-resumen/card-resumen.html` | Resumen (x6) |
 | **Popup Resumen** | `.../card-resumen-popup.html` | Main Leer más |
 | **Main Leer más** | `.../main-leermas.html` | leermas.html |
+
 ## 🚀 Tecnologías utilizadas
 | Tecnología | Descripción |
 |---|---|
