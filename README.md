@@ -41,7 +41,7 @@ Los ficheros PDF con los mockups y el storyboard se encuentran en la carpeta [`m
 | [`Calendario.pdf`](./mockups/Calendario.pdf) | Mockup de la página del calendario |
 | [`Resumen.pdf`](./mockups/Resumen.pdf) | Mockup de la página de resumen de partido |
 | [`Mockup leer mas.pdf`](./mockups/Mockup%20leer%20mas.pdf) | Mockup de la página de detalle de partido |
-| [`CONTACTO.pdf`](./mockups/CONTACTO.pdf) | Mockup de la página de contacto |
+| [`CONTACTO.pdf`](mockups/Contacto.pdf) | Mockup de la página de contacto |
 | [`Avisio legal.pdf`](./mockups/Avisio%20legal.pdf) | Mockup del aviso legal |
 | [`POLÍTICA DE PRIVACIDAD.pdf`](./mockups/POLÍTICA%20DE%20PRIVACIDAD.pdf) | Mockup de la política de privacidad |
 | [`POLÍTICA DE COOKIES.pdf`](./mockups/POLÍTICA%20DE%20COOKIES.pdf) | Mockup de la política de cookies |
