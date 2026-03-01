@@ -91,32 +91,32 @@ Componentes reutilizables cargados dinámicamente mediante `xlu-include-file`.
 ## 📁 Estructura del proyecto
 ```
 Sportly/
-├── index.html                          # Punto de entrada ⭐ (redirige a pagina-inicio)
-├── package.json                        # Dependencias y scripts del proyecto
-├── public/                             # Recursos estáticos
-│   └── style.css                       # Hoja de estilos principal (importa templates)
+├── index.html                               # Punto de entrada ⭐ (redirige a pagina-inicio)
+├── package.json                             # Dependencias y scripts del proyecto
+├── public/                                  # Recursos estáticos
+│   └── style.css                            # Hoja de estilos principal (importa templates)
 ├── src/
-│   ├── main.js                         # Inicialización y carga dinámica de componentes
-│   ├── xlu-include-file.js             # Función de carga asíncrona de plantillas HTML
-│   ├── pages/
-│   │   ├── pagina-inicio/              # Página de inicio (inicio.html + CSS)
-│   │   ├── pagina-login/               # Página de inicio de sesión (login.html + CSS)
-│   │   ├── pagina-calendario/          # Página del calendario (calendario.html + CSS + JS)
-│   │   ├── pagina-gestion-usuario/     # Página de gestión de usuario (gestion-usuario.html + CSS)
-│   │   ├── pagina-resumen/             # Página de resumen de partido (resumen.html)
-│   │   └── pagina-leermas-resumen/     # Página de detalle ampliado (leermas.html + CSS)
+│   ├── main.js                              # Inicialización y carga dinámica de componentes
+│   ├── xlu-include-file.js                  # Función de carga asíncrona de plantillas HTML
+│   ├── pages/  
+│   │   ├── pagina-inicio/                   # Página de inicio (inicio.html + CSS)
+│   │   ├── pagina-login/                    # Página de inicio de sesión (login.html + CSS)
+│   │   ├── pagina-calendario/               # Página del calendario (calendario.html + CSS + JS)
+│   │   ├── pagina-gestion-usuario/          # Página de gestión de usuario (gestion-usuario.html + CSS)
+│   │   ├── pagina-resumen/                  # Página de resumen de partido (resumen.html)
+│   │   └── pagina-leermas-resumen/          # Página de detalle ampliado (leermas.html + CSS)
 │   └── templates/
-│       ├── template-header/            # Componente de cabecera (navbar)
-│       ├── template-footer/            # Componente de pie de página
-│       ├── template-sidebar/           # Componente de barra lateral
-│       ├── template-card/              # Tarjeta de partido/deporte
-│       ├── template-card-resumen/      # Tarjeta de resumen de partido
-│       ├── template-card-resumen-popup/# Popup de tarjeta de resumen
+│       ├── template-header/                 # Componente de cabecera (navbar)
+│       ├── template-footer/                 # Componente de pie de página
+│       ├── template-sidebar/                # Componente de barra lateral
+│       ├── template-card/                   # Tarjeta de partido/deporte
+│       ├── template-card-resumen/           # Tarjeta de resumen de partido
+│       ├── template-card-resumen-popup/     # Popup de tarjeta de resumen
 │       ├── template-navbar-entre-deportes/  # Navegación entre deportes
-│       ├── template-main-leermas/      # Contenido principal de leer más
-│       ├── template-politicas-avisos/  # Políticas y avisos legales
-│       └── template-contacto/          # Formulario y datos de contacto
-└── mockups/                            # Diseños de referencia (PDFs)
+│       ├── template-main-leermas/           # Contenido principal de leer más
+│       ├── template-politicas-avisos/       # Políticas y avisos legales
+│       └── template-contacto/               # Formulario y datos de contacto
+└── mockups/                                 # Diseños de referencia (PDFs)
 ```
 ---
 ## 💡 Otros aspectos del proyecto
