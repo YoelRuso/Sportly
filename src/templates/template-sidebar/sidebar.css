@@ -1,0 +1,38 @@
+.sidebar-legal {
+    width: 280px;
+    background-color: #d1d1d1;
+    height: 100vh;
+    padding: 60px 30px;
+    box-sizing: border-box;
+    font-family: sans-serif; /* Fuente limpia como la imagen */
+}
+
+.sidebar-legal h2 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 50px;
+    color: #000;
+}
+
+.sidebar-legal nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-legal nav li {
+    margin-bottom: 30px;
+}
+
+.sidebar-legal nav a {
+    text-decoration: none;
+    color: #000;
+    font-size: 14px;
+    font-weight: 600;
+    display: block;
+}
+
+.sidebar-legal nav a.active,
+.sidebar-legal nav a:hover {
+    color: #00ff88;
+}

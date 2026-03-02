@@ -1,0 +1,97 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* BODY */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* CONTENEDOR GENERAL */
+.legal-container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 280px;
+    background-color: #1e1e1e;
+    padding: 50px 30px;
+    border-right: 2px solid #00ffaa;
+}
+
+.sidebar h2 {
+    color: #00ffaa;
+    font-size: 28px;
+    margin-bottom: 50px;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar li {
+    margin-bottom: 25px;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #ccc;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    color: #00ffaa;
+}
+
+.sidebar a.active {
+    color: #00ffaa;
+    font-weight: bold;
+}
+
+/* CONTENIDO DERECHO */
+.legal-content {
+    flex: 1;
+    padding: 60px 80px;
+    overflow-y: auto;
+}
+
+/* TITULO */
+.legal-content h1 {
+    text-align: center;
+    color: #00ffaa;
+    font-size: 32px;
+    margin-bottom: 50px;
+}
+
+/* TEXTO */
+.text-content {
+    max-width: 900px;
+    margin: 0 auto;
+    color: #ccc;
+    line-height: 1.8;
+    font-size: 15px;
+}
+
+.text-content p {
+    margin-bottom: 20px;
+}
+
+/* Scroll personalizado (opcional más moderno) */
+.legal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.legal-content::-webkit-scrollbar-thumb {
+    background-color: #00ffaa;
+    border-radius: 10px;
+}

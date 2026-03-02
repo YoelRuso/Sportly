@@ -1,0 +1,151 @@
+/* 1. Unificamos el fondo del contenedor para que sea negro total */
+.calendar-wrapper {
+    background-color: #0f0f0f !important; /* Fuerza el negro de fondo */
+    padding: 20px;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    min-height: 600px; /* Dale altura para que llene el wrapper2 */
+}
+
+.calendar-title {
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 25px;
+    font-weight: bold;
+    font-size: 1.6rem;
+}
+
+.center-items-row {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+/* 2. Estilo de los selectores de tiempo (más oscuros y modernos) */
+.nav-selectionar-tiempo {
+    list-style: none;
+    background: #1a1a1a; /* Gris muy oscuro */
+    padding: 12px 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border: 1px solid #333; /* Borde muy sutil */
+}
+
+.time-display {
+    font-weight: bold;
+    min-width: 90px;
+    text-align: center;
+    color: #ffffff; /* Texto blanco */
+}
+
+.nav-arrow {
+    text-decoration: none;
+    color: #aaaaaa;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: color 0.3s;
+}
+
+.nav-arrow:hover {
+    color: #00ff88; /* Verde neón en hover */
+}
+
+/* 3. Corrección de la Tabla (Eliminación de bordes blancos/grises) */
+#calendar {
+    border-collapse: separate;
+    border-spacing: 5px; /* Espacio para que parezcan tarjetas separadas */
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    border: none; /* Elimina borde externo de la tabla */
+}
+
+#calendar th {
+    background-color: transparent; /* Sin fondo para los días de la semana */
+    color: #aaaaaa;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    padding: 10px 0;
+    font-weight: normal;
+    text-align: center;
+    border: none; /* Elimina bordes blancos en th */
+}
+
+#calendar td {
+    background-color: #1a1a1a; /* Fondo de la celda oscuro */
+    border: 1px solid #333; /* Borde sutil, NO blanco */
+    border-radius: 12px;
+    width: 14.28%;
+    height: 120px;
+    vertical-align: top;
+    padding: 12px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.3s;
+}
+
+#calendar td:hover {
+    transform: scale(1.03);
+    border-color: #00ff88; /* Borde verde neón en hover */
+    z-index: 10; /* Asegura que se vea sobre las otras celdas */
+}
+
+/* Número del día */
+.day-number {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 1.1rem;
+}
+
+/* 4. Estilo de los partidos (Indicadores deportivos) */
+.matches {
+    margin-top: 35px; /* Debajo del número */
+    font-size: 0.75rem;
+    color: #cccccc;
+}
+
+.matches div {
+    background: #2a2a2a; /* Fondo del partido sutilmente más claro */
+    padding: 5px 10px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    border-left: 3px solid #00ff88; /* El indicador verde neón */
+    transition: background 0.2s;
+}
+
+.matches div:hover {
+    background: #333333;
+}
+
+/* 5. Resaltar hoy (Sin amarillo brillante) */
+.today {
+    background-color: #1a1a1a !important;
+    border: 2px solid #00ff88 !important; /* Borde neón para resaltar */
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.3); /* Brillo suave */
+}
+
+/* Evitar que el número del día brille demasiado */
+.today .day-number {
+    color: #00ff88;
+}
+
+#info {
+    text-align: center;
+    margin-top: 25px;
+    color: #00ff88;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+#calendar td.empty-cell {
+    background-color: transparent;
+    border: none;
+    cursor: default;
+    pointer-events: none; /* Para que no se puedan clickear */
+}
