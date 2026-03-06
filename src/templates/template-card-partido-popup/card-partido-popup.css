@@ -11,8 +11,9 @@ body {
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 40px 20px;
 }
 
 /* Contenedor */
@@ -25,12 +26,14 @@ body {
 /* Rectángulo principal */
 .match-card {
     background-color: #1e1e1e;
-    width: 900px;
+    width: 100%;
+    max-width: 900px;
     padding: 40px;
     border-radius: 12px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    gap: 20px;
     box-shadow: 0 0 25px rgba(0, 255, 170, 0.15);
 }
 
@@ -75,20 +78,56 @@ body {
     margin-bottom: 15px;
 }
 
-.stadium,
-.date,
-.time {
+.stadium, .date, .time {
     color: #ccc;
     margin-bottom: 8px;
 }
 
-/* Hover efecto suave */
 .match-card:hover {
     box-shadow: 0 0 35px rgba(0, 255, 170, 0.25);
     transition: 0.3s;
 }
 
-/* Entrenador */
 .coach {
     color: #ccc;
+}
+
+/* ── Tablet (≤ 768 px) ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+    body {
+        padding: 20px 12px;
+    }
+
+    .match-card {
+        flex-direction: column;
+        align-items: center;
+        padding: 24px;
+        gap: 24px;
+    }
+
+    .team,
+    .match-center {
+        width: 100%;
+        text-align: center;
+    }
+
+    .match-center {
+        border-left: none;
+        border-right: none;
+        border-top: 2px solid #00ffaa;
+        border-bottom: 2px solid #00ffaa;
+        padding: 16px 0;
+    }
+}
+
+/* ── Mobile (≤ 480 px) ──────────────────────────────────────────── */
+@media (max-width: 480px) {
+    .match-card {
+        padding: 16px;
+    }
+
+    .team h2,
+    .match-center h2 {
+        font-size: 1.2rem;
+    }
 }

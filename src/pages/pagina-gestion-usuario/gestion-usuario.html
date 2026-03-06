@@ -2,7 +2,8 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Perfil de Usuario</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil de Usuario – Sportly</title>
   <link rel="stylesheet" href="gestion-usuario.css" />
 </head>
 <body>
@@ -11,7 +12,7 @@
   <div class="profile-section">
     <div class="profile-image">
       <img
-        src="https://via.placeholder.com/150"
+        src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
         alt="Foto de perfil"
       />
     </div>
@@ -19,33 +20,51 @@
     <button class="change-photo">Cambiar Foto</button>
 
     <div class="user-info">
-      <p><strong>Email:</strong> usuario@gmail.com</p>
-      <p><strong>Rol:</strong> Usuario</p>
-      <p><strong>ID:</strong> #002</p>
+      <p><strong>Usuario:</strong> <span id="profileUser">–</span></p>
+      <p><strong>Rol:</strong> <span id="profileRole">–</span></p>
     </div>
+
+    <button class="btn-logout" onclick="logoutUser()">Cerrar sesión</button>
   </div>
 
   <!-- PANEL DERECHO -->
   <div class="favorites-section">
     <h2>Partidos Favoritos</h2>
 
-    <div class="match-list">
-      <div class="match-item">
-        <span>Real Madrid vs FC Barcelona</span>
-        <span class="date">15 Marzo 2026</span>
-      </div>
-
-      <div class="match-item">
-        <span>Los Angeles Lakers vs Golden State Warriors</span>
-        <span class="date">20 Marzo 2026</span>
-      </div>
-
-      <div class="match-item">
-        <span>Manchester City vs Liverpool FC</span>
-        <span class="date">2 Abril 2026</span>
-      </div>
+    <div id="favoritesList" class="match-list">
+      <p class="no-favorites">Aún no tienes partidos favoritos.</p>
     </div>
   </div>
 </div>
+
+<script src="../../js/app.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Redirect to login if not authenticated
+    if (!isLoggedIn()) {
+      window.location.href = '/src/pages/pagina-login/login.html';
+      return;
+    }
+
+    const user = getCurrentUser();
+    document.getElementById('profileUser').textContent = user.user || '–';
+    document.getElementById('profileRole').textContent = user.role || 'usuario';
+
+    // Load saved favourites from localStorage
+    const FAV_KEY = 'sportly_favs_' + user.id;
+    const favs = JSON.parse(localStorage.getItem(FAV_KEY) || '[]');
+    const list = document.getElementById('favoritesList');
+
+    if (favs.length) {
+      list.innerHTML = '';
+      favs.forEach(function (fav) {
+        const item = document.createElement('div');
+        item.className = 'match-item';
+        item.innerHTML = `<span>${fav.title}</span><span class="date">${fav.date}</span>`;
+        list.appendChild(item);
+      });
+    }
+  });
+</script>
 </body>
 </html>

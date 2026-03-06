@@ -5,23 +5,23 @@
     box-sizing: border-box;
 }
 
-/* Body ocupa toda la pantalla */
+/* Body */
 body {
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     font-family: Arial, sans-serif;
     background-color: #121212;
-    overflow: hidden;
+    color: #ccc;
 }
 
-/* Dashboard ocupa toda la pantalla */
+/* Dashboard – two-column on desktop */
 .dashboard {
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
     display: flex;
 }
 
-/* PANEL IZQUIERDO */
+/* ── LEFT PANEL ─────────────────────────────────────────────────── */
 .profile-section {
     width: 30%;
     background-color: #181818;
@@ -32,7 +32,7 @@ body {
     border-right: 2px solid #00ffaa;
 }
 
-/* Imagen */
+/* Profile image */
 .profile-image img {
     width: 160px;
     height: 160px;
@@ -42,7 +42,7 @@ body {
     margin-bottom: 25px;
 }
 
-/* Botón */
+/* Change photo button */
 .change-photo {
     background-color: transparent;
     border: 2px solid #00ffaa;
@@ -54,25 +54,40 @@ body {
     font-weight: bold;
     transition: 0.3s;
 }
-
 .change-photo:hover {
     background-color: #00ffaa;
     color: #121212;
 }
 
-/* Info usuario */
+/* User info */
 .user-info {
     text-align: center;
     color: #ccc;
     font-size: 16px;
     line-height: 2;
 }
-
 .user-info strong {
     color: #00ffaa;
 }
 
-/* PANEL DERECHO */
+/* Logout button */
+.btn-logout {
+    margin-top: 30px;
+    background-color: transparent;
+    border: 2px solid #ff4466;
+    color: #ff4466;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.btn-logout:hover {
+    background-color: #ff4466;
+    color: #fff;
+}
+
+/* ── RIGHT PANEL ────────────────────────────────────────────────── */
 .favorites-section {
     width: 70%;
     padding: 60px;
@@ -85,23 +100,30 @@ body {
     font-size: 28px;
 }
 
-/* Lista */
+.no-favorites {
+    color: #555;
+    font-size: 0.95rem;
+}
+
+/* Match list */
 .match-list {
     display: flex;
     flex-direction: column;
     gap: 25px;
 }
 
-/* Partido */
 .match-item {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 20px 25px;
     border: 2px solid #00ffaa;
     border-radius: 10px;
     color: #ccc;
-    font-size: 18px;
+    font-size: 16px;
     transition: 0.3s;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
 .date {
@@ -113,7 +135,59 @@ body {
     background-color: #00ffaa;
     color: #121212;
 }
-
 .match-item:hover .date {
     color: #121212;
+}
+
+/* ── Tablet (≤ 900 px) ──────────────────────────────────────────── */
+@media (max-width: 900px) {
+    .dashboard {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .profile-section {
+        width: 100%;
+        border-right: none;
+        border-bottom: 2px solid #00ffaa;
+        padding: 40px 20px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .favorites-section {
+        width: 100%;
+        padding: 40px 20px;
+    }
+}
+
+/* ── Mobile (≤ 480 px) ──────────────────────────────────────────── */
+@media (max-width: 480px) {
+    .profile-section {
+        flex-direction: column;
+        padding: 30px 16px;
+    }
+
+    .profile-image img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .favorites-section {
+        padding: 24px 16px;
+    }
+
+    .favorites-section h2 {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .match-item {
+        flex-direction: column;
+        align-items: flex-start;
+        font-size: 14px;
+        padding: 14px 16px;
+    }
 }

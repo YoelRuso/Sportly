@@ -1,4 +1,4 @@
-/* Footer */
+/* ── Footer ─────────────────────────────────────────────────────── */
 footer {
     background-color: #111;
     color: #aaa;
@@ -12,7 +12,19 @@ footer {
     margin: auto;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.footer-brand {
+    flex: 1 1 200px;
+}
+
+.footer-brand span {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
 }
 
 .footer-brand p {
@@ -22,17 +34,52 @@ footer {
 }
 
 .footer-links {
+    flex: 2 1 300px;
     display: flex;
-    gap: 1.5rem;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
 }
 
-.footer-links a {
+.footer-links a,
+.footer-links button {
     text-decoration: none;
+    background: transparent;
+    border: none;
     color: #aaa;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+    cursor: pointer;
     transition: color 0.3s ease;
+    padding: 0;
+    font-family: inherit;
 }
 
-.footer-links a:hover {
+.footer-links a:hover,
+.footer-links button:hover {
     color: #00ffaa;
+}
+
+/* ── Tablet (≤ 768 px) ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-links {
+        justify-content: center;
+    }
+}
+
+/* ── Mobile (≤ 480 px) ──────────────────────────────────────────── */
+@media (max-width: 480px) {
+    footer {
+        padding: 1.5rem 1rem;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
 }

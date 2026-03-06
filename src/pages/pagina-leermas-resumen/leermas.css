@@ -81,3 +81,36 @@
 .news-embedded-card {
     margin: 40px 0;
 }
+
+/* ── Tablet (≤ 768 px) ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .news-main-title {
+        font-size: 1.8rem;
+    }
+
+    .news-lead {
+        font-size: 1.05rem;
+    }
+
+    .news-page-container {
+        margin: 24px auto;
+    }
+}
+
+/* ── Mobile (≤ 480 px) ──────────────────────────────────────────── */
+@media (max-width: 480px) {
+    .news-main-title {
+        font-size: 1.4rem;
+    }
+
+    .news-page-container {
+        padding: 0 12px;
+        margin: 16px auto;
+    }
+
+    .news-back-btn {
+        margin-top: 30px;
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+}

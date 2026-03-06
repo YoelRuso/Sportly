@@ -1,28 +1,41 @@
 <link rel="stylesheet" href="header.css" />
 <header class="navbar">
   <div class="logo">
-    <a href="../../pages/pagina-inicio/inicio.html"><img src="../../../public/images/marca-icono.png" alt="marca icono"/></a>
+    <a href="/src/pages/pagina-inicio/inicio.html">
+      <img src="../../../public/images/marca-icono.png" alt="Sportly logo"/>
+    </a>
   </div>
 
-  <nav>
+  <!-- Hamburger button (mobile only) -->
+  <button class="hamburger" aria-label="Abrir menú" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </button>
+
+  <nav id="mainNav">
     <ul class="nav-links">
-      <li><a href="../../pages/pagina-inicio/inicio.html">Inicio</a></li>
-      <li><a href="../../pages/pagina-resumen/resumen.html">Resumen</a></li>
-      <li><a href="../../pages/pagina-calendario/calendario.html">Calendario</a></li>
+      <li><a href="/src/pages/pagina-inicio/inicio.html">Inicio</a></li>
+      <li><a href="/src/pages/pagina-resumen/resumen.html">Resumen</a></li>
+      <li><a href="/src/pages/pagina-calendario/calendario.html">Calendario</a></li>
     </ul>
   </nav>
 
   <div class="user-area">
-    <a href="../../pages/pagina-login/login.html" style="text-decoration: none;">
+    <!-- Shown when NOT logged in -->
+    <a id="loginLink" href="/src/pages/pagina-login/login.html" style="text-decoration:none;">
       <button class="login">Login</button>
     </a>
 
-    <a href="../../pages/pagina-gestion-usuario/gestion-usuario.html">
+    <!-- Shown when logged in -->
+    <span id="loggedInUser" class="user-name" style="display:none;"></span>
+
+    <a id="profileLink" href="/src/pages/pagina-gestion-usuario/gestion-usuario.html" style="display:none;">
       <img
         id="userAvatar"
         src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
-        alt="Usuario"
+        alt="Perfil de usuario"
       />
     </a>
+
+    <button id="logoutBtn" class="logout-btn" style="display:none;" onclick="logoutUser()">Salir</button>
   </div>
 </header>

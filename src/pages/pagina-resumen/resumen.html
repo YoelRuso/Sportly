@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="This is an HTML5 example">
-  <meta name="keywords" content="HTML5, CSS3, JavaScript">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Resumen de partidos – Sportly">
+  <meta name="keywords" content="resumen, deportes, resultados">
 
-  <title>This text is the title of the document</title>
+  <title>Sportly – Resumen</title>
 
   <script src="../../xlu-include-file.js"></script>
   <link rel="stylesheet" href="../../../public/style.css">
@@ -14,23 +15,12 @@
 
 <body>
 
-  <div xlu-include-file="../../templates/template-header/header.html">
-  </div>
+  <div xlu-include-file="../../templates/template-header/header.html"></div>
 
-
-  <nav id="main_menu" xlu-include-file="../../templates/template-navbar-entre-deportes/navbar-entre-deportes.html">
-  </nav>
+  <nav id="main_menu" xlu-include-file="../../templates/template-navbar-entre-deportes/navbar-entre-deportes.html"></nav>
 
   <div id="wrapper2">
-    <div class="cards-grid">
-      <section class="card-item" xlu-include-file="../../templates/template-card-resumen/card-resumen.html"></section>
-      <section class="card-item" xlu-include-file="../../templates/template-card-resumen/card-resumen.html"></section>
-      <section class="card-item" xlu-include-file="../../templates/template-card-resumen/card-resumen.html"></section>
-      <section class="card-item" xlu-include-file="../../templates/template-card-resumen/card-resumen.html"></section>
-      <section class="card-item" xlu-include-file="../../templates/template-card-resumen/card-resumen.html"></section>
-      <section class="card-item" xlu-include-file="../../templates/template-card-resumen/card-resumen.html"></section>
-    </div>
-
+    <div id="news-container" class="cards-grid"></div>
   </div>
 
   <div xlu-include-file="../../templates/template-footer/footer.html"></div>
@@ -38,7 +28,8 @@
   <script>
     xLuIncludeFile();
   </script>
-
+  <script src="../../js/app.js"></script>
+  <script src="../../js/resumen.js"></script>
 
 </body>
 </html>

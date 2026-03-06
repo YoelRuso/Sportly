@@ -1,10 +1,10 @@
-/* 1. Unificamos el fondo del contenedor para que sea negro total */
+/* ── Calendar wrapper ───────────────────────────────────────────── */
 .calendar-wrapper {
-    background-color: #0f0f0f !important; /* Fuerza el negro de fondo */
+    background-color: #0f0f0f;
     padding: 20px;
     color: white;
     font-family: 'Segoe UI', sans-serif;
-    min-height: 600px; /* Dale altura para que llene el wrapper2 */
+    min-height: 600px;
 }
 
 .calendar-title {
@@ -20,25 +20,26 @@
     justify-content: center;
     gap: 15px;
     margin-bottom: 25px;
+    flex-wrap: wrap;
 }
 
-/* 2. Estilo de los selectores de tiempo (más oscuros y modernos) */
+/* ── Month/year selectors ───────────────────────────────────────── */
 .nav-selectionar-tiempo {
     list-style: none;
-    background: #1a1a1a; /* Gris muy oscuro */
+    background: #1a1a1a;
     padding: 12px 20px;
     border-radius: 12px;
     display: flex;
     align-items: center;
     gap: 15px;
-    border: 1px solid #333; /* Borde muy sutil */
+    border: 1px solid #333;
 }
 
 .time-display {
     font-weight: bold;
     min-width: 90px;
     text-align: center;
-    color: #ffffff; /* Texto blanco */
+    color: #ffffff;
 }
 
 .nav-arrow {
@@ -47,36 +48,42 @@
     font-weight: bold;
     font-size: 1.1rem;
     transition: color 0.3s;
+    cursor: pointer;
 }
-
 .nav-arrow:hover {
-    color: #00ff88; /* Verde neón en hover */
+    color: #00ff88;
 }
 
-/* 3. Corrección de la Tabla (Eliminación de bordes blancos/grises) */
+/* ── Calendar table ─────────────────────────────────────────────── */
+.calendar-scroll-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
 #calendar {
     border-collapse: separate;
-    border-spacing: 5px; /* Espacio para que parezcan tarjetas separadas */
+    border-spacing: 5px;
     width: 100%;
-    max-width: 900px;
+    max-width: 960px;
     margin: 0 auto;
-    border: none; /* Elimina borde externo de la tabla */
+    border: none;
+    table-layout: fixed;  /* Equal column widths */
 }
 
 #calendar th {
-    background-color: transparent; /* Sin fondo para los días de la semana */
+    background-color: transparent;
     color: #aaaaaa;
     text-transform: uppercase;
     font-size: 0.8rem;
     padding: 10px 0;
     font-weight: normal;
     text-align: center;
-    border: none; /* Elimina bordes blancos en th */
+    border: none;
 }
 
 #calendar td {
-    background-color: #1a1a1a; /* Fondo de la celda oscuro */
-    border: 1px solid #333; /* Borde sutil, NO blanco */
+    background-color: #1a1a1a;
+    border: 1px solid #333;
     border-radius: 12px;
     width: 14.28%;
     height: 120px;
@@ -89,11 +96,11 @@
 
 #calendar td:hover {
     transform: scale(1.03);
-    border-color: #00ff88; /* Borde verde neón en hover */
-    z-index: 10; /* Asegura que se vea sobre las otras celdas */
+    border-color: #00ff88;
+    z-index: 10;
 }
 
-/* Número del día */
+/* Day number */
 .day-number {
     position: absolute;
     top: 10px;
@@ -103,49 +110,112 @@
     font-size: 1.1rem;
 }
 
-/* 4. Estilo de los partidos (Indicadores deportivos) */
+/* Match indicators */
 .matches {
-    margin-top: 35px; /* Debajo del número */
+    margin-top: 35px;
     font-size: 0.75rem;
     color: #cccccc;
 }
-
 .matches div {
-    background: #2a2a2a; /* Fondo del partido sutilmente más claro */
+    background: #2a2a2a;
     padding: 5px 10px;
     border-radius: 6px;
     margin-bottom: 5px;
-    border-left: 3px solid #00ff88; /* El indicador verde neón */
+    border-left: 3px solid #00ff88;
     transition: background 0.2s;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
-
 .matches div:hover {
     background: #333333;
 }
 
-/* 5. Resaltar hoy (Sin amarillo brillante) */
+/* Today highlight */
 .today {
     background-color: #1a1a1a !important;
-    border: 2px solid #00ff88 !important; /* Borde neón para resaltar */
-    box-shadow: 0 0 15px rgba(0, 255, 136, 0.3); /* Brillo suave */
+    border: 2px solid #00ff88 !important;
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
 }
-
-/* Evitar que el número del día brille demasiado */
 .today .day-number {
     color: #00ff88;
 }
 
+/* Info box */
 #info {
     text-align: center;
     margin-top: 25px;
     color: #00ff88;
     font-size: 1rem;
     font-weight: bold;
+    word-break: break-word;
 }
 
 #calendar td.empty-cell {
     background-color: transparent;
     border: none;
     cursor: default;
-    pointer-events: none; /* Para que no se puedan clickear */
+    pointer-events: none;
+}
+
+/* ── Tablet (≤ 768 px) ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .calendar-wrapper {
+        padding: 16px 10px;
+    }
+
+    .calendar-title {
+        font-size: 1.3rem;
+    }
+
+    #calendar td {
+        height: 90px;
+        padding: 8px;
+    }
+
+    .day-number {
+        font-size: 0.95rem;
+    }
+
+    .matches div {
+        font-size: 0.65rem;
+        padding: 3px 6px;
+    }
+}
+
+/* ── Mobile (≤ 480 px) ──────────────────────────────────────────── */
+@media (max-width: 480px) {
+    .nav-selectionar-tiempo {
+        padding: 8px 12px;
+        gap: 10px;
+    }
+
+    .time-display {
+        min-width: 70px;
+        font-size: 0.9rem;
+    }
+
+    #calendar {
+        min-width: 420px;
+        table-layout: fixed;
+    }
+
+    #calendar td {
+        height: 70px;
+        padding: 6px;
+    }
+
+    .day-number {
+        font-size: 0.8rem;
+        top: 6px;
+        left: 6px;
+    }
+
+    .matches {
+        margin-top: 26px;
+    }
+
+    .matches div {
+        display: none; /* On very small screens, hide event text – still shows on click */
+    }
 }
