@@ -19,7 +19,7 @@
 
 /* Logo */
 .logo img {
-    width: 40px;
+    width: 80px;
 }
 
 /* Navegación */
@@ -92,6 +92,13 @@
         padding: 0.8rem 1.5rem;
     }
 
+    @media (max-width: 834px) {
+
+        .logo img {
+            width: 60px;
+        }
+
+    }
     .nav-links {
         gap: 1.2rem;
     }
@@ -106,6 +113,14 @@
 @media (max-width: 430px) {
     .navbar {
         padding: 0.6rem 1rem;
+    }
+
+    @media (max-width: 430px) {
+
+        .logo img {
+            width: 40px;
+        }
+
     }
 
     .logo img {
