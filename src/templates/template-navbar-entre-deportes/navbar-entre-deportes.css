@@ -46,3 +46,25 @@
 .sports-selection nav ul li a.active {
     border-bottom: 3px solid #00ff88;
 }
+
+@media (max-width: 430px) {
+    .sports-selection img {
+        height: 150px;
+    }
+
+    .sports-selection nav ul {
+        overflow-x: auto;
+        padding: 0 10px;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .sports-selection nav ul li {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+
+    .sports-selection nav ul li a {
+        padding: 12px 0;
+        font-size: 0.8rem;
+    }
+}

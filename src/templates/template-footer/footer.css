@@ -36,3 +36,25 @@ footer {
 .footer-links a:hover {
     color: #00ffaa;
 }
+
+@media (max-width: 430px) {
+    footer {
+        padding: 1.5rem 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .footer-links {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .footer-links a {
+        font-size: 0.85rem;
+    }
+}

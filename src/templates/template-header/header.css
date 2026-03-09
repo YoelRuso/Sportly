@@ -92,13 +92,10 @@
         padding: 0.8rem 1.5rem;
     }
 
-    @media (max-width: 834px) {
-
-        .logo img {
-            width: 60px;
-        }
-
+    .logo img {
+        width: 60px;
     }
+
     .nav-links {
         gap: 1.2rem;
     }
@@ -112,23 +109,23 @@
 
 @media (max-width: 430px) {
     .navbar {
+        flex-wrap: wrap;
         padding: 0.6rem 1rem;
-    }
-
-    @media (max-width: 430px) {
-
-        .logo img {
-            width: 40px;
-        }
-
+        gap: 0.3rem;
     }
 
     .logo img {
-        width: 32px;
+        width: 40px;
+    }
+
+    .navbar > nav {
+        order: 3;
+        width: 100%;
     }
 
     .nav-links {
-        gap: 0.7rem;
+        justify-content: center;
+        gap: 1rem;
     }
 
     .nav-links li a {

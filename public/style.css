@@ -57,8 +57,13 @@ body {
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 430px) {
+    #wrapper2 {
+        padding: 20px 10px;
+    }
+
     .cards-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
 }
