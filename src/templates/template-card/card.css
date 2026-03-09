@@ -63,3 +63,57 @@
     color: #aaaaaa;
     line-height: 1.4;
 }
+
+/* ========================= */
+/* TABLET (≤ 834px) */
+/* ========================= */
+
+@media (max-width: 834px) {
+
+    .card {
+        max-width: 300px;
+    }
+
+    .card-header {
+        height: 180px;
+    }
+
+    .card-content h3 {
+        font-size: 1.25rem;
+    }
+
+}
+
+/* ========================= */
+/* MOBILE (≤ 430px) */
+/* ========================= */
+
+@media (max-width: 430px) {
+
+    .card {
+        max-width: 100%;
+    }
+
+    .card-header {
+        height: 160px;
+        padding: 10px;
+    }
+
+    .badge {
+        font-size: 0.7rem;
+        padding: 4px 10px;
+    }
+
+    .card-content {
+        padding: 16px;
+    }
+
+    .card-content h3 {
+        font-size: 1.1rem;
+    }
+
+    .card-content p {
+        font-size: 0.9rem;
+    }
+
+}

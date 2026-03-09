@@ -46,3 +46,52 @@
 .sports-selection nav ul li a.active {
     border-bottom: 3px solid #00ff88;
 }
+
+@media (max-width: 834px) {
+
+    .sports-selection img {
+        height: 200px;
+    }
+
+    .sports-selection nav ul {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .sports-selection nav ul li {
+        margin-right: 20px;
+    }
+
+    .sports-selection nav ul li a {
+        font-size: 0.85rem;
+        padding: 16px 0;
+    }
+
+}
+
+@media (max-width: 430px) {
+
+    .sports-selection img {
+        height: 160px;
+    }
+
+    .sports-selection nav {
+        overflow-x: auto;
+    }
+
+    .sports-selection nav ul {
+        flex-wrap: nowrap;
+        padding: 0 10px;
+    }
+
+    .sports-selection nav ul li {
+        margin-right: 18px;
+        flex-shrink: 0;
+    }
+
+    .sports-selection nav ul li a {
+        font-size: 0.8rem;
+        padding: 14px 0;
+    }
+
+}
