@@ -36,3 +36,19 @@ footer {
 .footer-links a:hover {
     color: #00ffaa;
 }
+
+/* Responsive */
+/* Tablet */
+@media (max-width: 835px) {
+    .footer-links {
+        gap: 0.2rem;
+    }
+    .footer-links a {
+        font-size: 0.7rem;
+    }
+}
+
+/* Movíl */
+@media (max-width: 431px) {
+
+}
