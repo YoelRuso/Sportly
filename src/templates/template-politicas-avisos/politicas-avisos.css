@@ -9,15 +9,19 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #121212;
-    height: 100vh;
-    overflow: hidden;
 }
 
 /* CONTENEDOR GENERAL */
 .legal-container {
     display: flex;
+    flex-direction: row;
     width: 100%;
     height: 100vh;
+}
+
+/* BOTÓN DE MENÚ */
+.menuButton {
+    display: none;
 }
 
 /* SIDEBAR */
@@ -25,7 +29,7 @@ body {
     width: 280px;
     background-color: #1e1e1e;
     padding: 50px 30px;
-    border-right: 2px solid #00ffaa;
+    border-right: 2px solid #00ca86;
 }
 
 .sidebar h2 {
@@ -94,4 +98,52 @@ body {
 .legal-content::-webkit-scrollbar-thumb {
     background-color: #00ffaa;
     border-radius: 10px;
+}
+
+/* ========================= */
+/* TABLET ≤ 834px */
+/* ========================= */
+@media (max-width: 834px) {
+    .sidebar {
+        width: 174px;
+        padding: 50px 30px;
+    }
+    .sidebar h2 {
+        font-size: 27px;
+        margin-bottom: 25px;
+    }
+}
+
+/* ========================= */
+/* MOBILE ≤ 430px */
+/* ========================= */
+@media (max-width: 430px) {
+    .menuButton {
+        display: flex;
+        position: absolute;
+        left: 10px;
+        top: 70px;
+        width: 30px;
+        height: 30px;
+    }
+    .sidebar {
+        position: fixed;
+        top: 54px;
+        left: 0;
+        bottom: 0;        /* makes it full height */
+        width: 174px;
+        padding: 50px 30px;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+    .sidebar.active {
+        transform: translateX(0);
+    }
+    .sidebar h2 {
+        font-size: 27px;
+        margin-bottom: 25px;
+    }
+    .legal-content {
+        padding: 40px;
+    }
 }
