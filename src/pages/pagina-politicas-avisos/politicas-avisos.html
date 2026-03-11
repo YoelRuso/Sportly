@@ -10,7 +10,7 @@
 
   <link rel="stylesheet" href="../../../public/style.css">
   <link rel="stylesheet" href="../../templates/template-politicas-avisos/politicas-avisos.css">
-  <script src="../../xlu-include-file.js"></script>
+  <script src="../../app.js"></script>
 </head>
 
 <body>
@@ -22,7 +22,7 @@
   <div xlu-include-file="../../templates/template-footer/footer.html"></div>
 
   <script>
-    xLuIncludeFile();
+    document.addEventListener('DOMContentLoaded', initPage);
     function toggleNavBar() {
      legalSidebar = document.getElementById("legalSidebar");
      legalSidebar.classList.toggle("active");

@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "json-server": "^0.17.4",
     "prettier": "^3.3.1",
     "vite": "^5.1.6"
   }
