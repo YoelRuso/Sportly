@@ -13,6 +13,8 @@ const JSON_SERVER_BASE = 'http://localhost:3000';
 
 let activeSport = 'all';
 
+const MAX_DISPLAY_CARDS = 6;
+
 // ─── Template Loader ────────────────────────────────────────────────
 
 /**
@@ -203,8 +205,7 @@ function renderCards(events, container) {
     return;
   }
 
-  const MAX_CARDS = 6;
-  const slice = events.slice(0, MAX_CARDS);
+  const slice = events.slice(0, MAX_DISPLAY_CARDS);
 
   slice.forEach((event) => {
     const { badge, title, description, image } = renderSportData(event.strSport, event);
@@ -240,8 +241,7 @@ function renderResumenCards(events, container) {
     return;
   }
 
-  const MAX_CARDS = 6;
-  const slice = events.slice(0, MAX_CARDS);
+  const slice = events.slice(0, MAX_DISPLAY_CARDS);
 
   slice.forEach((event) => {
     const { badge, title, description, date, image } = renderSportData(event.strSport, event);
