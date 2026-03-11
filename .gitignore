@@ -1,3 +1,4 @@
 node_modules
 package-lock.json
 node_modules/.vite/deps/_metadata.json
+dist
