@@ -14,15 +14,15 @@
 </head>
 
 <body>
-  <div xlu-include-file="../../templates/template-header/header.html"></div>
+  <div id="header"></div>
 
-  <main xlu-include-file="../../templates/template-politicas-avisos/main-politicas-avisos.html">
+  <main id="main-content">
   </main>
 
-  <div xlu-include-file="../../templates/template-footer/footer.html"></div>
+  <div id="footer"></div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', initPage);
+    document.addEventListener('DOMContentLoaded', initPoliticas);
     function toggleNavBar() {
      legalSidebar = document.getElementById("legalSidebar");
      legalSidebar.classList.toggle("active");

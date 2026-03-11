@@ -11,8 +11,7 @@
 </head>
 <body style="background-color: #0f0f0f;">
 
-<div xlu-include-file="../../templates/template-header/header.html"></div>
-
+<div id="header"></div>
 
 <main class="calendar-wrapper">
   <header class="calendar-header-section">
@@ -51,11 +50,11 @@
   <div id="info" class="calendar-info-box"></div>
 </main>
 
-<footer xlu-include-file="../../templates/template-footer/footer.html"></footer>
+<footer id="footer"></footer>
 
 <script src="calendario.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', initPage);
+    document.addEventListener('DOMContentLoaded', initCalendario);
 </script>
 </body>
 </html>

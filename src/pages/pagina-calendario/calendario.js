@@ -111,8 +111,8 @@ function showInfo(dia) {
 
 /**
  * INICIALIZACIÓN SEGURA:
- * Dado que usas 'xlu-include-file.js', esperamos a que el DOM esté listo
- * y reintentamos si la tabla aún no ha sido inyectada.
+ * Esperamos a que el DOM esté listo y reintentamos si la tabla
+ * aún no ha sido inyectada por el sistema de componentes.
  */
 function inicializarCuandoEsteListo() {
   const tabla = document.getElementById('calendar');
