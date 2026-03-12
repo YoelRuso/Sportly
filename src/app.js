@@ -181,7 +181,7 @@ function eventImage(event) {
     event.strPoster ||
     event.strBanner ||
     event.strSquare ||
-    '../../../public/images/vienna-reyes-qCrKTET_09o-unsplash.jpg'
+    '../../../public/images/tenis.png'
   );
 }
 
