@@ -12,7 +12,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh; /* mejor que height para móvil */
+    padding: 20px;
 }
 
 /* Contenedor */
@@ -85,4 +86,61 @@ body {
 .contact-item:hover a,
 .contact-item:hover span {
     color: #121212;
+}
+
+/* ========================= */
+/* TABLET ≤ 834px */
+/* ========================= */
+
+@media (max-width: 834px) {
+
+    .contact-box {
+        width: 80%;
+        padding: 35px;
+    }
+
+    .contact-box h1 {
+        font-size: 26px;
+    }
+
+    .contact-box p {
+        font-size: 15px;
+    }
+
+}
+
+/* ========================= */
+/* MOBILE ≤ 430px */
+/* ========================= */
+
+@media (max-width: 430px) {
+
+    body {
+        align-items: flex-start;
+        padding-top: 40px;
+    }
+
+    .contact-box {
+        width: 95%;
+        padding: 25px;
+    }
+
+    .contact-box h1 {
+        font-size: 22px;
+    }
+
+    .contact-box p {
+        font-size: 14px;
+        margin-bottom: 25px;
+    }
+
+    .contact-item {
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .contact-item i {
+        font-size: 16px;
+    }
+
 }
