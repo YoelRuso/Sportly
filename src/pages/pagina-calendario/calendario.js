@@ -5,7 +5,7 @@
 let partidos = {};
 
 // Fecha objetivo: Febrero 2026
-const MES_OBJETIVO = 1; // Febrero (0-11)
+const MES_OBJETIVO = 1; // 1 = Febrero (0=Enero, 1=Febrero, ...)
 const ANIO_OBJETIVO = 2026;
 const HOY = new Date();
 
