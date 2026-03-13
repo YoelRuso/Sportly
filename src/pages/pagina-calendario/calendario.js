@@ -1,18 +1,51 @@
 /**
  * Configuración y Datos de MatchAlert
+ * Carga los eventos desde json-server (db.json)
  */
-const partidos = {
-  1: ['Partido vs Madrid 18:00', 'Partido vs Barça 20:30'],
-  3: ['Partido vs Sevilla 19:00'],
-  5: ['Partido vs Valencia 21:00'],
-  14: ['Derbi local 12:00'],
-  28: ['Final de Mes'],
-};
+let partidos = {};
 
 // Fecha objetivo: Febrero 2026
 const MES_OBJETIVO = 1; // Febrero (0-11)
 const ANIO_OBJETIVO = 2026;
 const HOY = new Date();
+
+/**
+ * Carga todos los eventos deportivos desde json-server y los agrupa por día del mes objetivo.
+ */
+async function cargarEventosDelMes() {
+  const sports = ['soccer', 'basket', 'tenis', 'f1'];
+  const allEvents = [];
+
+  for (const sport of sports) {
+    try {
+      const response = await fetch(`${JSON_SERVER_BASE}/${sport}`);
+      if (response.ok) {
+        const data = await response.json();
+        allEvents.push(...data);
+      }
+    } catch (error) {
+      console.error(`Error fetching ${sport} for calendar:`, error);
+    }
+  }
+
+  // Filtrar eventos del mes/año objetivo y agrupar por día
+  const eventosDelMes = {};
+  allEvents.forEach((event) => {
+    if (!event.dateEvent) return;
+    const date = new Date(event.dateEvent);
+    if (date.getMonth() === MES_OBJETIVO && date.getFullYear() === ANIO_OBJETIVO) {
+      const dia = date.getDate();
+      if (!eventosDelMes[dia]) eventosDelMes[dia] = [];
+
+      const config = getSportConfig(event.strSport);
+      const titulo = config.title(event);
+      const hora = event.strTime ? event.strTime.substring(0, 5) : '';
+      eventosDelMes[dia].push(hora ? `${titulo} ${hora}` : titulo);
+    }
+  });
+
+  return eventosDelMes;
+}
 
 /**
  * Función que construye la cuadrícula del calendario
@@ -108,20 +141,3 @@ function showInfo(dia) {
     infoBox.textContent = `No hay eventos programados para el día ${dia}.`;
   }
 }
-
-/**
- * INICIALIZACIÓN SEGURA:
- * Dado que usas 'xlu-include-file.js', esperamos a que el DOM esté listo
- * y reintentamos si la tabla aún no ha sido inyectada.
- */
-function inicializarCuandoEsteListo() {
-  const tabla = document.getElementById('calendar');
-  if (tabla) {
-    generarCalendario();
-  } else {
-    // Reintentar en 50ms si la inyección aún no ha terminado
-    setTimeout(inicializarCuandoEsteListo, 50);
-  }
-}
-
-document.addEventListener('DOMContentLoaded', inicializarCuandoEsteListo);

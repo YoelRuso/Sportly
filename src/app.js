@@ -448,6 +448,10 @@ async function initCalendario() {
     renderComponent('../../templates/template-header/header.html', 'header'),
     renderComponent('../../templates/template-footer/footer.html', 'footer'),
   ]);
+
+  // Cargar eventos desde json-server y generar el calendario
+  partidos = await cargarEventosDelMes();
+  generarCalendario();
 }
 
 async function initLeermas() {

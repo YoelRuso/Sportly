@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calendario - MatchAlert</title>
 
-  <script src="../../xlu-include-file.js"></script>
   <link rel="stylesheet" href="../../../public/style.css">
   <link rel="stylesheet" href="calendario.css">
 </head>
 <body style="background-color: #0f0f0f;">
 
-<div xlu-include-file="../../templates/template-header/header.html"></div>
+<!-- Header inyectado por app.js → renderComponent(..., 'header') -->
+<div id="header"></div>
 
 
 <main class="calendar-wrapper">
@@ -51,11 +51,13 @@
   <div id="info" class="calendar-info-box"></div>
 </main>
 
-<footer xlu-include-file="../../templates/template-footer/footer.html"></footer>
+<!-- Footer inyectado por app.js → renderComponent(..., 'footer') -->
+<div id="footer"></div>
 
+<script src="../../app.js"></script>
 <script src="calendario.js"></script>
 <script>
-    xLuIncludeFile();
+    initCalendario();
 </script>
 </body>
 </html>
