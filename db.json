@@ -107198,5 +107198,110 @@
       "role": "admin",
       "pass": "1234"
     }
-  ]
+  ],
+
+  "news-soccer": [
+      {
+        "id": 1,
+        "title": "Almeyda: 'Si cada cohete vale 50 millones, ¿por qué no se llevan a África en arroz y educación?'",
+        "author": "JOSÉ GORDILLO",
+        "description": "El argentino reflexionó sobre el espejo social del fútbol y la pérdida de cercanía entre las personas.",
+        "url": "https://www.marca.com/futbol/sevilla/2026/03/13/almeyda-cohete-vale-50-millones-llevan-africa-arroz-educacion.html",
+        "image": "https://objetos-xlk.estaticos-marca.com/files/article_main_microformat/uploads/2026/03/13/69b40fdaa9e7a.jpeg"
+      },
+      {
+        "id": 2,
+        "title": "El Tottenham suma más bajas: 'Cuti' Romero y Palhinha, fuera ante el Liverpool",
+        "author": "CÉSAR DÍAZ",
+        "description": "No estarán disponibles tras un choque de cabezas en el partido de Champions contra el Atleti.",
+        "url": "https://www.marca.com/futbol/premier-league/2026/03/13/tottenham-suma-bajas-cuti-romero-palhinha-fuera-liverpool.html",
+        "image": "https://objetos-xlk.estaticos-marca.com/files/article_main_microformat/uploads/2026/03/13/69b426218af5a.jpeg"
+      },
+      {
+        "id": 3,
+        "title": "Guardiola: 'No se han apostado muchos dólares a que remontaremos... ya lo veremos'",
+        "author": "ALBERTO RUBIO",
+        "description": "El técnico del Manchester City se muestra convencido de sus opciones de eliminar al Madrid.",
+        "url": "https://www.marca.com/futbol/premier-league/2026/03/13/guardiola-han-apostado-dolares-remontaremos-veremos.html",
+        "image": "https://objetos-xlk.estaticos-marca.com/files/article_main_microformat/uploads/2026/03/13/69b40a449cc4c.jpeg"
+      }
+    ],
+    "news-basket": [
+      {
+        "id": 1,
+        "title": "Shai hace historia y supera a Wilt Chamberlain",
+        "author": "ÁLVARO BLANCO",
+        "description": "El canadiense logra anotar 20 o más puntos en 127 partidos consecutivos, superando la marca histórica.",
+        "url": "https://www.marca.com/baloncesto/nba/2026/03/13/shai-historia-supera-wilt-chamberlain.html",
+        "image": "https://objetos-xlk.estaticos-marca.com/files/article_main_microformat/uploads/2026/03/13/69b3bc86c8a22.jpeg"
+      },
+      {
+        "id": 2,
+        "title": "Devoción por Adebayo en Miami: sus artículos se revalorizan",
+        "author": "EFE",
+        "description": "Los 83 puntos anotados ante los Wizards han hecho que la ciudad se vuelque con el jugador de los Heat.",
+        "url": "https://www.marca.com/baloncesto/nba/2026/03/13/devocion-adebayo-miami-articulos-revalorizan.html",
+        "image": "https://objetos-xlk.estaticos-marca.com/files/article_main_microformat/uploads/2026/03/12/69b269e66007e.jpeg"
+      },
+      {
+        "id": 3,
+        "title": "Luka Doncic's 51-point explosion leads Lakers",
+        "author": "marca.com",
+        "description": "Luka Doncic is at an impressive level as the postseason looming, leading the Lakers with a spectacular shooting display.",
+        "url": "https://www.marca.com/en/basketball/nba/los-angeles-lakers/2026/03/13/69b3da0c46163f457c8b4593.html",
+        "image": "https://phantom.estaticos-marca.com/f5ad282f0ecc18b1969f641c2eab7127/resize/1200/f/webp/assets/multimedia/imagenes/2026/03/13/17733947074870.jpg"
+      }
+    ],
+    "news-f1": [
+      {
+        "id": 1,
+        "title": "La minipole no cambia la F1: Russell aplasta, Sainz y Alonso no salen del pozo",
+        "author": "EUGENIO MUÑOZ",
+        "description": "El británico firma la primera posición de la clasificación del sprint en China; Mercedes parece inalcanzable.",
+        "url": "https://www.marca.com/motor/formula1/gp-china/2026/03/13/minipole-cambia-f1-russell-aplasta-sainz-alonso-salen-pozo.html",
+        "image": "https://objetos-xlk.estaticos-marca.com/files/article_main_microformat/uploads/2026/03/13/69b3c906c3e60.jpeg"
+      },
+      {
+        "id": 2,
+        "title": "Alonso: 'Estamos a tres décimas de Williams y en Australia eran ocho'",
+        "author": "MARCO CANSECO",
+        "description": "El asturiano valora positivamente haberse acercado a sus rivales inmediatos en el inicio de 2026.",
+        "url": "https://www.marca.com/motor/formula1/gp-china/2026/03/13/alonso-tres-decimas-williams-australia-ocho.html",
+        "image": "https://objetos-xlk.estaticos-marca.com/files/article_main_microformat/uploads/2026/03/13/69b3d382b58ec.jpeg"
+      },
+      {
+        "id": 3,
+        "title": "La cancelación de los GP de Bahréin y Arabia de F1 es inminente",
+        "author": "MARCO CANSECO",
+        "description": "La situación peligrosa por la guerra en Irán podría forzar la suspensión de las próximas carreras.",
+        "url": "https://www.marca.com/motor/formula1/gp-china/2026/03/13/cancelacion-gp-bahrein-arabia-f1-inminente.html",
+        "image": "https://objetos-xlk.estaticos-marca.com/files/article_main_microformat/uploads/2026/03/13/69b414e66be94.jpeg"
+      }
+    ],
+    "news-tenis": [
+      {
+        "id": 1,
+        "title": "Alcaraz se viste de abeja en Indian Wells: 'Tuve que hacerlo por ellos'",
+        "author": "ANDRÉS GARCÍA",
+        "description": "El murciano aceptó el desafío de los aficionados tras el incidente del enjambre de 2024.",
+        "url": "https://www.marca.com/tenis/indian-wells/2026/03/13/alcaraz-viste-abeja-indian-wells-tuve-hacerlo.html",
+        "image": "https://objetos-xlk.estaticos-marca.com/files/article_main_microformat/uploads/2026/03/13/69b3d72e31946.jpeg"
+      },
+      {
+        "id": 2,
+        "title": "Sinner y su rendimiento en el calor de Indian Wells",
+        "author": "ANDRÉS GARCÍA",
+        "description": "El italiano eleva su racha de sets ganados consecutivamente tras arrollar a Tien bajo el sol de California.",
+        "url": "https://www.marca.com/tenis/indian-wells/2026/03/13/sinner-rendimiento-calor-indian-wells-me-ayudado-competir-asi.html",
+        "image": "https://objetos-xlk.estaticos-marca.com/files/article_main_microformat/uploads/2026/03/13/69b407dbed754.jpeg"
+      },
+      {
+        "id": 3,
+        "title": "La reconstrucción de Paula Badosa: 'Me acostumbré a tener mucho drama'",
+        "author": "ENRIQUE CORBELLA",
+        "description": "La tenista española muestra su lado más personal mientras intenta volver a la élite del tenis.",
+        "url": "https://www.marca.com/tenis/2026/03/13/reconstruccion-paula-badosa-me-acostumbre-drama-mi-alrededor.html",
+        "image": "https://objetos-xlk.estaticos-marca.com/files/article_main_microformat/uploads/2026/03/13/69b3956f8eb36.jpeg"
+      }
+    ]
 }
