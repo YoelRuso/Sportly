@@ -1,48 +1,99 @@
 /**
- * Configuración y Datos de MatchAlert
+ * calendario.js — Sportly Calendar Module
+ *
+ * Fetches sport events from the json-server and renders them
+ * dynamically on the calendar grid.
  */
-const partidos = {
-  1: ['Partido vs Madrid 18:00', 'Partido vs Barça 20:30'],
-  3: ['Partido vs Sevilla 19:00'],
-  5: ['Partido vs Valencia 21:00'],
-  14: ['Derbi local 12:00'],
-  28: ['Final de Mes'],
-};
 
-// Fecha objetivo: Febrero 2026
-const MES_OBJETIVO = 1; // Febrero (0-11)
-const ANIO_OBJETIVO = 2026;
-const HOY = new Date();
+const JSON_SERVER_BASE_CAL = 'http://localhost:3000';
+const MESES_ES = [
+  'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+  'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
+];
+
+// Current displayed month/year (start at February 2026)
+let mesActual = 1;   // 0-indexed (1 = Febrero)
+let anioActual = 2026;
+
+// Events indexed by "YYYY-MM-DD" → array of event labels
+let eventosPorFecha = {};
 
 /**
- * Función que construye la cuadrícula del calendario
+ * Fetches all sport events from json-server and indexes them by date.
+ */
+async function cargarEventos() {
+  const sports = ['soccer', 'basket', 'tenis', 'f1'];
+  try {
+    const results = await Promise.all(
+      sports.map((s) =>
+        fetch(`${JSON_SERVER_BASE_CAL}/${s}`)
+          .then((r) => (r.ok ? r.json() : []))
+          .catch(() => []),
+      ),
+    );
+    eventosPorFecha = {};
+    results.flat().forEach((event) => {
+      const fecha = event.dateEvent;
+      if (!fecha) return;
+      const label =
+        event.strEvent ||
+        (event.strHomeTeam && event.strAwayTeam
+          ? `${event.strHomeTeam} vs ${event.strAwayTeam}`
+          : null) ||
+        'Evento deportivo';
+      const sport = (event.strSport || '').toLowerCase();
+      const sportLabel =
+        sport === 'soccer'
+          ? '⚽'
+          : sport === 'basketball'
+          ? '🏀'
+          : sport === 'tennis'
+          ? '🎾'
+          : sport === 'motorsport'
+          ? '🏎️'
+          : '🏅';
+      if (!eventosPorFecha[fecha]) eventosPorFecha[fecha] = [];
+      eventosPorFecha[fecha].push({ label, sportLabel, event });
+    });
+  } catch (error) {
+    console.error('Error cargando eventos del calendario:', error);
+  }
+}
+
+/**
+ * Updates the month/year display in the header.
+ */
+function actualizarDisplay() {
+  const monthEl = document.getElementById('month-display');
+  const yearEl = document.getElementById('year-display');
+  if (monthEl) monthEl.textContent = MESES_ES[mesActual];
+  if (yearEl) yearEl.textContent = String(anioActual);
+}
+
+/**
+ * Builds the calendar grid for the current month/year using fetched events.
  */
 function generarCalendario() {
   const tbody = document.querySelector('#calendar tbody');
   if (!tbody) return;
 
-  tbody.innerHTML = ''; // Limpiar cualquier residuo
+  tbody.innerHTML = '';
 
-  // Calcular días del mes y el desfase inicial
-  const diasEnMes = new Date(ANIO_OBJETIVO, MES_OBJETIVO + 1, 0).getDate();
-  const primerDiaSemana = new Date(ANIO_OBJETIVO, MES_OBJETIVO, 1).getDay();
-
-  // Ajuste para que la semana empiece en Lunes (0) en vez de Domingo (6)
+  const HOY = new Date();
+  const diasEnMes = new Date(anioActual, mesActual + 1, 0).getDate();
+  const primerDiaSemana = new Date(anioActual, mesActual, 1).getDay();
   const offset = primerDiaSemana === 0 ? 6 : primerDiaSemana - 1;
 
   let diaActual = 1;
   let fila = document.createElement('tr');
 
-  // 1. Celdas vacías iniciales
   for (let i = 0; i < offset; i++) {
     const tdVacio = document.createElement('td');
     tdVacio.classList.add('empty-cell');
     fila.appendChild(tdVacio);
   }
 
-  // 2. Creación de días (máximo 42 celdas para cubrir todas las variantes de meses)
   for (let i = offset; i < 42; i++) {
-    // Si la fila está llena (7 días), añadirla al cuerpo y crear una nueva
     if (i % 7 === 0 && i !== 0) {
       tbody.appendChild(fila);
       fila = document.createElement('tr');
@@ -51,77 +102,98 @@ function generarCalendario() {
     const td = document.createElement('td');
 
     if (diaActual <= diasEnMes) {
-      // Estructura compatible con tu CSS (day-number y matches)
+      const fechaStr = `${anioActual}-${String(mesActual + 1).padStart(2, '0')}-${String(diaActual).padStart(2, '0')}`;
+      const eventosDelDia = eventosPorFecha[fechaStr] || [];
+
       td.innerHTML = `
         <div class="day-number">${diaActual}</div>
         <div class="matches"></div>
       `;
 
-      // Inyectar partidos si existen
       const containerPartidos = td.querySelector('.matches');
-      if (partidos[diaActual]) {
-        partidos[diaActual].forEach((texto) => {
-          const divPartido = document.createElement('div');
-          divPartido.textContent = texto;
-          containerPartidos.appendChild(divPartido);
-        });
+      const MAX_VISIBLE = 2;
+      eventosDelDia.slice(0, MAX_VISIBLE).forEach(({ label, sportLabel }) => {
+        const divPartido = document.createElement('div');
+        divPartido.textContent = `${sportLabel} ${label}`;
+        containerPartidos.appendChild(divPartido);
+      });
+      if (eventosDelDia.length > MAX_VISIBLE) {
+        const more = document.createElement('div');
+        more.className = 'matches-more';
+        more.textContent = `+${eventosDelDia.length - MAX_VISIBLE} más`;
+        containerPartidos.appendChild(more);
       }
 
-      // Resaltar día de hoy (solo si coincide mes/año real)
       if (
         diaActual === HOY.getDate() &&
-        MES_OBJETIVO === HOY.getMonth() &&
-        ANIO_OBJETIVO === HOY.getFullYear()
+        mesActual === HOY.getMonth() &&
+        anioActual === HOY.getFullYear()
       ) {
         td.classList.add('today');
       }
 
-      // Evento de clic para información
       const d = diaActual;
-      td.onclick = () => showInfo(d);
+      const fecha = fechaStr;
+      td.onclick = () => showInfo(d, fecha);
 
       diaActual++;
     } else {
-      // Celdas vacías al final para mantener la estética de la tabla
       td.classList.add('empty-cell');
     }
 
     fila.appendChild(td);
 
-    // Salir del bucle si ya no hay más días y terminamos la fila
     if (diaActual > diasEnMes && (i + 1) % 7 === 0) break;
   }
 
   tbody.appendChild(fila);
+  actualizarDisplay();
 }
 
 /**
- * Muestra información detallada al hacer clic
+ * Shows event details when a day is clicked.
  */
-function showInfo(dia) {
+function showInfo(dia, fechaStr) {
   const infoBox = document.getElementById('info');
   if (!infoBox) return;
 
-  if (partidos[dia]) {
-    infoBox.innerHTML = `Eventos para el ${dia} de Febrero: ${partidos[dia].join(' | ')}`;
+  const eventos = eventosPorFecha[fechaStr] || [];
+  if (eventos.length > 0) {
+    infoBox.innerHTML =
+      `<strong>Eventos para el ${dia} de ${MESES_ES[mesActual]}:</strong><br>` +
+      eventos.map(({ sportLabel, label }) => `${sportLabel} ${label}`).join('<br>');
   } else {
     infoBox.textContent = `No hay eventos programados para el día ${dia}.`;
   }
 }
 
 /**
- * INICIALIZACIÓN SEGURA:
- * Dado que usas 'xlu-include-file.js', esperamos a que el DOM esté listo
- * y reintentamos si la tabla aún no ha sido inyectada.
+ * Sets up prev/next navigation for month and year.
  */
-function inicializarCuandoEsteListo() {
-  const tabla = document.getElementById('calendar');
-  if (tabla) {
+function setupNavegacion() {
+  document.getElementById('prev-month')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    mesActual--;
+    if (mesActual < 0) { mesActual = 11; anioActual--; }
     generarCalendario();
-  } else {
-    // Reintentar en 50ms si la inyección aún no ha terminado
-    setTimeout(inicializarCuandoEsteListo, 50);
-  }
-}
+  });
 
-document.addEventListener('DOMContentLoaded', inicializarCuandoEsteListo);
+  document.getElementById('next-month')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    mesActual++;
+    if (mesActual > 11) { mesActual = 0; anioActual++; }
+    generarCalendario();
+  });
+
+  document.getElementById('prev-year')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    anioActual--;
+    generarCalendario();
+  });
+
+  document.getElementById('next-year')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    anioActual++;
+    generarCalendario();
+  });
+}

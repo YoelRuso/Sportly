@@ -123,7 +123,21 @@
     background: #333333;
 }
 
-/* 5. Resaltar hoy (Sin amarillo brillante) */
+/* "+N más" overflow badge */
+.matches-more {
+    background: #1a1a2e;
+    color: #00ff88;
+    padding: 3px 8px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    text-align: center;
+    border-left: 3px solid #00ff88;
+    opacity: 0.85;
+}
+
+
 .today {
     background-color: #1a1a1a !important;
     border: 2px solid #00ff88 !important; /* Borde neón para resaltar */
