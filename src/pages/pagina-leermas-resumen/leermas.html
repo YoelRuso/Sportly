@@ -7,19 +7,20 @@
 
   <link rel="stylesheet" href="../../../public/style.css">
   <link rel="stylesheet" href="leermas.css">
-
-  <script src="../../xlu-include-file.js"></script>
 </head>
 
 <body class="news-page-body">
 
-<div xlu-include-file="../../templates/template-header/header.html"></div>
+<!-- Header inyectado por app.js → renderComponent(..., 'header') -->
+<div id="header"></div>
 
-<main xlu-include-file="../../templates/template-main-leermas/main-leermas.html">
-</main>
+<!-- Contenido principal inyectado por app.js → renderComponent(..., 'main-content') -->
+<div id="main-content"></div>
 
-<div xlu-include-file="../../templates/template-footer/footer.html"></div>
+<!-- Footer inyectado por app.js → renderComponent(..., 'footer') -->
+<div id="footer"></div>
 
-<script>xLuIncludeFile();</script>
+<script src="../../app.js"></script>
+<script>initLeermas();</script>
 </body>
 </html>
