@@ -111,11 +111,18 @@ function generarCalendario() {
       `;
 
       const containerPartidos = td.querySelector('.matches');
-      eventosDelDia.forEach(({ label, sportLabel }) => {
+      const MAX_VISIBLE = 2;
+      eventosDelDia.slice(0, MAX_VISIBLE).forEach(({ label, sportLabel }) => {
         const divPartido = document.createElement('div');
         divPartido.textContent = `${sportLabel} ${label}`;
         containerPartidos.appendChild(divPartido);
       });
+      if (eventosDelDia.length > MAX_VISIBLE) {
+        const more = document.createElement('div');
+        more.className = 'matches-more';
+        more.textContent = `+${eventosDelDia.length - MAX_VISIBLE} más`;
+        containerPartidos.appendChild(more);
+      }
 
       if (
         diaActual === HOY.getDate() &&

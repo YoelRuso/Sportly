@@ -228,32 +228,27 @@ function renderCards(events, container) {
   });
 }
 
-function renderResumenCards(events, container) {
+function renderNewsCards(articles, container) {
   container.innerHTML = '';
-  if (events.length === 0) {
+  if (articles.length === 0) {
     container.innerHTML =
-      '<p style="color:#aaa;text-align:center;grid-column:1/-1;">No hay eventos disponibles.</p>';
+      '<p style="color:#aaa;text-align:center;grid-column:1/-1;">No hay noticias disponibles.</p>';
     return;
   }
-  events.forEach((event) => {
-    const { badge, title, description, date, image } = renderSportData(
-      event.strSport,
-      event,
-    );
+  articles.forEach((article) => {
     const section = document.createElement('section');
     section.className = 'card-item';
     section.innerHTML = `
       <div class="news-card">
-        <div class="news-image-container" style="background-image: url('${image}');">
+        <div class="news-image-container" style="background-image: url('${article.image || ''}');">
           <div class="news-overlay">
-            <span class="news-category">${badge}</span>
-            <span class="news-date">${date}</span>
+            <span class="news-category">${article.author || ''}</span>
           </div>
         </div>
         <div class="news-body">
-          <h2 class="news-title">${title}</h2>
-          <p class="news-excerpt">${description}</p>
-          <a href="../../pages/pagina-leermas-resumen/leermas.html" class="news-read-more">Leer más &rarr;</a>
+          <h2 class="news-title">${article.title || ''}</h2>
+          <p class="news-excerpt">${article.description || ''}</p>
+          <a href="${article.url || '#'}" target="_blank" rel="noopener noreferrer" class="news-read-more">Leer más &rarr;</a>
         </div>
       </div>`;
     container.appendChild(section);
@@ -366,6 +361,15 @@ const SPORT_MAP = {
   F1: 'f1',
 };
 
+// Maps navbar tab labels to news endpoints
+const NEWS_SPORT_MAP = {
+  Todos: 'all',
+  Fútbol: 'news-soccer',
+  Baloncesto: 'news-basket',
+  Tennis: 'news-tenis',
+  F1: 'news-f1',
+};
+
 /**
  * Central state handler with pagination support.
  */
@@ -408,6 +412,143 @@ function setupSportsNav(renderFn, container) {
   });
 }
 
+// ─── News Fetching ──────────────────────────────────────────────────
+
+/**
+ * Fetches all articles from one news endpoint (unpaginated).
+ */
+async function fetchNewsData(endpoint) {
+  try {
+    const response = await fetch(`${JSON_SERVER_BASE}/${endpoint}`);
+    if (!response.ok) throw new Error(`HTTP ${response.status} for ${endpoint}`);
+    return await response.json();
+  } catch (error) {
+    console.error(`Error fetching ${endpoint}:`, error);
+    return [];
+  }
+}
+
+/**
+ * Fetches all news endpoints combined and paginates manually.
+ */
+async function fetchAllNewsPaged(page = 1, perPage = 9) {
+  const endpoints = ['news-soccer', 'news-basket', 'news-tenis', 'news-f1'];
+  try {
+    const results = await Promise.all(endpoints.map((ep) => fetchNewsData(ep)));
+    const all = results.flat();
+    const totalItems = all.length;
+    const totalPages = Math.ceil(totalItems / perPage) || 1;
+    const start = (page - 1) * perPage;
+    return { data: all.slice(start, start + perPage), pages: totalPages, items: totalItems };
+  } catch (error) {
+    console.error('Error fetching all news:', error);
+    return { data: [], pages: 1, items: 0 };
+  }
+}
+
+/**
+ * Fetches a paginated page from a single news endpoint.
+ */
+async function fetchNewsPaged(endpoint, page = 1, perPage = 9) {
+  try {
+    const all = await fetchNewsData(endpoint);
+    const totalItems = all.length;
+    const totalPages = Math.ceil(totalItems / perPage) || 1;
+    const start = (page - 1) * perPage;
+    return { data: all.slice(start, start + perPage), pages: totalPages, items: totalItems };
+  } catch (error) {
+    console.error(`Error fetching paged ${endpoint}:`, error);
+    return { data: [], pages: 1, items: 0 };
+  }
+}
+
+// Pagination state for news (separate from sport events state)
+const newsPaginationState = {
+  currentPage: 1,
+  perPage: 9,
+  totalPages: 1,
+  currentEndpoint: 'all',
+};
+
+/**
+ * Central state handler for news tabs with pagination support.
+ */
+async function setActiveNewsSport(endpoint, container) {
+  newsPaginationState.currentPage = 1;
+  newsPaginationState.currentEndpoint = endpoint;
+  newsPaginationState.currentContainer = container;
+
+  const { data, pages } =
+    endpoint === 'all'
+      ? await fetchAllNewsPaged(1, newsPaginationState.perPage)
+      : await fetchNewsPaged(endpoint, 1, newsPaginationState.perPage);
+
+  newsPaginationState.totalPages = pages;
+  renderNewsCards(data, container);
+  renderNewsPagination(1, pages);
+}
+
+async function goToNewsPage(page) {
+  const { currentEndpoint, perPage } = newsPaginationState;
+  newsPaginationState.currentPage = page;
+  newsPaginationState.currentContainer?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  const { data, pages } =
+    currentEndpoint === 'all'
+      ? await fetchAllNewsPaged(page, perPage)
+      : await fetchNewsPaged(currentEndpoint, page, perPage);
+
+  newsPaginationState.totalPages = pages;
+  renderNewsCards(data, newsPaginationState.currentContainer);
+  renderNewsPagination(page, pages);
+}
+
+function renderNewsPagination(currentPage, totalPages) {
+  const paginationEl = document.getElementById('pagination');
+  if (!paginationEl) return;
+  paginationEl.innerHTML = '';
+  if (totalPages <= 1) return;
+
+  const createBtn = (label, page, disabled = false, active = false) => {
+    const btn = document.createElement('button');
+    btn.textContent = label;
+    const classes = ['pagination-btn'];
+    if (active) classes.push('pagination-btn--active');
+    if (disabled) classes.push('pagination-btn--disabled');
+    btn.className = classes.join(' ');
+    btn.disabled = disabled;
+    if (!disabled) btn.addEventListener('click', () => goToNewsPage(page));
+    return btn;
+  };
+
+  paginationEl.appendChild(createBtn('←', currentPage - 1, currentPage === 1));
+  for (let p = 1; p <= totalPages; p++) {
+    paginationEl.appendChild(createBtn(String(p), p, false, p === currentPage));
+  }
+  paginationEl.appendChild(createBtn('→', currentPage + 1, currentPage === totalPages));
+}
+
+function setupNewsNav(container) {
+  const nav = document.querySelector('.sports-selection nav ul');
+  if (!nav) return;
+
+  nav.addEventListener('click', async (e) => {
+    const link = e.target.closest('a');
+    if (!link) return;
+    e.preventDefault();
+
+    nav.querySelectorAll('a').forEach((a) => a.classList.remove('active'));
+    link.classList.add('active');
+
+    const label = link.textContent.trim();
+    const endpoint = NEWS_SPORT_MAP[label];
+    if (!endpoint) return;
+
+    newsPaginationState.currentContainer = container;
+    await setActiveNewsSport(endpoint, container);
+  });
+}
+
 // ─── Page Initialisers ──────────────────────────────────────────────
 async function initInicio() {
   await Promise.all([
@@ -439,8 +580,9 @@ async function initResumen() {
   const container = document.querySelector('.cards-grid');
   if (!container) return;
 
-  await setActiveSport('all', renderResumenCards, container);
-  setupSportsNav(renderResumenCards, container);
+  newsPaginationState.currentContainer = container;
+  await setActiveNewsSport('all', container);
+  setupNewsNav(container);
 }
 
 async function initCalendario() {
