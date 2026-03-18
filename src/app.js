@@ -548,7 +548,25 @@ function setupNewsNav(container) {
     await setActiveNewsSport(endpoint, container);
   });
 }
+// ─── Activate Nav Link Header ──────────────────────────────────────────────
+function setActiveNavLink() {
+  const links = document.querySelectorAll('.nav-links a');
+  const currentPath = window.location.pathname;
 
+  links.forEach(link => {
+    link.classList.remove('active');
+
+    const linkPath = link.getAttribute('href');
+
+    // Nos quedamos solo con el nombre del archivo (inicio.html, etc.)
+    const linkPage = linkPath.split('/').pop();
+    const currentPage = currentPath.split('/').pop();
+
+    if (linkPage === currentPage) {
+      link.classList.add('active');
+    }
+  });
+}
 // ─── Page Initialisers ──────────────────────────────────────────────
 async function initInicio() {
   await Promise.all([
@@ -559,7 +577,7 @@ async function initInicio() {
     ),
     renderComponent('../../templates/template-footer/footer.html', 'footer'),
   ]);
-
+  setActiveNavLink();
   const container = document.querySelector('.cards-grid');
   if (!container) return;
 
@@ -576,7 +594,7 @@ async function initResumen() {
     ),
     renderComponent('../../templates/template-footer/footer.html', 'footer'),
   ]);
-
+  setActiveNavLink();
   const container = document.querySelector('.cards-grid');
   if (!container) return;
 
@@ -590,6 +608,7 @@ async function initCalendario() {
     renderComponent('../../templates/template-header/header.html', 'header'),
     renderComponent('../../templates/template-footer/footer.html', 'footer'),
   ]);
+  setActiveNavLink();
 }
 
 async function initLeermas() {
