@@ -34,7 +34,10 @@ async function renderComponent(url, containerId) {
     const response = await fetch(url);
     if (!response.ok)
       throw new Error(`Failed to load ${url}: ${response.status}`);
+
     container.innerHTML = await response.text();
+
+    return true; // 👈 IMPORTANTE
   } catch (error) {
     console.error(`Error loading component into #${containerId}:`, error);
     container.innerHTML = `<p style="color:red;">Error loading template.</p>`;
@@ -623,12 +626,69 @@ async function initLeermas() {
 }
 
 async function initPoliticas() {
-  await Promise.all([
-    renderComponent('../../templates/template-header/header.html', 'header'),
-    renderComponent(
-      '../../templates/template-politicas-avisos/main-politicas-avisos.html',
-      'main-content',
-    ),
-    renderComponent('../../templates/template-footer/footer.html', 'footer'),
-  ]);
+  await renderComponent('../../templates/template-header/header.html', 'header');
+  await renderComponent(
+    '../../templates/template-politicas-avisos/main-politicas-avisos.html',
+    'main-content'
+  );
+
+  await renderComponent('../../templates/template-footer/footer.html', 'footer');
+
+  setActiveNavLink();
+
+  const data = await fetchLegalContent();
+
+  setupLegalNav(data);
+  renderLegalById(data, 'aviso-legal');
+}
+
+async function fetchLegalContent() {
+  try {
+    const response = await fetch(`${JSON_SERVER_BASE}/legal`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const json = await response.json();
+
+    console.log('RESPUESTA LEGAL:', json);
+
+    return Array.isArray(json) ? json : json.legal || [];
+
+  } catch (error) {
+    console.error('Error fetching legal content:', error);
+    return [];
+  }
+}
+
+function renderLegalById(data, id) {
+  const titleEl = document.getElementById('legal-title');
+  const contentEl = document.getElementById('legal-content');
+
+  const item = data.find(el => el.id === id);
+
+  if (!item) {
+    titleEl.textContent = 'Contenido no encontrado';
+    contentEl.innerHTML = '<p>Error cargando contenido.</p>';
+    return;
+  }
+
+  titleEl.textContent = item.title;
+  contentEl.innerHTML = item.content;
+}
+
+function setupLegalNav(data) {
+  const links = document.querySelectorAll('.sidebar a');
+
+  links.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      const id = link.dataset.id;
+
+      renderLegalById(data, id);
+
+      // activar link
+      links.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+    });
+  });
 }
