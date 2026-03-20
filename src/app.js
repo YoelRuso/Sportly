@@ -626,20 +626,42 @@ async function initLeermas() {
 }
 
 async function initPoliticas() {
+  // Cargar header, main y footer
   await renderComponent('../../templates/template-header/header.html', 'header');
   await renderComponent(
     '../../templates/template-politicas-avisos/main-politicas-avisos.html',
     'main-content'
   );
-
   await renderComponent('../../templates/template-footer/footer.html', 'footer');
 
   setActiveNavLink();
 
   const data = await fetchLegalContent();
 
+  // Configurar la navegación del sidebar
   setupLegalNav(data);
-  renderLegalById(data, 'aviso-legal');
+
+  // Función para actualizar el link activo según el hash
+  function highlightLegalLink(id) {
+    const links = document.querySelectorAll('.sidebar a, .footer-links a');
+    links.forEach((link) => link.classList.remove('active'));
+    const activeLink = document.querySelector(
+      `.sidebar a[data-id="${id}"], .footer-links a[href$="#${id}"]`
+    );
+    if (activeLink) activeLink.classList.add('active');
+  }
+
+  // Determinar sección inicial según el hash o 'aviso-legal' por defecto
+  const initialHash = window.location.hash.replace('#', '') || 'aviso-legal';
+  renderLegalById(data, initialHash);
+  highlightLegalLink(initialHash);
+
+  // Escuchar cambios de hash
+  window.addEventListener('hashchange', () => {
+    const newHash = window.location.hash.replace('#', '');
+    renderLegalById(data, newHash);
+    highlightLegalLink(newHash);
+  });
 }
 
 async function fetchLegalContent() {
