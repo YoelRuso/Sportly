@@ -107,3 +107,29 @@ body {
     color: #aaa;
     padding: 0 4px;
 }
+
+   /*RESPONSIVE GLOBAL FIX*/
+@media (max-width: 834px) {
+    html, body {
+        overflow-x: hidden;
+        max-width: 100%;
+    }
+
+    #wrapper2 {
+        padding: 20px 12px;
+        max-width: 100%;
+        overflow-x: hidden;
+        box-sizing: border-box;
+    }
+
+    .cards-grid {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 430px) {
+    #wrapper2 {
+        padding: 14px 8px;
+    }
+}
