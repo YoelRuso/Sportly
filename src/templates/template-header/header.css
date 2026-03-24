@@ -23,6 +23,10 @@
     width: 70px; /* un poco más pequeño */
 }
 
+.logo {
+    flex-shrink: 0;
+}
+
 /* Navegación */
 .nav-links {
     list-style: none;
@@ -92,7 +96,7 @@
     }
 
     .logo img {
-        width: 55px;
+        width: 68px;
     }
 
     .nav-links {
@@ -126,7 +130,7 @@
     }
 
     .logo img {
-        width: 30px;
+        width: 52px;
     }
 
     .nav-links {
