@@ -343,22 +343,44 @@ function renderCards(events, container) {
       event.strSport,
       event,
     );
+    const isSoccer = (event.strSport || '').toLowerCase() === 'soccer';
     const section = document.createElement('section');
     section.className = 'card-item';
     section.tabIndex = 0;
     section.setAttribute('role', 'button');
     section.setAttribute('aria-label', `Abrir detalles de ${title}`);
-    section.innerHTML = `
-      <div class="card">
-        <div class="card-header" style="background-image: url('${image}');">
-          <span class="badge">${badge}</span>
-        </div>
-        <div class="card-content">
-          <h3>${title}</h3>
-          <p class="card-date">${date || 'Fecha por confirmar'}</p>
-          <p>${description}</p>
-        </div>
-      </div>`;
+    if (isSoccer) {
+      const homeBadge = event.strHomeTeamBadge || '';
+      const awayBadge = event.strAwayTeamBadge || '';
+      section.innerHTML = `
+        <div class="card card-football">
+          <div class="card-header-logos">
+            <span class="badge badge-sport">${escapeHtml(badge)}</span>
+            <div class="logos-container">
+              ${homeBadge ? `<img src="${escapeHtml(homeBadge)}" alt="${escapeHtml(event.strHomeTeam || 'Equipo local')}" class="team-logo" />` : '<div class="team-logo-placeholder">FC</div>'}
+              <span class="vs-text">vs</span>
+              ${awayBadge ? `<img src="${escapeHtml(awayBadge)}" alt="${escapeHtml(event.strAwayTeam || 'Equipo visitante')}" class="team-logo" />` : '<div class="team-logo-placeholder">FC</div>'}
+            </div>
+          </div>
+          <div class="card-content">
+            <h3>${escapeHtml(title)}</h3>
+            <p class="card-date">${escapeHtml(date || 'Fecha por confirmar')}</p>
+            <p>${escapeHtml(description)}</p>
+          </div>
+        </div>`;
+    } else {
+      section.innerHTML = `
+        <div class="card">
+          <div class="card-header" style="background-image: url('${image}');">
+            <span class="badge">${escapeHtml(badge)}</span>
+          </div>
+          <div class="card-content">
+            <h3>${escapeHtml(title)}</h3>
+            <p class="card-date">${escapeHtml(date || 'Fecha por confirmar')}</p>
+            <p>${escapeHtml(description)}</p>
+          </div>
+        </div>`;
+    }
 
     section.addEventListener('click', () => openMatchPopup(event));
     section.addEventListener('keydown', (e) => {
