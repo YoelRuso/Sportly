@@ -117,7 +117,7 @@ const SPORT_CONFIG = {
       const away = e.intAwayScore ?? '-';
       const league = e.strLeague || '';
       const round = e.intRound ? `Jornada ${e.intRound}` : '';
-      return [league, round, `Resultado: ${home} – ${away}`]
+      return [league, round, `Resultado:\u00A0${home}-${away}`]
         .filter(Boolean)
         .join(' · ');
     },
@@ -130,7 +130,7 @@ const SPORT_CONFIG = {
       const away = e.intAwayScore ?? '-';
       const league = e.strLeague || '';
       const round = e.intRound ? `Jornada ${e.intRound}` : '';
-      return [league, round, `Resultado: ${home} – ${away}`]
+      return [league, round, `Resultado:\u00A0${home}-${away}`]
         .filter(Boolean)
         .join(' · ');
     },
