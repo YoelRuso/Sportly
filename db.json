@@ -109430,6 +109430,25 @@
       "user": "admin",
       "role": "admin",
       "pass": "1234"
+    },
+    {
+      "email": "test@mail.es",
+      "password": "qQ!1234",
+      "id": "SG9D_OMCev8"
+    }
+  ],
+  "partidas-favoritas": [
+    {
+      "userID": "SG9D_OMCev8",
+      "idEvent": "2279399"
+    },
+    {
+      "userID": "SG9D_OMCev8",
+      "idEvent": "2279596"
+    },
+    {
+      "userID": "SG9D_OMCev8",
+      "idEvent": "2279606"
     }
   ],
   "news-soccer": [

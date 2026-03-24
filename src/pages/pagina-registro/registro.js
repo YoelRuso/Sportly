@@ -138,6 +138,7 @@ form.addEventListener('submit', async function (e) {
         showError(emailError, 'Correo electrónico ya existe');
         setInvalid(email);
         valid = false;
+        console.log('Correo electrónico ya existe:', data);
       } else {
         clearError(emailError);
         setValid(email);
