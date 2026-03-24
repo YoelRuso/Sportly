@@ -202,6 +202,134 @@ function formatDate(dateStr) {
   }
 }
 
+function formatTime(event) {
+  const timeValue = event?.strTimeLocal || event?.strTime || '';
+  if (!timeValue) return '';
+  const hhmm = String(timeValue).slice(0, 5);
+  return /^\d{2}:\d{2}$/.test(hhmm) ? hhmm : String(timeValue);
+}
+
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>'"]/g, (char) => {
+    const map = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      "'": '&#39;',
+      '"': '&quot;',
+    };
+    return map[char] || char;
+  });
+}
+
+function sanitizeVideoUrl(url) {
+  if (!url) return '';
+  const trimmed = String(url).trim();
+  if (!trimmed) return '';
+  if (!/^https?:\/\//i.test(trimmed)) return '';
+  return trimmed;
+}
+
+function normalizeResult(result) {
+  if (!result) return '';
+  return String(result)
+    .replace(/<br\s*\/?>/gi, ' · ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function formatPopupDescription(event) {
+  const desc = event.strDescriptionEN || '';
+  if (desc && desc.trim()) return desc;
+  return 'Consulta todos los detalles de este evento deportivo.';
+}
+
+function removeExistingMatchPopup() {
+  const existing = document.querySelector('.match-popup-overlay');
+  if (existing) existing.remove();
+  document.body.classList.remove('popup-open');
+}
+
+function openMatchPopup(event) {
+  removeExistingMatchPopup();
+
+  const config = getSportConfig(event.strSport);
+  const title = config.title(event);
+  const badge = config.badge;
+  const image = eventImage(event);
+  const dateText = formatDate(event.dateEvent) || 'Fecha por confirmar';
+  const timeText = formatTime(event) || 'Hora por confirmar';
+  const league = event.strLeague || 'Competición no disponible';
+  const venue = event.strVenue || 'Sede por confirmar';
+  const cityCountry = [event.strCity, event.strCountry].filter(Boolean).join(', ');
+  const status = event.strStatus || 'Estado no disponible';
+  const round = event.intRound ? `Jornada/Ronda ${event.intRound}` : '';
+  const scoreKnown =
+    event.intHomeScore !== null &&
+    event.intHomeScore !== undefined &&
+    event.intAwayScore !== null &&
+    event.intAwayScore !== undefined;
+  const score = scoreKnown
+    ? `${event.intHomeScore} - ${event.intAwayScore}`
+    : event.strResult
+      ? normalizeResult(event.strResult)
+      : 'Resultado no disponible';
+  const videoUrl = sanitizeVideoUrl(event.strVideo);
+
+  const overlay = document.createElement('div');
+  overlay.className = 'match-popup-overlay';
+  overlay.innerHTML = `
+    <article class="match-popup" role="dialog" aria-modal="true" aria-label="Detalles del partido">
+      <button type="button" class="match-popup-close" aria-label="Cerrar">&times;</button>
+      <div class="match-popup-media" style="background-image:url('${escapeHtml(image)}');">
+        <span class="match-popup-badge">${escapeHtml(badge)}</span>
+      </div>
+      <div class="match-popup-content">
+        <h3>${escapeHtml(title)}</h3>
+        <p class="match-popup-desc">${escapeHtml(formatPopupDescription(event))}</p>
+        <div class="match-popup-grid">
+          <p><strong>Fecha:</strong> ${escapeHtml(dateText)}</p>
+          <p><strong>Hora:</strong> ${escapeHtml(timeText)}</p>
+          <p><strong>Competición:</strong> ${escapeHtml(league)}</p>
+          <p><strong>Estado:</strong> ${escapeHtml(status)}</p>
+          <p><strong>Marcador:</strong> ${escapeHtml(score)}</p>
+          <p><strong>Estadio/Circuito:</strong> ${escapeHtml(venue)}</p>
+          ${round ? `<p><strong>Ronda:</strong> ${escapeHtml(round)}</p>` : ''}
+          ${cityCountry ? `<p><strong>Ciudad/País:</strong> ${escapeHtml(cityCountry)}</p>` : ''}
+        </div>
+        <div class="match-popup-actions">
+          ${
+            videoUrl
+              ? `<a href="${escapeHtml(videoUrl)}" target="_blank" rel="noopener noreferrer" class="match-popup-link">Ver mejores jugadas</a>`
+              : '<span class="match-popup-link disabled">Sin video destacado</span>'
+          }
+        </div>
+      </div>
+    </article>
+  `;
+
+  const closeBtn = overlay.querySelector('.match-popup-close');
+  const onEscape = (e) => {
+    if (e.key === 'Escape') {
+      closePopup();
+    }
+  };
+  const closePopup = () => {
+    document.removeEventListener('keydown', onEscape);
+    removeExistingMatchPopup();
+  };
+
+  closeBtn?.addEventListener('click', closePopup);
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closePopup();
+  });
+
+  document.addEventListener('keydown', onEscape);
+
+  document.body.appendChild(overlay);
+  document.body.classList.add('popup-open');
+}
+
 // ─── Card Renderers ─────────────────────────────────────────────────
 function renderCards(events, container) {
   container.innerHTML = '';
@@ -211,12 +339,15 @@ function renderCards(events, container) {
     return;
   }
   events.forEach((event) => {
-    const { badge, title, description, image } = renderSportData(
+    const { badge, title, description, date, image } = renderSportData(
       event.strSport,
       event,
     );
     const section = document.createElement('section');
     section.className = 'card-item';
+    section.tabIndex = 0;
+    section.setAttribute('role', 'button');
+    section.setAttribute('aria-label', `Abrir detalles de ${title}`);
     section.innerHTML = `
       <div class="card">
         <div class="card-header" style="background-image: url('${image}');">
@@ -224,9 +355,19 @@ function renderCards(events, container) {
         </div>
         <div class="card-content">
           <h3>${title}</h3>
+          <p class="card-date">${date || 'Fecha por confirmar'}</p>
           <p>${description}</p>
         </div>
       </div>`;
+
+    section.addEventListener('click', () => openMatchPopup(event));
+    section.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openMatchPopup(event);
+      }
+    });
+
     container.appendChild(section);
   });
 }
