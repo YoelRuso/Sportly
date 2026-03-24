@@ -47,6 +47,15 @@
     </tbody>
   </table>
 
+  <!-- Modal Pop-up para eventos -->
+  <div id="events-modal" class="modal-overlay">
+    <div class="modal-container">
+      <button class="modal-close" id="close-modal">&times;</button>
+      <h2 class="modal-title" id="modal-date"></h2>
+      <div class="modal-events" id="modal-events-list"></div>
+    </div>
+  </div>
+
   <div id="info" class="calendar-info-box"></div>
 </main>
 
@@ -60,6 +69,7 @@
     await cargarEventos();
     generarCalendario();
     setupNavegacion();
+    setupModal();
   });
 </script>
 </body>

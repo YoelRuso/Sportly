@@ -151,19 +151,75 @@ function generarCalendario() {
 }
 
 /**
- * Shows event details when a day is clicked.
+ * Opens the modal with event details for a selected day.
  */
 function showInfo(dia, fechaStr) {
-  const infoBox = document.getElementById('info');
-  if (!infoBox) return;
+  const modal = document.getElementById('events-modal');
+  const modalTitle = document.getElementById('modal-date');
+  const modalEventsList = document.getElementById('modal-events-list');
+
+  if (!modal || !modalTitle || !modalEventsList) return;
 
   const eventos = eventosPorFecha[fechaStr] || [];
-  if (eventos.length > 0) {
-    infoBox.innerHTML =
-      `<strong>Eventos para el ${dia} de ${MESES_ES[mesActual]}:</strong><br>` +
-      eventos.map(({ sportLabel, label }) => `${sportLabel} ${label}`).join('<br>');
+
+  // Update title
+  const formatoFecha = new Intl.DateTimeFormat('es-ES', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(new Date(fechaStr));
+
+  modalTitle.textContent = formatoFecha.charAt(0).toUpperCase() + formatoFecha.slice(1);
+
+  // Clear previous events
+  modalEventsList.innerHTML = '';
+
+  if (eventos.length === 0) {
+    const noEvents = document.createElement('div');
+    noEvents.className = 'modal-event';
+    noEvents.innerHTML = `<p style="color: #aaaaaa; margin: 0;">No hay eventos programados para este día.</p>`;
+    modalEventsList.appendChild(noEvents);
   } else {
-    infoBox.textContent = `No hay eventos programados para el día ${dia}.`;
+    eventos.forEach(({ label, sportLabel, event }) => {
+      const eventDiv = document.createElement('div');
+      eventDiv.className = 'modal-event';
+
+      const time = event.strTime || 'Hora no disponible';
+      const venue = event.strVenue || '';
+
+      eventDiv.innerHTML = `
+        <div class="event-sport-icon">${sportLabel}</div>
+        <div class="event-name">${label}</div>
+        <div class="event-time">🕐 ${time}</div>
+        ${venue ? `<div class="event-venue">📍 ${venue}</div>` : ''}
+      `;
+
+      modalEventsList.appendChild(eventDiv);
+    });
+  }
+
+  // Open modal
+  openModal();
+}
+
+/**
+ * Opens the modal.
+ */
+function openModal() {
+  const modal = document.getElementById('events-modal');
+  if (modal) {
+    modal.classList.add('active');
+  }
+}
+
+/**
+ * Closes the modal.
+ */
+function closeModal() {
+  const modal = document.getElementById('events-modal');
+  if (modal) {
+    modal.classList.remove('active');
   }
 }
 
@@ -195,5 +251,37 @@ function setupNavegacion() {
     e.preventDefault();
     anioActual++;
     generarCalendario();
+  });
+}
+
+/**
+ * Sets up modal close event listeners.
+ */
+function setupModal() {
+  const modal = document.getElementById('events-modal');
+  const closeBtn = document.getElementById('close-modal');
+
+  // Close on X button click
+  if (closeBtn) {
+    closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeModal();
+    });
+  }
+
+  // Close on overlay click (outside the modal)
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+  }
+
+  // Close on ESC key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeModal();
+    }
   });
 }
