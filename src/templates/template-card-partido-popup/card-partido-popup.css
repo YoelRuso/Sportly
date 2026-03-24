@@ -1,94 +1,162 @@
-/* Reset */
-* {
+.popup-open {
+    overflow: hidden;
+}
+
+.match-popup-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.68);
+    backdrop-filter: blur(4px);
+}
+
+.match-popup {
+    width: min(760px, 100%);
+    background: #111;
+    border: 1px solid #2d2d2d;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 22px 45px rgba(0, 0, 0, 0.55);
+    position: relative;
+    animation: popupIn 0.22s ease-out;
+}
+
+.match-popup-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+    width: 34px;
+    height: 34px;
+    border: 1px solid #444;
+    border-radius: 50%;
+    background: rgba(15, 15, 15, 0.9);
+    color: #fff;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.match-popup-close:hover {
+    border-color: #00ff88;
+    color: #00ff88;
+}
+
+.match-popup-media {
+    height: 220px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 14px;
+}
+
+.match-popup-media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.75));
+}
+
+.match-popup-badge {
+    position: relative;
+    z-index: 1;
+    background: #00ff88;
+    color: #00180d;
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-weight: 700;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.match-popup-content {
+    padding: 20px 22px 24px;
+}
+
+.match-popup-content h3 {
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    font-size: 1.55rem;
+    line-height: 1.2;
+    color: #fff;
 }
 
-/* Fondo general */
-body {
-    background-color: #121212;
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+.match-popup-desc {
+    margin: 10px 0 16px;
+    color: #d2d2d2;
+    line-height: 1.45;
 }
 
-/* Contenedor */
-.container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+.match-popup-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px 14px;
 }
 
-/* Rectángulo principal */
-.match-card {
-    background-color: #1e1e1e;
-    width: 900px;
-    padding: 40px;
-    border-radius: 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 0 25px rgba(0, 255, 170, 0.15);
+.match-popup-grid p {
+    margin: 0;
+    color: #b8b8b8;
+    line-height: 1.35;
 }
 
-/* Equipos */
-.team {
-    width: 30%;
+.match-popup-grid strong {
+    color: #f1f1f1;
 }
 
-.team h2 {
-    color: #00ffaa;
-    margin-bottom: 10px;
+.match-popup-actions {
+    margin-top: 18px;
 }
 
-.team h3 {
-    margin-top: 15px;
-    margin-bottom: 10px;
-    color: #00ffaa;
-    font-size: 16px;
+.match-popup-link {
+    display: inline-block;
+    background: #00ff88;
+    color: #001a10;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 999px;
+    padding: 10px 16px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.team ul {
-    list-style: none;
+.match-popup-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 255, 136, 0.22);
 }
 
-.team li {
-    margin-bottom: 6px;
-    color: #ccc;
+.match-popup-link.disabled {
+    background: #2a2a2a;
+    color: #8f8f8f;
+    cursor: not-allowed;
 }
 
-/* Centro del partido */
-.match-center {
-    width: 30%;
-    text-align: center;
-    border-left: 2px solid #00ffaa;
-    border-right: 2px solid #00ffaa;
-    padding: 0 20px;
+@keyframes popupIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
-.match-center h2 {
-    color: #00ffaa;
-    font-size: 28px;
-    margin-bottom: 15px;
-}
+@media (max-width: 680px) {
+    .match-popup-media {
+        height: 170px;
+    }
 
-.stadium,
-.date,
-.time {
-    color: #ccc;
-    margin-bottom: 8px;
-}
+    .match-popup-grid {
+        grid-template-columns: 1fr;
+    }
 
-/* Hover efecto suave */
-.match-card:hover {
-    box-shadow: 0 0 35px rgba(0, 255, 170, 0.25);
-    transition: 0.3s;
-}
-
-/* Entrenador */
-.coach {
-    color: #ccc;
+    .match-popup-content h3 {
+        font-size: 1.3rem;
+    }
 }

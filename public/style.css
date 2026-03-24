@@ -4,6 +4,7 @@
 @import url("../src/templates/template-footer/footer.css");
 @import url("../src/templates/template-navbar-entre-deportes/navbar-entre-deportes.css");
 @import url("../src/templates/template-card-resumen/card-resumen.css");
+@import url("../src/templates/template-card-partido-popup/card-partido-popup.css");
 
 body {
     background-color: #0f0f0f;
@@ -49,6 +50,10 @@ body {
 
 .card-content p {
     color: #aaaaaa !important;
+}
+
+.card-content .card-date {
+    color: #00ff88 !important;
 }
 
 @media (max-width: 992px) {
