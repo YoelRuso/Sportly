@@ -88,14 +88,14 @@ confirmPassword.addEventListener("input", () => {
 // ==========================
 // VALIDACIÓN AL ENVIAR
 // ==========================
-form.addEventListener("submit", function (e) {
+form.addEventListener('submit', async function (e) {
   e.preventDefault();
 
   let valid = true;
 
   // Validar email
   if (!emailRegex.test(email.value)) {
-    showError(emailError, "Correo electrónico inválido");
+    showError(emailError, 'Correo electrónico inválido');
     setInvalid(email);
     valid = false;
   } else {
@@ -107,7 +107,7 @@ form.addEventListener("submit", function (e) {
   if (!passwordRegex.test(password.value)) {
     showError(
       passwordError,
-      "Mín. 7 caracteres, mayúscula, minúscula, número y símbolo"
+      'Mín. 7 caracteres, mayúscula, minúscula, número y símbolo',
     );
     setInvalid(password);
     valid = false;
@@ -118,7 +118,7 @@ form.addEventListener("submit", function (e) {
 
   // Confirmar contraseña
   if (password.value !== confirmPassword.value) {
-    showError(confirmError, "Las contraseñas no coinciden");
+    showError(confirmError, 'Las contraseñas no coinciden');
     setInvalid(confirmPassword);
     valid = false;
   } else {
@@ -126,9 +126,46 @@ form.addEventListener("submit", function (e) {
     setValid(confirmPassword);
   }
 
+  // probar si email ya existe
+  if (valid) {
+    try {
+      const res = await fetch(
+        `http://localhost:3000/usuarios?email=${encodeURIComponent(email.value)}`,
+      );
+      const data = await res.json();
+
+      if (data.length > 0) {
+        showError(emailError, 'Correo electrónico ya existe');
+        setInvalid(email);
+        valid = false;
+        console.log('Correo electrónico ya existe:', data);
+      } else {
+        clearError(emailError);
+        setValid(email);
+      }
+    } catch (err) {
+      console.error(err);
+      return;
+    }
+  }
+
   // Todo correcto
   if (valid) {
-    console.log("Registro exitoso ✅");
-    form.submit();
+    fetch('http://localhost:3000/usuarios', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: email.value,
+        password: password.value,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log('Success:', data);
+        window.location.href = '../pagina-login/login.html';
+      })
+      .catch((err) => {
+        console.error('Error:', err);
+      });
   }
 });
