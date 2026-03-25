@@ -1,160 +1,124 @@
-# 🏟️ Sportly
-**Sportly** es una aplicación web para la consulta y seguimiento de partidos deportivos. Permite a los usuarios explorar deportes, ver un calendario de partidos y gestionar su cuenta de forma sencilla.
-> ✅ **Sprint 1 completado** – Todas las vistas y componentes del Sprint 1 han sido implementados.
----
-## 👥 Componentes del Grupo
+# Sportly
+
+Aplicacion web para consultar eventos deportivos, leer noticias/resumenes, gestionar favoritos y visualizar contenido legal.
+
+## Componentes del grupo
+
 | Nombre | GitHub |
 |---|---|
 | Joel Morera Apaza | [@YoelRuso](https://github.com/YoelRuso) |
-| Benjamín Klett | [@Bencrex](https://github.com/Bencrex) |
-| Samuel Santana García | [@Samuel93SP](https://github.com/Samuel93SP) |
----
-## 📝 Descripción del proyecto
-Sportly es una plataforma web de seguimiento deportivo que permite a los usuarios:
-- Explorar deportes y partidos destacados mediante tarjetas visuales.
-- Consultar un calendario mensual con los partidos programados.
-- Ver el resumen detallado de cada partido.
-- Gestionar su cuenta personal (registro, inicio de sesión y edición de perfil).
-- Acceder a información legal (aviso legal, políticas de privacidad y cookies) y de contacto.
-  La aplicación está construida con HTML5, CSS3 y JavaScript vanilla, utilizando una arquitectura modular basada en plantillas HTML reutilizables que se cargan dinámicamente mediante la función `xluIncludeFile`.
----
-## ✅ Requisitos Funcionales
-1. **RF-01 – Visualización de deportes y partidos:** El sistema debe mostrar una cuadrícula de tarjetas con deportes y partidos destacados en la página de inicio.
-2. **RF-02 – Navegación entre deportes:** El sistema debe permitir navegar entre distintos deportes mediante una barra de navegación horizontal.
-3. **RF-03 – Inicio de sesión:** El sistema debe ofrecer un formulario de inicio de sesión con campos de usuario y contraseña, opción de "Recordarme" y enlace de recuperación de contraseña.
-4. **RF-04 – Calendario de partidos:** El sistema debe mostrar un calendario mensual con los partidos programados para cada día, destacando el día actual.
-5. **RF-05 – Resumen de partidos:** El sistema debe presentar tarjetas con el resumen de los partidos (equipos, resultado, deporte).
-6. **RF-06 – Detalle de partido (Leer más):** El sistema debe mostrar una vista ampliada con información completa de un partido seleccionado.
-7. **RF-07 – Gestión de usuario:** El sistema debe permitir al usuario ver y editar su información de perfil (nombre, apellidos, correo, contraseña, fecha de nacimiento, foto).
-8. **RF-08 – Páginas informativas:** El sistema debe incluir páginas de Contacto, Aviso Legal, Política de Privacidad y Política de Cookies.
-9. **RF-09 – Componentes reutilizables:** La cabecera (navbar), pie de página, barra lateral y tarjetas deben ser componentes modulares cargados dinámicamente en todas las páginas.
-10. **RF-10 – Página de inicio de la aplicación:** El punto de entrada (`index.html`) debe redirigir automáticamente a la página de inicio (`pagina-inicio/inicio.html`).
----
-## 🎨 Mockups y Storyboard
+| Benjamin Klett | [@Bencrex](https://github.com/Bencrex) |
+| Samuel Santana Garcia | [@Samuel93SP](https://github.com/Samuel93SP) |
 
-Los ficheros PDF con los mockups y el storyboard se encuentran en la carpeta [`mockups/`](./mockups/).
+## Mockups nuevos (nombre y ubicacion)
 
-| Archivo PDF | Descripción |
-| :--- | :--- |
-| [`pagina-inicio.pdf`](./mockups/pagina-inicio.pdf) | Mockup de la página de inicio |
-| [`Login.pdf`](./mockups/Login.pdf) | Mockup de la página de login |
-| [`Calendario.pdf`](./mockups/Calendario.pdf) | Mockup de la página del calendario |
-| [`Resumen.pdf`](./mockups/Resumen.pdf) | Mockup de la página de resumen de partido |
-| [`Mockup leer mas.pdf`](./mockups/Mockup%20leer%20mas.pdf) | Mockup de la página de detalle de partido |
-| [`CONTACTO.pdf`](mockups/Contacto.pdf) | Mockup de la página de contacto |
-| [`Avisio legal.pdf`](./mockups/Avisio%20legal.pdf) | Mockup del aviso legal |
-| [`POLÍTICA DE PRIVACIDAD.pdf`](./mockups/POLÍTICA%20DE%20PRIVACIDAD.pdf) | Mockup de la política de privacidad |
-| [`POLÍTICA DE COOKIES.pdf`](./mockups/POLÍTICA%20DE%20COOKIES.pdf) | Mockup de la política de cookies |
+### Carpeta: `mockups-responsive-movil/`
+- `Aviso legal` (archivo en carpeta sin extension visible)
+- `Calendario.pdf`
+- `Contacto.pdf`
+- `Gestion de usuario.pdf`
+- `Inicio.pdf`
+- `Leer mas.pdf`
+- `Login.pdf`
+- `Resumen.pdf`
 
----
+### Carpeta: `mockups-responsive-tablet/`
+- `Aviso Legal.pdf`
+- `Calendario.pdf`
+- `Contacto.pdf`
+- `Gestion de usuario.pdf`
+- `Inicio.pdf`
+- `Leer mas.pdf`
+- `Login.pdf`
+- `Resumen.pdf`
 
-## 📄 Páginas HTML del proyecto
+## Paginas HTML del proyecto
 
-> ⭐ **Página de inicio:** `index.html` redirige automáticamente a `src/pages/pagina-inicio/inicio.html`.
+- `index.html`
+- `src/pages/pagina-inicio/inicio.html`
+- `src/pages/pagina-resumen/resumen.html`
+- `src/pages/pagina-calendario/calendario.html`
+- `src/pages/pagina-leermas-resumen/leermas.html`
+- `src/pages/pagina-politicas-avisos/politicas-avisos.html`
+- `src/pages/pagina-login/login.html`
+- `src/pages/pagina-registro/registro.html`
+- `src/pages/pagina-gestion-usuario/gestion-usuario.html`
 
-| Archivo HTML | Ruta | Mockup que implementa          |
-| :--- | :--- |:-------------------------------|
-| `index.html` ⭐ | `/index.html` | Punto de entrada (redirección) |
-| `inicio.html` | `src/pages/pagina-inicio/inicio.html` | `pagina-inicio.pdf`            |
-| `login.html` | `src/pages/pagina-login/login.html` | `Login.pdf`                    |
-| `calendario.html` | `src/pages/pagina-calendario/calendario.html` | `Calendario.pdf`               |
-| `resumen.html` | `src/pages/pagina-resumen/resumen.html` | `Resumen.pdf`                  |
-| `leermas.html` | `src/pages/pagina-leermas-resumen/leermas.html` | `Mockup leer mas.pdf`          |
-| `gestion-usuario.html` | `src/pages/pagina-gestion-usuario/...` | `Gestion de usuario.pdf`       |
+## Pagina de inicio de la aplicacion web
 
----
+- Entrada de la aplicacion: `index.html`
+- Redireccion automatica a: `src/pages/pagina-inicio/inicio.html`
 
-## 🧩 Plantillas (Templates)
+## Matriz por pagina: responsive, templates y JSON
 
-Componentes reutilizables cargados dinámicamente mediante `xlu-include-file`.
+| Pagina | Responsive implementado | Carga templates | Carga contenido JSON |
+|---|---|---|---|
+| `index.html` | No aplica (solo redireccion meta refresh) | No | No |
+| `pagina-inicio/inicio.html` | Si. Usa estilos globales con breakpoints (`992px`, `834px`, `600px`, `430px`) para grid de cards y ajustes de contenedor. | Si (`header`, `navbar-entre-deportes`, `footer`) via `initInicio()` en `src/app.js`. | Si. Eventos deportivos desde `soccer`, `basket`, `tenis`, `f1` y favoritos en `partidas-favoritas`. |
+| `pagina-resumen/resumen.html` | Si. Hereda responsive global de cards/paginacion en `public/style.css`. | Si (`header`, `navbar-entre-deportes`, `footer`) via `initResumen()`. | Si. Noticias desde `news-soccer`, `news-basket`, `news-tenis`, `news-f1`. |
+| `pagina-calendario/calendario.html` | Si. Breakpoints en `834px` y `430px`; adapta tabla a grid, reduce tipografias y cambia representacion de eventos para movil. | Si (`header`, `footer`) via `initCalendario()`. | Si. `cargarEventos()` consulta `soccer`, `basket`, `tenis`, `f1`. |
+| `pagina-leermas-resumen/leermas.html` | Si. Breakpoints en `834px` y `430px` en `leermas.css` para titulo, imagen y espaciados. | Si (`header`, `main-leermas`, `footer`) via `initLeermas()`. | No. Contenido principal es estatico (plantilla HTML), sin `fetch` a JSON. |
+| `pagina-politicas-avisos/politicas-avisos.html` | Si. Breakpoints en `834px` y `430px`; menu lateral adaptado y boton menu en movil. | Si (`header`, `main-politicas-avisos`, `footer`) via `initPoliticas()`. | Si. Carga `legal` desde `db.json` (`fetchLegalContent()`). |
+| `pagina-login/login.html` | Si. Breakpoints en `834px` y `430px` en `login.css`. | No | Si. Consulta `usuarios` por email para autenticar. |
+| `pagina-registro/registro.html` | Si. Breakpoints en `834px` y `430px` en `registro.css`. | No | Si. Consulta `usuarios` para verificar email y crea usuario nuevo en `usuarios`. |
+| `pagina-gestion-usuario/gestion-usuario.html` | Parcial. Tiene layout fijo de dashboard en escritorio; actualmente no tiene media queries especificas para tablet/movil en `gestion-usuario.css`. | No | Si. Lee usuario de `localStorage`, consulta `partidas-favoritas` y busca eventos en `soccer`, `basket`, `tenis`, `f1`. |
 
-| Plantilla | Archivo | Cargada en |
-| :--- | :--- | :--- |
-| **Cabecera** | `src/templates/template-header/header.html` | Inicio, Resumen, Leer más, Calendario |
-| **Pie de página** | `src/templates/template-footer/footer.html` | Inicio, Resumen, Leer más, Calendario |
-| **Sidebar** | `src/templates/template-sidebar/sidebar.html` | *(Disponible)* |
-| **Nav Deportes** | `.../navbar-entre-deportes.html` | Inicio, Resumen |
-| **Card General** | `src/templates/template-card/card.html` | Inicio (x6) |
-| **Card Resumen** | `src/templates/template-card-resumen/card-resumen.html` | Resumen (x6) |
-| **Popup Resumen** | `.../card-resumen-popup.html` | Main Leer más |
-| **Main Leer más** | `.../main-leermas.html` | leermas.html |
+## Formularios y validaciones HTML implementadas
 
-## 🚀 Tecnologías utilizadas
-| Tecnología | Descripción |
-|---|---|
-| HTML5 | Estructura y maquetación de las páginas |
-| CSS3 | Estilos y diseño visual |
-| JavaScript (Vanilla) | Lógica del cliente y carga dinámica de componentes |
-| [Vite](https://vitejs.dev/) | Servidor de desarrollo y empaquetado |
-| [Prettier](https://prettier.io/) | Formateador de código |
----
-## 📁 Estructura del proyecto
+### `src/pages/pagina-login/login.html`
+- Campo correo: `type="email"` + `required`
+- Campo contrasena: `type="password"` + `required`
+- Checkbox `Recordarme`: opcional (sin `required`)
+
+### `src/pages/pagina-registro/registro.html`
+- Campo correo: `type="email"` + `required`
+- Campo contrasena: `type="password"` + `required`
+- Campo confirmar contrasena: `type="password"` + `required`
+- Checkbox de terminos y condiciones: `required`
+
+Nota: ademas de HTML, en `registro.js` hay validaciones JavaScript (regex de email, fortaleza de contrasena, coincidencia de contrasenas y verificacion de email existente).
+
+## Usuario y contrasena de prueba
+
+Credenciales recomendadas para probar login (compatibles con el flujo actual por email):
+
+- Email: `test@mail.es`
+- Contrasena: `qQ!1234`
+
+Tambien existen otros usuarios de prueba en `db.json` dentro de `usuarios`.
+
+## Ubicacion del contenido JSON y como ejecutarlo
+
+### Ubicacion
+
+- Archivo principal consumido por la app: `db.json`
+- Endpoints usados por frontend: `soccer`, `basket`, `tenis`, `f1`, `usuarios`, `partidas-favoritas`, `news-soccer`, `news-basket`, `news-tenis`, `news-f1`, `legal`
+- Archivos fuente adicionales (datasets en bruto):
+  - `soccer.json`
+  - `basketball.json`
+  - `tenis.json`
+  - `F1.json`
+
+### Ejecucion (frontend + json-server)
+
+1. Instalar dependencias del proyecto:
+
+```bash
+npm install
 ```
-Sportly/
-├── index.html                               # Punto de entrada ⭐ (redirige a pagina-inicio)
-├── package.json                             # Dependencias y scripts del proyecto
-├── public/                                  # Recursos estáticos
-│   └── style.css                            # Hoja de estilos principal (importa templates)
-├── src/
-│   ├── main.js                              # Inicialización y carga dinámica de componentes
-│   ├── xlu-include-file.js                  # Función de carga asíncrona de plantillas HTML
-│   ├── pages/  
-│   │   ├── pagina-inicio/                   # Página de inicio (inicio.html + CSS)
-│   │   ├── pagina-login/                    # Página de inicio de sesión (login.html + CSS)
-│   │   ├── pagina-calendario/               # Página del calendario (calendario.html + CSS + JS)
-│   │   ├── pagina-gestion-usuario/          # Página de gestión de usuario (gestion-usuario.html + CSS)
-│   │   ├── pagina-resumen/                  # Página de resumen de partido (resumen.html)
-│   │   └── pagina-leermas-resumen/          # Página de detalle ampliado (leermas.html + CSS)
-│   └── templates/
-│       ├── template-header/                 # Componente de cabecera (navbar)
-│       ├── template-footer/                 # Componente de pie de página
-│       ├── template-sidebar/                # Componente de barra lateral
-│       ├── template-card/                   # Tarjeta de partido/deporte
-│       ├── template-card-resumen/           # Tarjeta de resumen de partido
-│       ├── template-card-resumen-popup/     # Popup de tarjeta de resumen
-│       ├── template-navbar-entre-deportes/  # Navegación entre deportes
-│       ├── template-main-leermas/           # Contenido principal de leer más
-│       ├── template-politicas-avisos/       # Políticas y avisos legales
-│       └── template-contacto/               # Formulario y datos de contacto
-└── mockups/                                 # Diseños de referencia (PDFs)
+
+2. Levantar el backend JSON en puerto `3000`:
+
+```bash
+npx json-server --watch db.json --port 3000
 ```
----
-## 💡 Otros aspectos del proyecto
-### JavaScript – Tareas implementadas
-- **Carga dinámica de componentes (`src/xlu-include-file.js`):** Función `xluIncludeFile()` asíncrona que recorre todos los elementos del DOM con el atributo `xlu-include-file`, los recupera mediante `fetch` y los inyecta en el HTML. Esto permite la reutilización de plantillas sin necesidad de un framework.
-- **Calendario dinámico (`src/pages/pagina-calendario/calendario.js`):** Genera la cuadrícula del calendario mensual de forma programática usando JavaScript. Calcula el desfase de inicio del mes, resalta el día actual, añade indicadores de partidos programados y permite la navegación entre meses y años mediante botones.
-- **Inicialización de componentes (`src/main.js`):** Escucha el evento `DOMContentLoaded` para lanzar `xluIncludeFile()` y gestionar errores de carga de imágenes.
-### Organización de las hojas de estilo (CSS)
-- **`public/style.css`** – Hoja de estilos principal que importa los estilos de los templates via `@import`. Define los estilos globales (fondo, tipografía base, cuadrícula de tarjetas).
-- **Estilos por página** – Cada página tiene su propia hoja de estilos local (ej. `calendario.css`, `login.css`, `leermas.css`, `gestion-usuario.css`) para estilos específicos de esa vista.
-- **Estilos por template** – Cada componente/plantilla tiene su propia hoja de estilos (ej. `header.css`, `footer.css`, `card.css`, `card-resumen.css`, etc.) para encapsular los estilos del componente.
----
-## 🛠️ Instalación y uso
-### Requisitos previos
-- [Node.js](https://nodejs.org/) v18 o superior
-### Pasos
-1. **Clona el repositorio:**
-   ```bash
-   git clone https://github.com/YoelRuso/Sportly.git
-   cd Sportly
-   ```
-2. **Instala las dependencias:**
-   ```bash
-   npm install
-   ```
-3. **Inicia el servidor de desarrollo:**
-   ```bash
-   npm run dev
-   ```
-   La aplicación estará disponible en `http://localhost:5173`.
-4. **Genera la build de producción:**
-   ```bash
-   npm run build
-   ```
-5. **Previsualiza la build de producción:**
-   ```bash
-   npm run preview
-   ```
----
-## 📄 Licencia
-© 2026 Sportly. Todos los derechos reservados.
+
+3. En otra terminal, iniciar la app web:
+
+```bash
+npm run dev
+```
+
+4. Abrir la URL de Vite (normalmente `http://localhost:5173`).
+
+Sin `json-server` activo, no funcionaran login/registro, favoritos, calendario dinamico, resumen por noticias ni politicas legales dinamicas.
