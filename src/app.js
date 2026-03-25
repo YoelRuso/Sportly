@@ -26,30 +26,30 @@ function setupAuthButton() {
   const user = localStorage.getItem('user');
   const authBtn = document.getElementById('authBtn');
   const authLink = document.getElementById('authLink');
+  const userAvatar = document.getElementById('userAvatar');
 
   if (!authBtn || !authLink) return;
 
+  // ── Botón Login / Logout ──────────────────────────────────────────
   if (user) {
-    // --- ESTADO: LOGUEADO ---
     authBtn.textContent = 'Logout';
-    authBtn.style.backgroundColor = '#d9534f'; // Opcional: un color distinto para logout
-
-    // Quitamos el enlace al login y evitamos la redirección automática
     authLink.removeAttribute('href');
     authLink.style.cursor = 'pointer';
-
-    // Limpiamos eventos previos para evitar duplicados y añadimos el cierre de sesión
-    authLink.onclick = (e) => {
-      e.preventDefault();
+    authLink.addEventListener('click', () => {
       localStorage.removeItem('user');
-      // Redirigimos a inicio para refrescar el estado de la app
       window.location.href = '../../pages/pagina-inicio/inicio.html';
-    };
-  } else {
-    // --- ESTADO: NO LOGUEADO ---
-    authBtn.textContent = 'Login';
-    authLink.setAttribute('href', '../../pages/pagina-login/login.html');
-    authLink.onclick = null; // Restauramos el comportamiento normal del link
+    });
+  }
+
+  // ── Avatar: redirige según sesión ─────────────────────────────────
+  if (userAvatar) {
+    userAvatar.addEventListener('click', () => {
+      if (user) {
+        window.location.href = '../../pages/pagina-gestion-usuario/gestion-usuario.html';
+      } else {
+        window.location.href = '../../pages/pagina-registro/registro.html';
+      }
+    });
   }
 }
 

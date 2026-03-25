@@ -189,3 +189,31 @@ body {
     font-size: 16px;
 }
 
+/* Header favoritos con botón volver */
+.favorites-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.favorites-header h2 {
+    margin-bottom: 0;
+}
+
+.btn-back-home {
+    background-color: transparent;
+    border: 2px solid #00ffaa;
+    color: #00ffaa;
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-back-home:hover {
+    background-color: #00ffaa;
+    color: #121212;
+}
