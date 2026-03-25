@@ -63,6 +63,7 @@ function isPasswordCorrect(data, passwordValue) {
 function handleLoginSuccess(user) {
   console.log('Logged in with:' + JSON.stringify(user));
   localStorage.setItem('user', JSON.stringify(user));
+  window.location.href = '../../pages/pagina-inicio/inicio.html';
 }
 
 function logPasswordError() {

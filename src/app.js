@@ -12,7 +12,6 @@
 const JSON_SERVER_BASE = 'http://localhost:3000';
 
 // ─── Usuario activo ─────────────────────────────────────────────────
-// Lee el usuario del localStorage igual que gestion-usuario.js
 function getCurrentUserID() {
   try {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -22,11 +21,42 @@ function getCurrentUserID() {
   }
 }
 
+// ─── Auth Button ────────────────────────────────────────────────────
+function setupAuthButton() {
+  const user = localStorage.getItem('user');
+  const authBtn = document.getElementById('authBtn');
+  const authLink = document.getElementById('authLink');
+
+  if (!authBtn || !authLink) return;
+
+  if (user) {
+    // --- ESTADO: LOGUEADO ---
+    authBtn.textContent = 'Logout';
+    authBtn.style.backgroundColor = '#d9534f'; // Opcional: un color distinto para logout
+
+    // Quitamos el enlace al login y evitamos la redirección automática
+    authLink.removeAttribute('href');
+    authLink.style.cursor = 'pointer';
+
+    // Limpiamos eventos previos para evitar duplicados y añadimos el cierre de sesión
+    authLink.onclick = (e) => {
+      e.preventDefault();
+      localStorage.removeItem('user');
+      // Redirigimos a inicio para refrescar el estado de la app
+      window.location.href = '../../pages/pagina-inicio/inicio.html';
+    };
+  } else {
+    // --- ESTADO: NO LOGUEADO ---
+    authBtn.textContent = 'Login';
+    authLink.setAttribute('href', '../../pages/pagina-login/login.html');
+    authLink.onclick = null; // Restauramos el comportamiento normal del link
+  }
+}
+
 // ─── Active Sport State ─────────────────────────────────────────────
 let activeSport = 'all';
 
 // ─── Favorites Cache ────────────────────────────────────────────────
-// Set de idEvent que el usuario ya tiene como favorito
 let favoritesCache = new Set();
 
 async function loadFavoritesCache() {
@@ -129,7 +159,6 @@ async function renderComponent(url, containerId) {
 }
 
 // ─── Data Fetching ──────────────────────────────────────────────────
-
 async function fetchSportDataPaged(sport, page = 1, perPage = 9) {
   try {
     const response = await fetch(
@@ -407,7 +436,7 @@ function buildFavButton(event) {
   btn.innerHTML = '♥';
 
   btn.addEventListener('click', (e) => {
-    e.stopPropagation(); // evita abrir el popup al clicar la estrella
+    e.stopPropagation();
     if (!idEvent) return;
     toggleFavorite(idEvent, btn);
   });
@@ -468,7 +497,6 @@ function renderCards(events, container) {
         </div>`;
     }
 
-    // ── Inyecta el botón ★ en card-content ──────────────────────────
     const cardContent = section.querySelector('.card-content');
     if (cardContent) cardContent.appendChild(buildFavButton(event));
 
@@ -796,10 +824,9 @@ async function initInicio() {
     ),
     renderComponent('../../templates/template-footer/footer.html', 'footer'),
   ]);
+  setupAuthButton(); // ← Login/Logout
   setActiveNavLink();
 
-  // Carga favoritos antes de renderizar las cards para que los botones
-  // ya reflejen el estado correcto desde el primer render
   await loadFavoritesCache();
 
   const container = document.querySelector('.cards-grid');
@@ -818,7 +845,9 @@ async function initResumen() {
     ),
     renderComponent('../../templates/template-footer/footer.html', 'footer'),
   ]);
+  setupAuthButton(); // ← Login/Logout
   setActiveNavLink();
+
   const container = document.querySelector('.cards-grid');
   if (!container) return;
 
@@ -832,6 +861,7 @@ async function initCalendario() {
     renderComponent('../../templates/template-header/header.html', 'header'),
     renderComponent('../../templates/template-footer/footer.html', 'footer'),
   ]);
+  setupAuthButton(); // ← Login/Logout
   setActiveNavLink();
 }
 
@@ -844,6 +874,8 @@ async function initLeermas() {
     ),
     renderComponent('../../templates/template-footer/footer.html', 'footer'),
   ]);
+  setupAuthButton(); // ← Login/Logout
+
 }
 
 async function initPoliticas() {
@@ -854,6 +886,7 @@ async function initPoliticas() {
   );
   await renderComponent('../../templates/template-footer/footer.html', 'footer');
 
+  setupAuthButton(); // ← Login/Logout
   setActiveNavLink();
 
   const data = await fetchLegalContent();

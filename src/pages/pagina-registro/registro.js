@@ -162,7 +162,8 @@ form.addEventListener('submit', async function (e) {
       .then((res) => res.json())
       .then((data) => {
         console.log('Success:', data);
-        window.location.href = '../pagina-login/login.html';
+        localStorage.setItem('user', JSON.stringify(data)); // guarda la sesión también
+        window.location.href = '../pagina-inicio/inicio.html';
       })
       .catch((err) => {
         console.error('Error:', err);
