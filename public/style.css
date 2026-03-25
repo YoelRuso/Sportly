@@ -138,3 +138,44 @@ body {
         padding: 14px 8px;
     }
 }
+
+/* Botón ★ dentro de .card-content */
+.fav-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    background: transparent;
+    border: 2px solid #555;
+    color: #555;
+    font-size: 18px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s, transform 0.15s;
+    line-height: 1;
+}
+
+.fav-btn:hover {
+    border-color: #00ffaa;
+    color: #00ffaa;
+    transform: scale(1.15);
+}
+
+/* Estado: ya es favorito */
+.fav-btn--active {
+    border-color: #00ffaa;
+    color: #00ffaa;
+}
+
+.fav-btn--active:hover {
+    border-color: #ff4466;
+    color: #ff4466;
+}
+
+.fav-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+}

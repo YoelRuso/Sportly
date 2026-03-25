@@ -118,3 +118,60 @@ body {
 .match-item:hover .date {
     color: #121212;
 }
+/* Botón ✕ eliminar favorito dentro de .match-item */
+.btn-remove-fav {
+    background: transparent;
+    border: 1px solid #555;
+    color: #555;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-remove-fav:hover {
+    border-color: #ff4466;
+    color: #ff4466;
+    transform: scale(1.15);
+}
+
+.btn-remove-fav:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* Animación de salida al eliminar */
+.match-item.removing {
+    opacity: 0;
+    transform: translateX(30px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Título del partido dentro del item */
+.match-title {
+    flex: 1;
+    margin-right: 16px;
+}
+
+/* Estado vacío */
+.empty-favorites {
+    color: #aaa;
+    text-align: center;
+    padding: 40px 0;
+    font-size: 18px;
+    line-height: 2;
+}
+
+/* Cargando */
+.loading-favorites {
+    color: #555;
+    text-align: center;
+    padding: 40px 0;
+    font-size: 16px;
+}

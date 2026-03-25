@@ -6,12 +6,96 @@
  * Uses explicit renderComponent(url, containerId) calls and
  * a configuration-based sport schema mapper.
  * Includes pagination support via json-server ?_page=N&_per_page=9
+ * Includes favorites system via /partidas-favoritas endpoint.
  */
 
 const JSON_SERVER_BASE = 'http://localhost:3000';
 
+// ─── Usuario activo ─────────────────────────────────────────────────
+// Lee el usuario del localStorage igual que gestion-usuario.js
+function getCurrentUserID() {
+  try {
+    const user = JSON.parse(localStorage.getItem('user'));
+    return user?.id ?? null;
+  } catch {
+    return null;
+  }
+}
+
 // ─── Active Sport State ─────────────────────────────────────────────
 let activeSport = 'all';
+
+// ─── Favorites Cache ────────────────────────────────────────────────
+// Set de idEvent que el usuario ya tiene como favorito
+let favoritesCache = new Set();
+
+async function loadFavoritesCache() {
+  const userID = getCurrentUserID();
+  if (!userID) return;
+  try {
+    const res = await fetch(
+      `${JSON_SERVER_BASE}/partidas-favoritas?userID=${encodeURIComponent(userID)}`
+    );
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const records = await res.json();
+    favoritesCache = new Set(records.map((r) => String(r.idEvent)));
+  } catch (err) {
+    console.error('Error loading favorites cache:', err);
+    favoritesCache = new Set();
+  }
+}
+
+async function addFavorite(idEvent) {
+  const userID = getCurrentUserID();
+  if (!userID) return;
+  try {
+    await fetch(`${JSON_SERVER_BASE}/partidas-favoritas`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userID, idEvent: String(idEvent) }),
+    });
+    favoritesCache.add(String(idEvent));
+  } catch (err) {
+    console.error('Error adding favorite:', err);
+  }
+}
+
+async function removeFavoriteFromCache(idEvent) {
+  const userID = getCurrentUserID();
+  if (!userID) return;
+  try {
+    const res = await fetch(
+      `${JSON_SERVER_BASE}/partidas-favoritas?userID=${encodeURIComponent(userID)}&idEvent=${encodeURIComponent(idEvent)}`
+    );
+    const records = await res.json();
+    if (!records.length) return;
+    await fetch(`${JSON_SERVER_BASE}/partidas-favoritas/${records[0].id}`, {
+      method: 'DELETE',
+    });
+    favoritesCache.delete(String(idEvent));
+  } catch (err) {
+    console.error('Error removing favorite:', err);
+  }
+}
+
+async function toggleFavorite(idEvent, btn) {
+  const id = String(idEvent);
+  btn.disabled = true;
+
+  if (favoritesCache.has(id)) {
+    await removeFavoriteFromCache(id);
+    btn.classList.remove('fav-btn--active');
+    btn.setAttribute('aria-label', 'Añadir a favoritos');
+    btn.title = 'Añadir a favoritos';
+  } else {
+    await addFavorite(id);
+    btn.classList.add('fav-btn--active');
+    btn.setAttribute('aria-label', 'Quitar de favoritos');
+    btn.title = 'Quitar de favoritos';
+  }
+
+  btn.disabled = false;
+}
 
 // ─── Pagination State ───────────────────────────────────────────────
 const paginationState = {
@@ -37,7 +121,7 @@ async function renderComponent(url, containerId) {
 
     container.innerHTML = await response.text();
 
-    return true; // 👈 IMPORTANTE
+    return true;
   } catch (error) {
     console.error(`Error loading component into #${containerId}:`, error);
     container.innerHTML = `<p style="color:red;">Error loading template.</p>`;
@@ -46,14 +130,6 @@ async function renderComponent(url, containerId) {
 
 // ─── Data Fetching ──────────────────────────────────────────────────
 
-/**
- * Fetches a single sport page from json-server with pagination.
- * json-server returns: { first, prev, next, last, pages, items, data[] }
- * @param {string} sport
- * @param {number} page
- * @param {number} perPage
- * @returns {Promise<{ data: Array, pages: number, items: number }>}
- */
 async function fetchSportDataPaged(sport, page = 1, perPage = 9) {
   try {
     const response = await fetch(
@@ -72,9 +148,6 @@ async function fetchSportDataPaged(sport, page = 1, perPage = 9) {
   }
 }
 
-/**
- * Fetches a single sport (all pages not paginated — used internally).
- */
 async function fetchSportData(sport) {
   try {
     const response = await fetch(`${JSON_SERVER_BASE}/${sport}`);
@@ -86,14 +159,9 @@ async function fetchSportData(sport) {
   }
 }
 
-/**
- * Fetches ALL sports for "Todos" tab — paginated by fetching first page
- * of each sport and merging, then handles pagination per-sport internally.
- */
 async function fetchAllSportsPaged(page = 1, perPage = 9) {
   const sports = ['soccer', 'basket', 'tenis', 'f1'];
   try {
-    // For "all", we fetch all sports without pagination and slice manually
     const results = await Promise.all(sports.map((s) => fetchSportData(s)));
     const all = results.flat();
     const totalItems = all.length;
@@ -299,10 +367,10 @@ function openMatchPopup(event) {
         </div>
         <div class="match-popup-actions">
           ${
-            videoUrl
-              ? `<a href="${escapeHtml(videoUrl)}" target="_blank" rel="noopener noreferrer" class="match-popup-link">Ver mejores jugadas</a>`
-              : '<span class="match-popup-link disabled">Sin video destacado</span>'
-          }
+    videoUrl
+      ? `<a href="${escapeHtml(videoUrl)}" target="_blank" rel="noopener noreferrer" class="match-popup-link">Ver mejores jugadas</a>`
+      : '<span class="match-popup-link disabled">Sin video destacado</span>'
+  }
         </div>
       </div>
     </article>
@@ -310,9 +378,7 @@ function openMatchPopup(event) {
 
   const closeBtn = overlay.querySelector('.match-popup-close');
   const onEscape = (e) => {
-    if (e.key === 'Escape') {
-      closePopup();
-    }
+    if (e.key === 'Escape') closePopup();
   };
   const closePopup = () => {
     document.removeEventListener('keydown', onEscape);
@@ -325,9 +391,28 @@ function openMatchPopup(event) {
   });
 
   document.addEventListener('keydown', onEscape);
-
   document.body.appendChild(overlay);
   document.body.classList.add('popup-open');
+}
+
+// ─── Favorites Button Builder ───────────────────────────────────────
+function buildFavButton(event) {
+  const idEvent = String(event.idEvent || '');
+  const isFav = favoritesCache.has(idEvent);
+
+  const btn = document.createElement('button');
+  btn.className = 'fav-btn' + (isFav ? ' fav-btn--active' : '');
+  btn.setAttribute('aria-label', isFav ? 'Quitar de favoritos' : 'Añadir a favoritos');
+  btn.title = isFav ? 'Quitar de favoritos' : 'Añadir a favoritos';
+  btn.innerHTML = '★';
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation(); // evita abrir el popup al clicar la estrella
+    if (!idEvent) return;
+    toggleFavorite(idEvent, btn);
+  });
+
+  return btn;
 }
 
 // ─── Card Renderers ─────────────────────────────────────────────────
@@ -349,6 +434,7 @@ function renderCards(events, container) {
     section.tabIndex = 0;
     section.setAttribute('role', 'button');
     section.setAttribute('aria-label', `Abrir detalles de ${title}`);
+
     if (isSoccer) {
       const homeBadge = event.strHomeTeamBadge || '';
       const awayBadge = event.strAwayTeamBadge || '';
@@ -381,6 +467,10 @@ function renderCards(events, container) {
           </div>
         </div>`;
     }
+
+    // ── Inyecta el botón ★ en card-content ──────────────────────────
+    const cardContent = section.querySelector('.card-content');
+    if (cardContent) cardContent.appendChild(buildFavButton(event));
 
     section.addEventListener('click', () => openMatchPopup(event));
     section.addEventListener('keydown', (e) => {
@@ -422,11 +512,6 @@ function renderNewsCards(articles, container) {
 }
 
 // ─── Pagination UI ──────────────────────────────────────────────────
-
-/**
- * Renders the pagination controls below the cards grid.
- * Expects a <div id="pagination"> in the HTML.
- */
 function renderPagination(currentPage, totalPages) {
   const paginationEl = document.getElementById('pagination');
   if (!paginationEl) return;
@@ -452,10 +537,8 @@ function renderPagination(currentPage, totalPages) {
     return btn;
   };
 
-  // Anterior
   paginationEl.appendChild(createBtn('←', currentPage - 1, currentPage === 1));
 
-  // Números de página con ventana deslizante
   const delta = 2;
   const range = [];
   for (
@@ -490,22 +573,16 @@ function renderPagination(currentPage, totalPages) {
     paginationEl.appendChild(createBtn(String(totalPages), totalPages));
   }
 
-  // Siguiente
   paginationEl.appendChild(
     createBtn('→', currentPage + 1, currentPage === totalPages),
   );
 }
 
-/**
- * Navigates to a specific page, fetches data and re-renders.
- */
 async function goToPage(page) {
   const { currentSport, perPage, currentRenderFn, currentContainer } =
     paginationState;
 
   paginationState.currentPage = page;
-
-  // Scroll suave al inicio del grid
   currentContainer?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   const { data, pages } =
@@ -527,7 +604,6 @@ const SPORT_MAP = {
   F1: 'f1',
 };
 
-// Maps navbar tab labels to news endpoints
 const NEWS_SPORT_MAP = {
   Todos: 'all',
   Fútbol: 'news-soccer',
@@ -536,13 +612,8 @@ const NEWS_SPORT_MAP = {
   F1: 'news-f1',
 };
 
-/**
- * Central state handler with pagination support.
- */
 async function setActiveSport(sport, renderFn, container) {
   activeSport = sport;
-
-  // Reset to page 1 when switching sport
   paginationState.currentPage = 1;
   paginationState.currentSport = sport;
   paginationState.currentRenderFn = renderFn;
@@ -579,10 +650,6 @@ function setupSportsNav(renderFn, container) {
 }
 
 // ─── News Fetching ──────────────────────────────────────────────────
-
-/**
- * Fetches all articles from one news endpoint (unpaginated).
- */
 async function fetchNewsData(endpoint) {
   try {
     const response = await fetch(`${JSON_SERVER_BASE}/${endpoint}`);
@@ -594,9 +661,6 @@ async function fetchNewsData(endpoint) {
   }
 }
 
-/**
- * Fetches all news endpoints combined and paginates manually.
- */
 async function fetchAllNewsPaged(page = 1, perPage = 9) {
   const endpoints = ['news-soccer', 'news-basket', 'news-tenis', 'news-f1'];
   try {
@@ -612,9 +676,6 @@ async function fetchAllNewsPaged(page = 1, perPage = 9) {
   }
 }
 
-/**
- * Fetches a paginated page from a single news endpoint.
- */
 async function fetchNewsPaged(endpoint, page = 1, perPage = 9) {
   try {
     const all = await fetchNewsData(endpoint);
@@ -628,7 +689,6 @@ async function fetchNewsPaged(endpoint, page = 1, perPage = 9) {
   }
 }
 
-// Pagination state for news (separate from sport events state)
 const newsPaginationState = {
   currentPage: 1,
   perPage: 9,
@@ -636,9 +696,6 @@ const newsPaginationState = {
   currentEndpoint: 'all',
 };
 
-/**
- * Central state handler for news tabs with pagination support.
- */
 async function setActiveNewsSport(endpoint, container) {
   newsPaginationState.currentPage = 1;
   newsPaginationState.currentEndpoint = endpoint;
@@ -714,25 +771,21 @@ function setupNewsNav(container) {
     await setActiveNewsSport(endpoint, container);
   });
 }
-// ─── Activate Nav Link Header ──────────────────────────────────────────────
+
+// ─── Activate Nav Link Header ───────────────────────────────────────
 function setActiveNavLink() {
   const links = document.querySelectorAll('.nav-links a');
   const currentPath = window.location.pathname;
 
   links.forEach(link => {
     link.classList.remove('active');
-
     const linkPath = link.getAttribute('href');
-
-    // Nos quedamos solo con el nombre del archivo (inicio.html, etc.)
     const linkPage = linkPath.split('/').pop();
     const currentPage = currentPath.split('/').pop();
-
-    if (linkPage === currentPage) {
-      link.classList.add('active');
-    }
+    if (linkPage === currentPage) link.classList.add('active');
   });
 }
+
 // ─── Page Initialisers ──────────────────────────────────────────────
 async function initInicio() {
   await Promise.all([
@@ -744,6 +797,11 @@ async function initInicio() {
     renderComponent('../../templates/template-footer/footer.html', 'footer'),
   ]);
   setActiveNavLink();
+
+  // Carga favoritos antes de renderizar las cards para que los botones
+  // ya reflejen el estado correcto desde el primer render
+  await loadFavoritesCache();
+
   const container = document.querySelector('.cards-grid');
   if (!container) return;
 
@@ -789,7 +847,6 @@ async function initLeermas() {
 }
 
 async function initPoliticas() {
-  // Cargar header, main y footer
   await renderComponent('../../templates/template-header/header.html', 'header');
   await renderComponent(
     '../../templates/template-politicas-avisos/main-politicas-avisos.html',
@@ -800,11 +857,8 @@ async function initPoliticas() {
   setActiveNavLink();
 
   const data = await fetchLegalContent();
-
-  // Configurar la navegación del sidebar
   setupLegalNav(data);
 
-  // Función para actualizar el link activo según el hash
   function highlightLegalLink(id) {
     const links = document.querySelectorAll('.sidebar a, .footer-links a');
     links.forEach((link) => link.classList.remove('active'));
@@ -814,12 +868,10 @@ async function initPoliticas() {
     if (activeLink) activeLink.classList.add('active');
   }
 
-  // Determinar sección inicial según el hash o 'aviso-legal' por defecto
   const initialHash = window.location.hash.replace('#', '') || 'aviso-legal';
   renderLegalById(data, initialHash);
   highlightLegalLink(initialHash);
 
-  // Escuchar cambios de hash
   window.addEventListener('hashchange', () => {
     const newHash = window.location.hash.replace('#', '');
     renderLegalById(data, newHash);
@@ -831,13 +883,8 @@ async function fetchLegalContent() {
   try {
     const response = await fetch(`${JSON_SERVER_BASE}/legal`);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
     const json = await response.json();
-
-    console.log('RESPUESTA LEGAL:', json);
-
     return Array.isArray(json) ? json : json.legal || [];
-
   } catch (error) {
     console.error('Error fetching legal content:', error);
     return [];
@@ -847,31 +894,23 @@ async function fetchLegalContent() {
 function renderLegalById(data, id) {
   const titleEl = document.getElementById('legal-title');
   const contentEl = document.getElementById('legal-content');
-
   const item = data.find(el => el.id === id);
-
   if (!item) {
     titleEl.textContent = 'Contenido no encontrado';
     contentEl.innerHTML = '<p>Error cargando contenido.</p>';
     return;
   }
-
   titleEl.textContent = item.title;
   contentEl.innerHTML = item.content;
 }
 
 function setupLegalNav(data) {
   const links = document.querySelectorAll('.sidebar a');
-
   links.forEach(link => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
-
       const id = link.dataset.id;
-
       renderLegalById(data, id);
-
-      // activar link
       links.forEach(l => l.classList.remove('active'));
       link.classList.add('active');
     });
