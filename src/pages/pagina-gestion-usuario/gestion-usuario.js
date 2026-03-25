@@ -1,43 +1,38 @@
 /**
  * gestion-usuario.js — Sportly User Profile Module
  *
- * Reads the active user from localStorage, loads their favorites
- * from json-server and renders them. Supports all sport endpoints
- * and allows removing favorites directly from this page.
+ * Lee el usuario activo desde localStorage, carga sus favoritos
+ * desde json-server y los renderiza. Soporta todos los endpoints
+ * de deporte y permite eliminar favoritos directamente desde esta página.
  */
 
 const JSON_SERVER_BASE_USER = 'http://localhost:3000';
-
-// Todos los endpoints donde puede estar un evento
 const ALL_SPORT_ENDPOINTS = ['soccer', 'basket', 'tenis', 'f1'];
 
 // ─── Init ────────────────────────────────────────────────────────────
 async function initUsuario() {
   const user = JSON.parse(localStorage.getItem('user'));
-
   validateUser(user);
   displayUser(user);
-  await fetchPartidosFavoritos(user);
+  await cargarFavoritos(user);
 }
 
 // ─── Auth helpers ─────────────────────────────────────────────────────
 function validateUser(user) {
-  if (user) {
-    console.log('Logged in as:', user);
-  } else {
-    console.log('Not logged in');
-  }
+  console.log(user ? `Logged in as: ${user.id}` : 'Not logged in');
 }
 
 function displayUser(user) {
-  const userIDEl = document.getElementById('userID');
-  const emailEl = document.getElementById('email');
-  if (userIDEl) userIDEl.textContent = user?.id ?? '';
-  if (emailEl) emailEl.textContent = user?.email ?? '';
+  const set = (id, val) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val ?? '';
+  };
+  set('userID', user?.id);
+  set('email', user?.email);
 }
 
-// ─── Fetch favoritos del usuario ──────────────────────────────────────
-async function fetchPartidosFavoritos(user) {
+// ─── Favoritos ────────────────────────────────────────────────────────
+async function cargarFavoritos(user) {
   const matchList = document.getElementById('match-list');
 
   if (!user) {
@@ -47,102 +42,139 @@ async function fetchPartidosFavoritos(user) {
 
   renderLoadingState(matchList);
 
+  const favoritos = await fetchFavoritosDeUsuario(user.id);
+  if (!favoritos) {
+    renderEmptyState(matchList, 'Error al cargar favoritos.');
+    return;
+  }
+
+  matchList.innerHTML = '';
+
+  if (favoritos.length === 0) {
+    renderEmptyState(matchList);
+    return;
+  }
+
+  await Promise.all(
+    favoritos.map((fav) => buscarYRenderizarEvento(fav, matchList, user.id)),
+  );
+}
+
+async function fetchFavoritosDeUsuario(userID) {
   try {
     const res = await fetch(
-      `${JSON_SERVER_BASE_USER}/partidas-favoritas?userID=${encodeURIComponent(user.id)}`,
+      `${JSON_SERVER_BASE_USER}/partidas-favoritas?userID=${encodeURIComponent(userID)}`,
     );
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const partidosFavoritosOfUser = await res.json();
-
-    matchList.innerHTML = '';
-
-    if (partidosFavoritosOfUser.length === 0) {
-      renderEmptyState(matchList);
-      return;
-    }
-
-    // Busca los datos de cada favorito en todos los endpoints en paralelo
-    await Promise.all(
-      partidosFavoritosOfUser.map((fav) =>
-        fetchEventAndRender(fav, matchList, user.id),
-      ),
-    );
+    return await res.json();
   } catch (err) {
     console.error('Error fetching favorites:', err);
-    renderEmptyState(matchList, 'Error al cargar favoritos.');
+    return null;
   }
 }
 
-// ─── Busca un evento en todos los endpoints ───────────────────────────
-async function fetchEventAndRender(fav, container, userID) {
-  for (const sport of ALL_SPORT_ENDPOINTS) {
-    try {
-      const res = await fetch(`${JSON_SERVER_BASE_USER}/${sport}`);
-      if (!res.ok) continue;
-      const allData = await res.json();
-      const match = allData.find(
-        (item) => String(item.idEvent) === String(fav.idEvent),
-      );
-      if (match) {
-        addPartidosFavoritosToPage(match, fav, container, userID);
-        return; // encontrado, no seguir buscando
-      }
-    } catch (err) {
-      console.error(`Error searching in ${sport}:`, err);
-    }
+// ─── Búsqueda de eventos ──────────────────────────────────────────────
+async function buscarYRenderizarEvento(fav, container, userID) {
+  const evento = await buscarEventoEnEndpoints(fav.idEvent);
+
+  if (evento) {
+    renderizarFavorito(evento, fav, container);
+  } else {
+    console.warn(`Event idEvent=${fav.idEvent} not found in any sport endpoint`);
   }
-  console.warn(`Event idEvent=${fav.idEvent} not found in any sport endpoint`);
+}
+
+async function buscarEventoEnEndpoints(idEvent) {
+  for (const sport of ALL_SPORT_ENDPOINTS) {
+    const evento = await buscarEventoEnEndpoint(sport, idEvent);
+    if (evento) return evento;
+  }
+  return null;
+}
+
+async function buscarEventoEnEndpoint(sport, idEvent) {
+  try {
+    const res = await fetch(`${JSON_SERVER_BASE_USER}/${sport}`);
+    if (!res.ok) return null;
+    const allData = await res.json();
+    return allData.find((item) => String(item.idEvent) === String(idEvent)) ?? null;
+  } catch (err) {
+    console.error(`Error searching in ${sport}:`, err);
+    return null;
+  }
 }
 
 // ─── Eliminar favorito ────────────────────────────────────────────────
-async function removeFavorite(recordId, itemEl) {
-  try {
-    const btn = itemEl.querySelector('.btn-remove-fav');
-    if (btn) { btn.disabled = true; btn.textContent = '…'; }
+async function eliminarFavorito(recordId, itemEl) {
+  deshabilitarBotonEliminar(itemEl);
 
+  try {
     await fetch(`${JSON_SERVER_BASE_USER}/partidas-favoritas/${recordId}`, {
       method: 'DELETE',
     });
-
-    itemEl.classList.add('removing');
-    setTimeout(() => itemEl.remove(), 300);
-
-    // Si no quedan items, muestra el estado vacío
-    const matchList = document.getElementById('match-list');
-    if (matchList && matchList.querySelectorAll('.match-item').length === 0) {
-      setTimeout(() => renderEmptyState(matchList), 350);
-    }
+    animarYEliminarItem(itemEl);
   } catch (err) {
     console.error('Error removing favorite:', err);
   }
 }
 
+function deshabilitarBotonEliminar(itemEl) {
+  const btn = itemEl.querySelector('.btn-remove-fav');
+  if (btn) { btn.disabled = true; btn.textContent = '…'; }
+}
+
+function animarYEliminarItem(itemEl) {
+  itemEl.classList.add('removing');
+  setTimeout(() => {
+    itemEl.remove();
+    mostrarVacioSiSinItems();
+  }, 300);
+}
+
+function mostrarVacioSiSinItems() {
+  const matchList = document.getElementById('match-list');
+  const hayItems = matchList?.querySelectorAll('.match-item').length > 0;
+  if (matchList && !hayItems) renderEmptyState(matchList);
+}
+
 // ─── Render ───────────────────────────────────────────────────────────
-function addPartidosFavoritosToPage(event, fav, container, userID) {
-  const title = event.strHomeTeam && event.strAwayTeam
-    ? `${event.strHomeTeam} vs ${event.strAwayTeam}`
-    : event.strEvent || 'Evento deportivo';
+function renderizarFavorito(evento, fav, container) {
+  const item = crearItemFavorito(evento, fav);
+  container.appendChild(item);
+}
 
-  const date = formatDate(event.dateEvent);
-  const time = formatTime(event);
-  const league = event.strLeague || '';
-  const dateText = [date, time ? `${time}h` : '', league].filter(Boolean).join(' · ');
-
+function crearItemFavorito(evento, fav) {
   const item = document.createElement('div');
   item.className = 'match-item';
+  item.innerHTML = buildMatchItemHTML(evento);
+  item.querySelector('.btn-remove-fav').addEventListener('click', (e) => {
+    e.stopPropagation();
+    eliminarFavorito(fav.id, item);
+  });
+  return item;
+}
 
-  item.innerHTML = `
+function buildMatchItemHTML(evento) {
+  const title = buildMatchTitle(evento);
+  const dateText = buildDateText(evento);
+  return `
     <span class="match-title">${title}</span>
     <span class="date">${dateText}</span>
     <button class="btn-remove-fav" aria-label="Eliminar de favoritos" title="Quitar de favoritos">✕</button>
   `;
+}
 
-  item.querySelector('.btn-remove-fav').addEventListener('click', (e) => {
-    e.stopPropagation();
-    removeFavorite(fav.id, item);
-  });
+function buildMatchTitle(evento) {
+  return evento.strHomeTeam && evento.strAwayTeam
+    ? `${evento.strHomeTeam} vs ${evento.strAwayTeam}`
+    : evento.strEvent || 'Evento deportivo';
+}
 
-  container.appendChild(item);
+function buildDateText(evento) {
+  const date = formatDate(evento.dateEvent);
+  const time = formatTime(evento);
+  const league = evento.strLeague || '';
+  return [date, time ? `${time}h` : '', league].filter(Boolean).join(' · ');
 }
 
 function renderEmptyState(container, msg) {
@@ -162,14 +194,12 @@ function renderLoadingState(container) {
 function formatDate(dateStr) {
   if (!dateStr) return 'Fecha por confirmar';
   return new Date(dateStr).toLocaleDateString('es-ES', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
+    day: 'numeric', month: 'long', year: 'numeric',
   });
 }
 
-function formatTime(event) {
-  const t = event?.strTimeLocal || event?.strTime || '';
+function formatTime(evento) {
+  const t = evento?.strTimeLocal || evento?.strTime || '';
   if (!t) return '';
   const hhmm = String(t).slice(0, 5);
   return /^\d{2}:\d{2}$/.test(hhmm) ? hhmm : String(t);
