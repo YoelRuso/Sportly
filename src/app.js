@@ -404,7 +404,7 @@ function buildFavButton(event) {
   btn.className = 'fav-btn' + (isFav ? ' fav-btn--active' : '');
   btn.setAttribute('aria-label', isFav ? 'Quitar de favoritos' : 'Añadir a favoritos');
   btn.title = isFav ? 'Quitar de favoritos' : 'Añadir a favoritos';
-  btn.innerHTML = '★';
+  btn.innerHTML = '♥';
 
   btn.addEventListener('click', (e) => {
     e.stopPropagation(); // evita abrir el popup al clicar la estrella

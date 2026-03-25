@@ -118,7 +118,6 @@ body {
 .match-item:hover .date {
     color: #121212;
 }
-/* Botón ✕ eliminar favorito dentro de .match-item */
 .btn-remove-fav {
     background: transparent;
     border: 1px solid #555;
@@ -153,10 +152,24 @@ body {
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-/* Título del partido dentro del item */
+/* Título del partido */
 .match-title {
     flex: 1;
     margin-right: 16px;
+}
+
+/* Hint de video */
+.match-video-hint {
+    font-size: 13px;
+    color: #00ffaa;
+    margin-right: 12px;
+    flex-shrink: 0;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.match-item:hover .match-video-hint {
+    opacity: 1;
 }
 
 /* Estado vacío */
@@ -175,3 +188,4 @@ body {
     padding: 40px 0;
     font-size: 16px;
 }
+

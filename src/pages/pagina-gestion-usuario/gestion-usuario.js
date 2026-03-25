@@ -147,19 +147,37 @@ function crearItemFavorito(evento, fav) {
   const item = document.createElement('div');
   item.className = 'match-item';
   item.innerHTML = buildMatchItemHTML(evento);
+
+  // Click en el item (no en el botón ✕) → abre el video si existe
+  item.addEventListener('click', (e) => {
+    if (e.target.closest('.btn-remove-fav')) return;
+    const videoUrl = sanitizeVideoUrl(evento.strVideo);
+    if (videoUrl) window.open(videoUrl, '_blank', 'noopener,noreferrer');
+  });
+
   item.querySelector('.btn-remove-fav').addEventListener('click', (e) => {
     e.stopPropagation();
     eliminarFavorito(fav.id, item);
   });
+
+  // Estilo cursor según si hay video
+  if (sanitizeVideoUrl(evento.strVideo)) {
+    item.style.cursor = 'pointer';
+  } else {
+    item.style.cursor = 'default';
+  }
+
   return item;
 }
 
 function buildMatchItemHTML(evento) {
   const title = buildMatchTitle(evento);
   const dateText = buildDateText(evento);
+  const videoUrl = sanitizeVideoUrl(evento.strVideo);
   return `
     <span class="match-title">${title}</span>
     <span class="date">${dateText}</span>
+    ${videoUrl ? '<span class="match-video-hint">▶ Ver video</span>' : ''}
     <button class="btn-remove-fav" aria-label="Eliminar de favoritos" title="Quitar de favoritos">✕</button>
   `;
 }
@@ -190,7 +208,15 @@ function renderLoadingState(container) {
   container.innerHTML = `<p class="loading-favorites">Cargando favoritos…</p>`;
 }
 
-// ─── Date / time utils ────────────────────────────────────────────────
+// ─── Utils ────────────────────────────────────────────────────────────
+function sanitizeVideoUrl(url) {
+  if (!url) return '';
+  const trimmed = String(url).trim();
+  if (!trimmed) return '';
+  if (!/^https?:\/\//i.test(trimmed)) return '';
+  return trimmed;
+}
+
 function formatDate(dateStr) {
   if (!dateStr) return 'Fecha por confirmar';
   return new Date(dateStr).toLocaleDateString('es-ES', {
