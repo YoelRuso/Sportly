@@ -24,7 +24,7 @@ async function handleSubmit(e) {
   e.preventDefault();
   clearMessage();
 
-  const identity = email.value.trim();
+  const identity = normalizeIdentity(email.value);
   const passInput = password.value;
 
   if (!identity || !passInput) {
@@ -33,15 +33,15 @@ async function handleSubmit(e) {
   }
 
   try {
-    const users = await fetchUserCandidates(identity);
+    const users = await fetchUsers();
+    const matchedUser = users.find((u) => matchesIdentity(u, identity));
 
-    if (!users.length) {
+    if (!matchedUser) {
       showMessage('Usuario no encontrado.');
       return;
     }
 
-    const matchedUser = users.find((u) => getUserPassword(u) === passInput);
-    if (!matchedUser) {
+    if (getUserPassword(matchedUser) !== passInput) {
       showMessage('Contrasena incorrecta.');
       return;
     }
@@ -56,19 +56,20 @@ async function handleSubmit(e) {
 // ==========================
 // FUNCIONES DE NEGOCIO
 // ==========================
-async function fetchUserCandidates(identityValue) {
-  const byEmailUrl = `http://localhost:3000/usuarios?email=${encodeURIComponent(identityValue)}`;
-  const emailRes = await fetch(byEmailUrl);
-  if (!emailRes.ok) throw new Error(`HTTP ${emailRes.status}`);
+async function fetchUsers() {
+  const response = await fetch('http://localhost:3000/usuarios');
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  return response.json();
+}
 
-  const byEmail = await emailRes.json();
-  if (byEmail.length > 0) return byEmail;
+function normalizeIdentity(value) {
+  return String(value ?? '').trim().toLowerCase();
+}
 
-  // Compatibilidad con registros antiguos que guardan "user" en vez de "email".
-  const byUserUrl = `http://localhost:3000/usuarios?user=${encodeURIComponent(identityValue)}`;
-  const userRes = await fetch(byUserUrl);
-  if (!userRes.ok) throw new Error(`HTTP ${userRes.status}`);
-  return userRes.json();
+function matchesIdentity(user, identityValue) {
+  const emailValue = normalizeIdentity(user?.email);
+  const userValue = normalizeIdentity(user?.user);
+  return identityValue === emailValue || identityValue === userValue;
 }
 
 function getUserPassword(user) {
