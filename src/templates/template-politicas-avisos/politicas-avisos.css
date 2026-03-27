@@ -155,8 +155,6 @@ body:has(.legal-container) footer {
 .sidebar-overlay {
     display: none;
 }
-/* MOBILE ≤ 430px */
-
 /* OVERLAY */
 .sidebar-overlay {
     display: none;
@@ -213,7 +211,7 @@ body:has(.legal-container) footer {
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: rgba(0, 0, 0, 0.6);
+        background-color: transparent;
         z-index: 99;
         opacity: 0;
         pointer-events: none;
