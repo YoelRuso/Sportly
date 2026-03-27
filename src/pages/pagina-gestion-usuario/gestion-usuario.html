@@ -6,37 +6,33 @@
   <link rel="stylesheet" href="gestion-usuario.css" />
 </head>
 <body>
-<div class="dashboard">
-  <!-- PANEL IZQUIERDO -->
-  <div class="profile-section">
-    <div class="profile-image">
-      <img
-        src="https://via.placeholder.com/150"
-        alt="Foto de perfil"
-      />
+  <div class="dashboard">
+    <!-- PANEL IZQUIERDO -->
+    <div class="profile-section">
+      <div class="title-with-btn-back" id="perfil-title-with-btn-back">
+        <h2>Ver Perfil</h2>
+        <a href="../../pages/pagina-inicio/inicio.html" class="btn-back-home" id="perfil-btn-back">← Volver a Inicio</a>
+        <a href="../../pages/pagina-inicio/inicio.html" class="btn-back-home" id="mobile-btn-back">←</a>
+      </div>
+      <div class="user-info">
+        <p><strong>Email:</strong> <span id="email">usuario@gmail.com</span></p>
+        <p><strong>ID:</strong> <span id="userID">#002</span></p>
+      </div>
     </div>
 
-    <button class="change-photo">Cambiar Foto</button>
+    <!-- PANEL DERECHO -->
+    <div class="favorites-section">
+      <div class="title-with-btn-back">
+        <h2>Partidos Favoritos</h2>
+        <a href="../../pages/pagina-inicio/inicio.html" class="btn-back-home" id="partidos-btn-back">← Volver a Inicio</a>
+      </div>
 
-    <div class="user-info">
-      <p><strong>Email:</strong> <span id="email">usuario@gmail.com</span></p>
-      <p><strong>ID:</strong> <span id="userID">#002</span></p>
+      <div class="match-list" id="match-list"></div>
     </div>
   </div>
-
-  <!-- PANEL DERECHO -->
-  <div class="favorites-section">
-    <div class="favorites-header">
-      <h2>Partidos Favoritos</h2>
-      <a href="../../pages/pagina-inicio/inicio.html" class="btn-back-home">← Volver a Inicio</a>
-    </div>
-
-    <div class="match-list" id="match-list"></div>
-  </div>
-</div>
-<script src="gestion-usuario.js"></script>
-<script>
-  initUsuario();
-</script>
+  <script src="gestion-usuario.js"></script>
+  <script>
+    initUsuario();
+  </script>
 </body>
 </html>

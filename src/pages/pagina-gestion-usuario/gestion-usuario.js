@@ -172,11 +172,20 @@ function crearItemFavorito(evento, fav) {
 
 function buildMatchItemHTML(evento) {
   const title = buildMatchTitle(evento);
-  const dateText = buildDateText(evento);
+  const { date, time, league } = buildDateParts(evento);
   const videoUrl = sanitizeVideoUrl(evento.strVideo);
+
+  const dateParts = [
+    date ? `<span class="date match-date">${date}</span>` : '',
+    time ? `<span class="date match-time">${time}h</span>` : '',
+    league ? `<span class="date match-league">${league}</span>` : '',
+  ]
+    .filter(Boolean)
+    .join('<span class="date match-separator"> · </span>');
+
   return `
     <span class="match-title">${title}</span>
-    <span class="date">${dateText}</span>
+    ${dateParts}
     ${videoUrl ? '<span class="match-video-hint">▶ Ver video</span>' : ''}
     <button class="btn-remove-fav" aria-label="Eliminar de favoritos" title="Quitar de favoritos">✕</button>
   `;
@@ -188,11 +197,12 @@ function buildMatchTitle(evento) {
     : evento.strEvent || 'Evento deportivo';
 }
 
-function buildDateText(evento) {
-  const date = formatDate(evento.dateEvent);
-  const time = formatTime(evento);
-  const league = evento.strLeague || '';
-  return [date, time ? `${time}h` : '', league].filter(Boolean).join(' · ');
+function buildDateParts(evento) {
+  return {
+    date: formatDate(evento.dateEvent),
+    time: formatTime(evento),
+    league: evento.strLeague || '',
+  };
 }
 
 function renderEmptyState(container, msg) {
