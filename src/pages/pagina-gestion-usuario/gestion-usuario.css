@@ -5,6 +5,13 @@
     box-sizing: border-box;
 }
 
+/* General */
+h2 {
+    color: #00ffaa;
+    font-size: 28px;
+    margin-bottom: 0;
+}
+
 /* Body ocupa toda la pantalla */
 body {
     width: 100vw;
@@ -79,11 +86,6 @@ body {
     overflow-y: auto;
 }
 
-.favorites-section h2 {
-    color: #00ffaa;
-    margin-bottom: 40px;
-    font-size: 28px;
-}
 
 /* Lista */
 .match-list {
@@ -105,9 +107,17 @@ body {
     text-decoration: none;
 }
 
+/* date & time */
 .date {
     color: #00ffaa;
     font-weight: bold;
+    padding-left: 5px;
+}
+
+.match-date + .match-time::before,
+.match-date + .match-league::before,
+.match-time + .match-league::before {
+    content: ' · ';
 }
 
 .match-item:hover {
@@ -189,17 +199,16 @@ body {
     font-size: 16px;
 }
 
-/* Header favoritos con botón volver */
-.favorites-header {
+/* Header con botón volver */
+.title-with-btn-back {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     margin-bottom: 40px;
+    @component
 }
 
-.favorites-header h2 {
-    margin-bottom: 0;
-}
 
 .btn-back-home {
     background-color: transparent;
@@ -213,7 +222,71 @@ body {
     transition: 0.3s;
 }
 
+#perfil-btn-back {
+    display: none;
+}
+
+#perfil-title-with-btn-back {
+    justify-content: center;
+}
+
+#mobile-btn-back {
+    display: none;
+}
+
 .btn-back-home:hover {
     background-color: #00ffaa;
     color: #121212;
+}
+
+/* TABLET ≤ 834px */
+
+@media (max-width: 834px) {
+    .dashboard {
+        flex-direction: column;
+        align-items: center;
+    }
+    .profile-section {
+         width: 85%;
+        padding: 40px;
+        border-right: 0;
+        border-bottom: 2px solid #00ffaa;
+     }
+    .favorites-section {
+        width: 100%;
+    }
+    #perfil-btn-back {
+        display: flex;
+    }
+    #partidos-btn-back {
+        display: none;
+    }
+    #perfil-title-with-btn-back {
+        justify-content: space-between;
+    }
+}
+
+
+@media (max-width: 665px) {
+    .match-item {
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        height: 200px;
+    }
+    .match-separator {
+        display: none;
+    }
+}
+
+
+/* MOBILE ≤ 430px */
+
+@media (max-width: 430px) {
+    #mobile-btn-back {
+        display: flex;
+    }
+    #perfil-btn-back {
+        display: none;
+    }
 }
