@@ -26,8 +26,10 @@
   <script>
     initPoliticas();
     function toggleNavBar() {
-     legalSidebar = document.getElementById("legalSidebar");
-     legalSidebar.classList.toggle("active");
+      const legalSidebar = document.getElementById("legalSidebar");
+      const overlay = document.getElementById("sidebarOverlay");
+      legalSidebar.classList.toggle("active");
+      overlay.classList.toggle("active");
     }
   </script>
 </body>
