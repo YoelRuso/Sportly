@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sportly - Resumen">
+  <meta name="keywords" content="HTML5, CSS3, JavaScript">
+
+  <title>Sportly - Resumen</title>
+
+  <link rel="stylesheet" href="../../../public/style.css">
+
+</head>
+
+<body>
+
+  <!-- Header inyectado por app.js → renderComponent(..., 'header') -->
+  <div id="header"></div>
+
+  <!-- Navbar deportes inyectado por app.js → renderComponent(..., 'navbar') -->
+  <div id="navbar"></div>
+
+  <div id="wrapper2">
+    <!-- app.js renderiza las cards aquí -->
+    <div class="cards-grid"></div>
+  </div>
+
+  <div id="pagination"></div>
+
+  <!-- Footer inyectado por app.js → renderComponent(..., 'footer') -->
+  <div id="footer"></div>
+
+  <script src="../../app.js"></script>
+  <script>
+    initResumen();
+  </script>
+
+</body>
+</html>
