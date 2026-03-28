@@ -155,10 +155,6 @@ body:has(.legal-container) footer {
 .sidebar-overlay {
     display: none;
 }
-/* OVERLAY */
-.sidebar-overlay {
-    display: none;
-}
 
 /* MOBILE ≤ 430px */
 @media (max-width: 430px) {
