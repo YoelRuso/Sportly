@@ -112,6 +112,21 @@ p {
     font-size: 0.9rem;
     color: #888888;
 }
+/*Formato en ver contraseña*/
+input[type="text"] {
+    width: 100%;
+    padding: 0.85rem;
+    background-color: #2a2a2a;
+    border: 1px solid #444;
+    border-radius: 10px;
+    outline: none;
+    color: white;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus {
+    border-color: #00ff88;
+}
 
 /* ========================= */
 /* TABLET ≤ 834px */
